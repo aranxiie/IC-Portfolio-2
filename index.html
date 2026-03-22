@@ -1618,14 +1618,26 @@
     </div>
 
     <!-- 18. PRESENTATION ACTIVITY (SEPARATE CATEGORY) -->
-    <div id="modal-gal-presentation" class="modal-fullscreen">
-        <button class="close-modal-circle" onclick="closeModal('modal-gal-presentation')">✕</button>
-        <div class="modal-body">
-            <h3>Presentation Activity</h3>
+   <!-- PRESENTATION VIDEO MODAL -->
+<div id="modal-gal-presentation" class="modal-fullscreen">
+    <button class="close-modal-circle" onclick="closeModal('modal-gal-presentation')">✕</button>
+
+    <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg');">
+        <h2 class="modal-main-title">Presentation Showcase</h2>
+    </div>
+
+    <div class="modal-body">
+
+        <h3>Presentation Video</h3>
+
+        <div class="gallery-box">
             <div class="main-media-display">
-    <video controls>
-        <source src="videos/presentation.mp4" type="video/mp4">
-    </video>
+
+                <!-- ✅ THIS IS THE FIX -->
+                <video id="presentation-video" controls preload="metadata">
+                    <source src="videos/presentation.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
 </div>
                 </div>
                 <div class="thumb-strip">
