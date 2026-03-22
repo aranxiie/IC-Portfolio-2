@@ -1484,22 +1484,26 @@
 
   <!-- GALLERY MODALS (FIXED STRUCTURE) -->
 
-  <!-- PRESENTATION -->
+  <!-- GALLERY MODALS -->
+
+  <!-- PRESENTATION ACTIVITY GALLERY (FIXED) -->
   <div id="activity-pres-modal" class="content-modal-fullscreen">
     <button class="modal-close-btn" onclick="closeContent('activity-pres-modal')">✕</button>
     <div class="modal-body-container">
       <h3>Presentation Activity</h3>
       <div class="gallery-main-display" id="main-pres">
-        <!-- Video starts as default here -->
-       <video src="portfolio/presentation.mp4" controls></video>
+        <!-- Default video element -->
+        <video id="pres-vid-player" src="portfolio/presentation.mp4" controls autoplay muted></video>
         <img src="" style="display:none;">
       </div>
       <div class="gallery-thumbnails-row">
-        <!-- Thumbnails need a data-src for reliable media detection -->
+        <!-- Main Video Thumbnail -->
         <div class="gallery-thumb-item thumb-active" 
-             style="background-image:url('portfolio/649522874_4376167539376910_8482921962761084191_n.jpg')" 
-             data-type="image" 
+             style="background-image:url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg')" 
+             data-type="video" 
+             data-video="portfolio/presentation.mp4" 
              onclick="swapImg('main-pres', this)"></div>
+        <!-- Secondary Video Thumbnail -->
         <div class="gallery-thumb-item" 
              style="background-image:url('https://i.pinimg.com/1200x/b4/8d/9e/b48d9e65b6d6c08cd03f6529c49fd3b4.jpg')" 
              data-type="video" 
@@ -1521,8 +1525,6 @@
         <div class="gallery-thumb-item thumb-active" style="background-image:url('portfolio/image-3.png')" data-type="image" onclick="swapImg('main-tow', this)"></div>
         <div class="gallery-thumb-item" style="background-image:url('portfolio/20250807_133735.jpg')" data-type="image" onclick="swapImg('main-tow', this)"></div>
         <div class="gallery-thumb-item" style="background-image:url('portfolio/20250807_162113.jpg')" data-type="image" onclick="swapImg('main-tow', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/20250807_164044.webp')" data-type="image" onclick="swapImg('main-tow', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/20250807_174240.jpg')" data-type="image" onclick="swapImg('main-tow', this)"></div>
       </div>
     </div>
   </div>
@@ -1562,7 +1564,7 @@
     </div>
   </div>
 
-  <script>
+   <script>
     function enterPortfolio() {
       const overlay = document.getElementById('welcome-overlay');
       overlay.classList.add('fade-out');
@@ -1582,7 +1584,6 @@
       document.body.style.overflow = 'hidden';
       setTimeout(() => modal.classList.add('active'), 10);
       
-      // If modal contains a video, try to play it
       const video = modal.querySelector('video');
       if(video) { video.load(); video.play().catch(e => console.log("Auto-play blocked")); }
     }
@@ -1590,8 +1591,6 @@
     function closeContent(modalId) {
       const modal = document.getElementById(modalId);
       modal.classList.remove('active');
-      
-      // Pause any videos in the modal
       const video = modal.querySelector('video');
       if(video) video.pause();
 
@@ -1610,11 +1609,9 @@
       const mainContainer = document.getElementById(mainId);
       const img = mainContainer.querySelector('img');
       const video = mainContainer.querySelector('video');
+      const type = thumb.getAttribute('data-type');
       
-      const type = thumb.getAttribute('data-type'); // 'image' or 'video'
-      
-      // Update UI active state
-      const parent = thumb.parentElement;
+      parent = thumb.parentElement;
       parent.querySelectorAll('.gallery-thumb-item').forEach(el => el.classList.remove('thumb-active'));
       thumb.classList.add('thumb-active');
 
@@ -1625,18 +1622,12 @@
           video.style.display = 'block';
           video.src = videoSrc;
           video.load();
-          video.play().catch(e => console.log("Video play failed"));
+          video.play().catch(e => console.log("Video failed"));
         }
       } else {
         const imgSrc = thumb.style.backgroundImage.slice(5, -2).replace(/"/g, "");
-        if (video) {
-          video.pause();
-          video.style.display = 'none';
-        }
-        if (img) {
-          img.style.display = 'block';
-          img.src = imgSrc;
-        }
+        if (video) { video.pause(); video.style.display = 'none'; }
+        if (img) { img.style.display = 'block'; img.src = imgSrc; }
       }
     }
 
