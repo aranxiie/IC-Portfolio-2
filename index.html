@@ -1617,7 +1617,7 @@
         </div>
     </div>
 
-   <!-- PRESENTATION MODAL (FULLY FIXED) -->
+   <!-- PRESENTATION MODAL -->
 <div id="modal-gal-presentation" class="modal-fullscreen">
     <button class="close-modal-circle" onclick="closeModal('modal-gal-presentation')">✕</button>
 
@@ -1634,10 +1634,11 @@
             <!-- MAIN DISPLAY -->
             <div class="main-media-display" id="presentation-main">
 
-                <!-- DEFAULT = VIDEO -->
-                <video id="presentation-video" controls>
-                    <source src="presentation.mp4" type="video/mp4">
-                </video>
+                <!-- VIDEO LINK REPLACED PLAYER -->
+                <a href="https://drive.google.com/drive/u/0/folders/1BLI1p6mXEdXDNcdZ4eAyzBwIlw678Xba" target="_blank" style="text-decoration:none; color:white; display:flex; flex-direction:column; align-items:center; gap:20px;">
+                    <i class="fas fa-play-circle" style="font-size:5rem; color:var(--netflix-red);"></i>
+                    <span style="font-size:1.5rem; font-weight:bold; text-transform:uppercase; letter-spacing:2px;">Click to Watch Presentation</span>
+                </a>
 
             </div>
 
@@ -1647,7 +1648,7 @@
                 <!-- VIDEO THUMB -->
                 <div class="thumb-box active-thumb"
                      style="background-image:url('https://img.icons8.com/ios-filled/500/video.png')"
-                     onclick="showPresentationMedia('video', this)">
+                     onclick="showPresentationMedia('video', '', this)">
                 </div>
 
                 <!-- IMAGE 1 -->
@@ -1683,44 +1684,39 @@
     <script>
 
         function showPresentationMedia(type, src, el) {
-    const container = document.getElementById("presentation-main");
+            const container = document.getElementById("presentation-main");
 
-    // 🔴 stop any playing video
-    const existingVideo = container.querySelector("video");
-    if (existingVideo) {
-        existingVideo.pause();
-    }
+            // SWITCH CONTENT
+            if (type === "video") {
+                container.innerHTML = `
+                    <a href="https://drive.google.com/drive/u/0/folders/1BLI1p6mXEdXDNcdZ4eAyzBwIlw678Xba" target="_blank" style="text-decoration:none; color:white; display:flex; flex-direction:column; align-items:center; gap:20px;">
+                        <i class="fas fa-play-circle" style="font-size:5rem; color:var(--netflix-red);"></i>
+                        <span style="font-size:1.5rem; font-weight:bold; text-transform:uppercase; letter-spacing:2px;">Click to Watch Presentation</span>
+                    </a>
+                `;
+            } else {
+                container.innerHTML = `<img src="${src}" alt="presentation image">`;
+            }
 
-    // SWITCH CONTENT
-    if (type === "video") {
-        container.innerHTML = `
-            <video controls autoplay>
-                <source src="videos/presentation.mp4" type="video/mp4">
-            </video>
-        `;
-    } else {
-        container.innerHTML = `<img src="${src}" alt="presentation image">`;
-    }
+            // ACTIVE THUMB UI
+            document.querySelectorAll("#modal-gal-presentation .thumb-box")
+                .forEach(t => t.classList.remove("active-thumb"));
 
-    // ACTIVE THUMB UI
-    document.querySelectorAll("#modal-gal-presentation .thumb-box")
-        .forEach(t => t.classList.remove("active-thumb"));
-
-    el.classList.add("active-thumb");
-}
+            el.classList.add("active-thumb");
+        }
 
 
-// 🔥 FIX: STOP VIDEO WHEN MODAL CLOSES
-function closeModal(id) {
-    const modal = document.getElementById(id);
-    modal.classList.remove('active');
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('active');
+            
+            // Wait for transition before hiding element
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 500);
+        }
 
-    const video = modal.querySelector("video");
-    if (video) {
-        video.pause();
-        video.currentTime = 0;
-    }
-}
         /**
          * Hide the welcome screen with transition
          */
@@ -1757,21 +1753,6 @@ function closeModal(id) {
             setTimeout(() => {
                 modal.classList.add('active');
             }, 10);
-
-            // Special handling for video elements inside the modal
-            const autoVid = modal.querySelector('video');
-            if (autoVid) {
-                autoVid.load();
-                autoVid.play().catch(e => console.log("Auto-play prevented by browser policy"));
-            }
-        }
-
-     
-            // Wait for transition before hiding element
-            setTimeout(() => {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }, 500);
         }
 
         /**
@@ -1789,7 +1770,6 @@ function closeModal(id) {
         function swapMedia(containerId, thumb) {
             const container = document.getElementById(containerId);
             const imgTarget = container.querySelector('img');
-            const vidTarget = container.querySelector('video');
             const type = thumb.getAttribute('data-type');
 
             // Visual active feedback for thumbnails
@@ -1799,30 +1779,13 @@ function closeModal(id) {
 
             // Fade out current view briefly
             if(imgTarget) imgTarget.style.opacity = '0';
-            if(vidTarget) vidTarget.style.opacity = '0';
 
             setTimeout(() => {
-                if (type === 'video') {
-                    const source = thumb.getAttribute('data-src');
-                    if (imgTarget) imgTarget.style.display = 'none';
-                    if (vidTarget) {
-                        vidTarget.style.display = 'block';
-                        vidTarget.src = source;
-                        vidTarget.style.opacity = '1';
-                        vidTarget.load();
-                        vidTarget.play().catch(e => console.log("Play failed"));
-                    }
-                } else {
-                    const source = thumb.style.backgroundImage.slice(5, -2).replace(/"/g, "");
-                    if (vidTarget) {
-                        vidTarget.pause();
-                        vidTarget.style.display = 'none';
-                    }
-                    if (imgTarget) {
-                        imgTarget.style.display = 'block';
-                        imgTarget.src = source;
-                        imgTarget.style.opacity = '1';
-                    }
+                const source = thumb.style.backgroundImage.slice(5, -2).replace(/"/g, "");
+                if (imgTarget) {
+                    imgTarget.style.display = 'block';
+                    imgTarget.src = source;
+                    imgTarget.style.opacity = '1';
                 }
             }, 400);
         }
