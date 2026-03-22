@@ -1482,16 +1482,29 @@
 
   <!-- GALLERY MODALS -->
 
+  <!-- GALLERY MODALS (FIXED STRUCTURE) -->
+
   <!-- PRESENTATION -->
   <div id="activity-pres-modal" class="content-modal-fullscreen">
     <button class="modal-close-btn" onclick="closeContent('activity-pres-modal')">✕</button>
     <div class="modal-body-container">
       <h3>Presentation Activity</h3>
-      <div class="gallery-main" id="main-pres">
+      <div class="gallery-main-display" id="main-pres">
+        <!-- Video starts as default here -->
         <video src="portfolio/AQM_qR9mcAWRPIHgo4mIM8l-eXzhCoarOL_zstyerZ3Z93TArtT-YwGCduZ_X5hFPGe_-gyB2hpLPEfL_mTNpHuOwI3tu5daTI3xQ8_xhg.mp4" controls></video>
+        <img src="" style="display:none;">
       </div>
       <div class="gallery-thumbnails-row">
-        <div class="gallery-thumb-item thumb-active" style="background-image:url('portfolio/649522874_4376167539376910_8482921962761084191_n.jpg')" onclick="swapImg('main-pres', this)"></div>
+        <!-- Thumbnails need a data-src for reliable media detection -->
+        <div class="gallery-thumb-item thumb-active" 
+             style="background-image:url('portfolio/649522874_4376167539376910_8482921962761084191_n.jpg')" 
+             data-type="image" 
+             onclick="swapImg('main-pres', this)"></div>
+        <div class="gallery-thumb-item" 
+             style="background-image:url('https://i.pinimg.com/1200x/b4/8d/9e/b48d9e65b6d6c08cd03f6529c49fd3b4.jpg')" 
+             data-type="video" 
+             data-video="portfolio/AQM_qR9mcAWRPIHgo4mIM8l-eXzhCoarOL_zstyerZ3Z93TArtT-YwGCduZ_X5hFPGe_-gyB2hpLPEfL_mTNpHuOwI3tu5daTI3xQ8_xhg.mp4" 
+             onclick="swapImg('main-pres', this)"></div>
       </div>
     </div>
   </div>
@@ -1501,13 +1514,15 @@
     <button class="modal-close-btn" onclick="closeContent('gal-towpep-modal')">✕</button>
     <div class="modal-body-container">
       <h3>TOWPEP Assembly Gallery</h3>
-      <div class="gallery-main" id="main-tow"><img src="portfolio/image-3.png"></div>
+      <div class="gallery-main-display" id="main-tow">
+        <img src="portfolio/image-3.png">
+      </div>
       <div class="gallery-thumbnails-row">
-        <div class="gallery-thumb-item thumb-active" style="background-image:url('portfolio/image-3.png')" onclick="swapImg('main-tow', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/20250807_133735.jpg')" onclick="swapImg('main-tow', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/20250807_162113.jpg')" onclick="swapImg('main-tow', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/20250807_164044.webp')" onclick="swapImg('main-tow', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/20250807_174240.jpg')" onclick="swapImg('main-tow', this)"></div>
+        <div class="gallery-thumb-item thumb-active" style="background-image:url('portfolio/image-3.png')" data-type="image" onclick="swapImg('main-tow', this)"></div>
+        <div class="gallery-thumb-item" style="background-image:url('portfolio/20250807_133735.jpg')" data-type="image" onclick="swapImg('main-tow', this)"></div>
+        <div class="gallery-thumb-item" style="background-image:url('portfolio/20250807_162113.jpg')" data-type="image" onclick="swapImg('main-tow', this)"></div>
+        <div class="gallery-thumb-item" style="background-image:url('portfolio/20250807_164044.webp')" data-type="image" onclick="swapImg('main-tow', this)"></div>
+        <div class="gallery-thumb-item" style="background-image:url('portfolio/20250807_174240.jpg')" data-type="image" onclick="swapImg('main-tow', this)"></div>
       </div>
     </div>
   </div>
@@ -1517,13 +1532,15 @@
     <button class="modal-close-btn" onclick="closeContent('gal-mufti-modal')">✕</button>
     <div class="modal-body-container">
       <h3>Mufti Day Gallery</h3>
-      <div class="gallery-main" id="main-mufti"><img src="portfolio/FB_IMG_1763550293433.jpg"></div>
+      <div class="gallery-main-display" id="main-mufti">
+        <img src="portfolio/FB_IMG_1763550293433.jpg">
+      </div>
       <div class="gallery-thumbnails-row">
-        <div class="gallery-thumb-item thumb-active" style="background-image:url('portfolio/FB_IMG_1763550293433.jpg')" onclick="swapImg('main-mufti', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/1.webp')" onclick="swapImg('main-mufti', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/5.webp')" onclick="swapImg('main-mufti', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/10.webp')" onclick="swapImg('main-mufti', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/16.webp')" onclick="swapImg('main-mufti', this)"></div>
+        <div class="gallery-thumb-item thumb-active" style="background-image:url('portfolio/FB_IMG_1763550293433.jpg')" data-type="image" onclick="swapImg('main-mufti', this)"></div>
+        <div class="gallery-thumb-item" style="background-image:url('portfolio/1.webp')" data-type="image" onclick="swapImg('main-mufti', this)"></div>
+        <div class="gallery-thumb-item" style="background-image:url('portfolio/5.webp')" data-type="image" onclick="swapImg('main-mufti', this)"></div>
+        <div class="gallery-thumb-item" style="background-image:url('portfolio/10.webp')" data-type="image" onclick="swapImg('main-mufti', this)"></div>
+        <div class="gallery-thumb-item" style="background-image:url('portfolio/16.webp')" data-type="image" onclick="swapImg('main-mufti', this)"></div>
       </div>
     </div>
   </div>
@@ -1533,12 +1550,14 @@
     <button class="modal-close-btn" onclick="closeContent('gal-pmo-modal')">✕</button>
     <div class="modal-body-container">
       <h3>PMO Assembly Gallery</h3>
-      <div class="gallery-main" id="main-pmo"><img src="portfolio/01.webp"></div>
+      <div class="gallery-main-display" id="main-pmo">
+        <img src="portfolio/01.webp">
+      </div>
       <div class="gallery-thumbnails-row">
-        <div class="gallery-thumb-item thumb-active" style="background-image:url('portfolio/01.webp')" onclick="swapImg('main-pmo', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/02.webp')" onclick="swapImg('main-pmo', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/05.webp')" onclick="swapImg('main-pmo', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/08.webp')" onclick="swapImg('main-pmo', this)"></div>
+        <div class="gallery-thumb-item thumb-active" style="background-image:url('portfolio/01.webp')" data-type="image" onclick="swapImg('main-pmo', this)"></div>
+        <div class="gallery-thumb-item" style="background-image:url('portfolio/02.webp')" data-type="image" onclick="swapImg('main-pmo', this)"></div>
+        <div class="gallery-thumb-item" style="background-image:url('portfolio/05.webp')" data-type="image" onclick="swapImg('main-pmo', this)"></div>
+        <div class="gallery-thumb-item" style="background-image:url('portfolio/08.webp')" data-type="image" onclick="swapImg('main-pmo', this)"></div>
       </div>
     </div>
   </div>
@@ -1562,11 +1581,20 @@
       modal.style.display = 'block';
       document.body.style.overflow = 'hidden';
       setTimeout(() => modal.classList.add('active'), 10);
+      
+      // If modal contains a video, try to play it
+      const video = modal.querySelector('video');
+      if(video) { video.load(); video.play().catch(e => console.log("Auto-play blocked")); }
     }
 
     function closeContent(modalId) {
       const modal = document.getElementById(modalId);
       modal.classList.remove('active');
+      
+      // Pause any videos in the modal
+      const video = modal.querySelector('video');
+      if(video) video.pause();
+
       setTimeout(() => {
         modal.style.display = 'none';
         document.body.style.overflow = 'auto';
@@ -1580,17 +1608,36 @@
 
     function swapImg(mainId, thumb) {
       const mainContainer = document.getElementById(mainId);
-      const mediaElement = mainContainer.querySelector('img, video');
-      const newUrl = thumb.style.backgroundImage.slice(5, -2).replace(/"/g, "");
+      const img = mainContainer.querySelector('img');
+      const video = mainContainer.querySelector('video');
       
-      mediaElement.style.opacity = '0';
-      setTimeout(() => {
-        mediaElement.src = newUrl;
-        mediaElement.style.opacity = '1';
-        const parent = thumb.parentElement;
-        parent.querySelectorAll('.gallery-thumb-item').forEach(el => el.classList.remove('thumb-active'));
-        thumb.classList.add('thumb-active');
-      }, 300);
+      const type = thumb.getAttribute('data-type'); // 'image' or 'video'
+      
+      // Update UI active state
+      const parent = thumb.parentElement;
+      parent.querySelectorAll('.gallery-thumb-item').forEach(el => el.classList.remove('thumb-active'));
+      thumb.classList.add('thumb-active');
+
+      if (type === 'video') {
+        const videoSrc = thumb.getAttribute('data-video');
+        if (img) img.style.display = 'none';
+        if (video) {
+          video.style.display = 'block';
+          video.src = videoSrc;
+          video.load();
+          video.play().catch(e => console.log("Video play failed"));
+        }
+      } else {
+        const imgSrc = thumb.style.backgroundImage.slice(5, -2).replace(/"/g, "");
+        if (video) {
+          video.pause();
+          video.style.display = 'none';
+        }
+        if (img) {
+          img.style.display = 'block';
+          img.src = imgSrc;
+        }
+      }
     }
 
     document.addEventListener('mouseover', (e) => {
