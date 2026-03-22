@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 
+    ==========================================================================
+       PORTFOLIO PROJECT: NETFLIX STYLE EXPERIENCE
+       DEVELOPER: SOPHIA SAHAGUN
+       VERSION: 3.0.0 (ULTRA-EXPANDED)
+       LINE COUNT TARGET: > 1000
+    ==========================================================================
+    -->
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Netflix Portfolio - Sophia Sahagun</title>
@@ -11,28 +19,31 @@
 
     <style>
         /* 
-        ==========================================================================
-           NETFLIX PORTFOLIO MASTER STYLESHEET
-           VERSION: 2.0.0 (EXPANDED)
-        ==========================================================================
+        --------------------------------------------------------------------------
+           ROOT VARIABLES
+        --------------------------------------------------------------------------
         */
-
         :root {
             --netflix-red: #e50914;
             --netflix-black: #141414;
             --netflix-dark-grey: #181818;
             --netflix-light-grey: #2f2f2f;
+            --netflix-mid-grey: #232323;
             --text-main: #ffffff;
             --text-muted: #b3b3b3;
             --success-green: #46d369;
-            --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             --card-width: 250px;
             --card-height: 140px;
+            --header-height: 70px;
+            --overlay-z: 10000;
+            --modal-z: 8000;
+            --nav-z: 5000;
         }
 
         /* 
         --------------------------------------------------------------------------
-           GLOBAL RESET & SCROLLBAR
+           GLOBAL RESET & BASE STYLES
         --------------------------------------------------------------------------
         */
         * {
@@ -40,6 +51,7 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         html {
@@ -51,12 +63,16 @@
             color: var(--text-main);
             font-family: 'Roboto', Helvetica, Arial, sans-serif;
             overflow-x: hidden;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        /* Custom Scrollbar for Chrome/Safari */
+        /* 
+        --------------------------------------------------------------------------
+           CUSTOM SCROLLBAR
+        --------------------------------------------------------------------------
+        */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
         ::-webkit-scrollbar-track {
             background: var(--netflix-black);
@@ -64,6 +80,7 @@
         ::-webkit-scrollbar-thumb {
             background: #333;
             border-radius: 10px;
+            border: 2px solid var(--netflix-black);
         }
         ::-webkit-scrollbar-thumb:hover {
             background: var(--netflix-red);
@@ -81,44 +98,46 @@
             width: 100%;
             height: 100%;
             background: var(--netflix-black);
-            z-index: 9999;
+            z-index: var(--overlay-z);
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 40px;
-            transition: opacity 1.2s ease-in-out;
+            transition: opacity 1.5s ease-in-out, visibility 1.5s;
         }
 
         #welcome-overlay.fade-out {
             opacity: 0;
+            visibility: hidden;
             pointer-events: none;
         }
 
         .welcome-box {
-            max-width: 850px;
+            max-width: 900px;
             text-align: center;
-            animation: netflixIntro 1.8s ease-out forwards;
+            animation: netflixIntro 2s ease-out forwards;
         }
 
         .welcome-brand {
             color: var(--netflix-red);
-            font-size: 6rem;
+            font-size: 7rem;
             font-weight: 900;
-            letter-spacing: -3px;
+            letter-spacing: -4px;
             text-transform: uppercase;
             margin-bottom: 30px;
-            text-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
+            text-shadow: 0 0 30px rgba(229, 9, 20, 0.4);
+            font-style: italic;
         }
 
         .welcome-msg {
-            margin-bottom: 45px;
+            margin-bottom: 50px;
         }
 
         .welcome-msg p {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: #efefef;
             margin-bottom: 25px;
-            line-height: 1.8;
+            line-height: 1.9;
             text-align: justify;
         }
 
@@ -126,25 +145,25 @@
             background-color: var(--netflix-red);
             color: white;
             border: none;
-            padding: 20px 70px;
-            font-size: 1.5rem;
+            padding: 22px 80px;
+            font-size: 1.6rem;
             font-weight: 900;
             border-radius: 4px;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(229, 9, 20, 0.4);
+            letter-spacing: 2px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 40px rgba(229, 9, 20, 0.4);
         }
 
         .enter-btn:hover {
             background-color: #ff0a16;
-            transform: scale(1.08);
-            box-shadow: 0 15px 40px rgba(229, 9, 20, 0.6);
+            transform: scale(1.1);
+            box-shadow: 0 15px 50px rgba(229, 9, 20, 0.7);
         }
 
         @keyframes netflixIntro {
-            0% { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+            0% { opacity: 0; transform: scale(0.8); filter: blur(20px); }
             100% { opacity: 1; transform: scale(1); filter: blur(0); }
         }
 
@@ -161,42 +180,54 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 4%;
-            z-index: 5000;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 100%);
-            transition: background-color 0.6s ease;
+            z-index: var(--nav-z);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+            transition: background-color 0.8s ease, padding 0.8s ease;
         }
 
         header.scrolled {
             background-color: var(--netflix-black);
-            padding: 15px 4%;
+            padding: 12px 4%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
         .header-logo h1 {
             color: var(--netflix-red);
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 900;
             text-transform: uppercase;
             cursor: pointer;
-            letter-spacing: 0px;
+            letter-spacing: -1px;
+            transition: 0.3s;
+        }
+
+        .header-logo h1:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
         }
 
         nav {
             flex: 1;
-            margin-left: 50px;
+            margin-left: 60px;
             display: flex;
-            gap: 25px;
+            gap: 30px;
         }
 
         nav a {
             color: #e5e5e5;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 400;
-            transition: color 0.3s ease;
+            transition: color 0.4s ease;
         }
 
         nav a:hover {
-            color: #b3b3b3;
+            color: var(--text-muted);
+        }
+
+        nav a.active-link {
+            font-weight: 700;
+            color: white;
         }
 
         .header-controls {
@@ -205,19 +236,29 @@
             gap: 25px;
         }
 
-        .search-trigger {
-            color: white;
-            font-size: 1.2rem;
+        .user-profile-trigger {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             cursor: pointer;
+            transition: 0.3s;
         }
 
-        .user-profile {
-            width: 34px;
-            height: 34px;
+        .user-profile-trigger:hover {
+            transform: scale(1.05);
+        }
+
+        .user-profile-img {
+            width: 38px;
+            height: 38px;
             border-radius: 4px;
             background: url('https://cdn.discordapp.com/attachments/981254035568996394/1421149956395372595/Screenshot_20250926_230216_Gallery.jpg?ex=68d7fc89&is=68d6ab09&hm=cff2fc5ce09d6216ed0e9e9e114b43fcfc28f81073a6e1a3bb42a75e7c6ce2e3&') center/cover;
-            cursor: pointer;
-            border: 1px solid #333;
+            border: 1px solid #444;
+        }
+
+        .fa-caret-down {
+            font-size: 0.8rem;
+            color: white;
         }
 
         /* 
@@ -227,12 +268,12 @@
         */
         .hero {
             position: relative;
-            height: 85vh;
+            height: 95vh;
             width: 100%;
             display: flex;
             align-items: center;
             padding: 0 4%;
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.pinimg.com/1200x/89/96/0c/89960c808b61f0148faf270fd69819ce.jpg');
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.2)), url('https://i.pinimg.com/1200x/89/96/0c/89960c808b61f0148faf270fd69819ce.jpg');
             background-size: cover;
             background-position: center;
         }
@@ -243,75 +284,174 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 35%;
+            height: 40%;
             background: linear-gradient(to top, var(--netflix-black), transparent);
         }
 
         .hero-content {
             position: relative;
             z-index: 10;
-            max-width: 700px;
-            animation: heroFadeIn 1.5s ease;
+            max-width: 800px;
+            animation: heroFadeIn 1.8s ease;
         }
 
         @keyframes heroFadeIn {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-badge {
-            font-weight: bold;
+            font-weight: 800;
             color: var(--success-green);
-            margin-bottom: 15px;
-            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .hero-title {
-            font-size: 4.5rem;
+            font-size: 5.5rem;
             font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            text-shadow: 2px 4px 10px rgba(0,0,0,0.7);
+            line-height: 1;
+            margin-bottom: 25px;
+            text-shadow: 2px 4px 15px rgba(0,0,0,0.8);
         }
 
         .hero-meta {
-            font-size: 1.2rem;
-            margin-bottom: 25px;
+            font-size: 1.3rem;
+            margin-bottom: 30px;
             font-weight: 500;
+            display: flex;
+            gap: 20px;
+            align-items: center;
         }
 
         .hero-desc {
-            font-size: 1.3rem;
-            margin-bottom: 35px;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 8px rgba(0,0,0,0.9);
             color: #efefef;
-            max-width: 550px;
+            max-width: 600px;
+            line-height: 1.4;
         }
 
         .hero-action-btns {
             display: flex;
-            gap: 15px;
+            gap: 20px;
         }
 
         .hero-btn {
-            padding: 12px 35px;
+            padding: 14px 45px;
             border-radius: 4px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 12px;
-            transition: opacity 0.2s;
+            gap: 15px;
+            transition: 0.3s;
         }
 
-        .hero-btn-play { background-color: white; color: black; }
-        .hero-btn-info { background-color: rgba(109, 109, 110, 0.7); color: white; }
-        .hero-btn:hover { opacity: 0.8; }
+        .hero-btn-play { 
+            background-color: white; 
+            color: black; 
+        }
+
+        .hero-btn-play:hover {
+            background-color: rgba(255,255,255,0.75);
+        }
+
+        .hero-btn-info { 
+            background-color: rgba(109, 109, 110, 0.7); 
+            color: white; 
+        }
+
+        .hero-btn-info:hover {
+            background-color: rgba(109, 109, 110, 0.4);
+        }
+
+        /* 
+        --------------------------------------------------------------------------
+           NEW: FEATURED PROFILE (ABOUT ME PROMINENCE)
+        --------------------------------------------------------------------------
+        */
+        .featured-profile-row {
+            padding: 80px 4%;
+            background: linear-gradient(to bottom, var(--netflix-black), #000);
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            border-bottom: 1px solid #222;
+        }
+
+        .profile-poster {
+            flex-shrink: 0;
+            width: 400px;
+            height: 550px;
+            border-radius: 12px;
+            background: url('https://cdn.discordapp.com/attachments/981254035568996394/1421149956395372595/Screenshot_20250926_230216_Gallery.jpg?ex=68d7fc89&is=68d6ab09&hm=cff2fc5ce09d6216ed0e9e9e114b43fcfc28f81073a6e1a3bb42a75e7c6ce2e3&') center/cover;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            border: 1px solid #333;
+            transition: transform 0.5s;
+        }
+
+        .profile-poster:hover {
+            transform: scale(1.02);
+        }
+
+        .profile-info-box {
+            flex: 1;
+        }
+
+        .profile-info-box h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .profile-info-box h4 {
+            color: var(--netflix-red);
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            font-weight: 900;
+        }
+
+        .profile-info-box p {
+            font-size: 1.25rem;
+            color: #ccc;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: white;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
         /* 
         --------------------------------------------------------------------------
@@ -319,17 +459,22 @@
         --------------------------------------------------------------------------
         */
         .row-container {
-            padding: 30px 0;
+            padding: 40px 0;
             position: relative;
             z-index: 20;
         }
 
         .row-title {
             padding-left: 4%;
-            margin-bottom: 15px;
-            font-size: 1.6rem;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #e5e5e5;
+            transition: 0.3s;
+        }
+
+        .row-title:hover {
+            color: white;
         }
 
         .carousel-outer {
@@ -339,9 +484,9 @@
 
         .carousel-track {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             overflow-x: auto;
-            padding: 20px 0 50px 0;
+            padding: 25px 0 60px 0;
             scrollbar-width: none;
             scroll-behavior: smooth;
         }
@@ -354,35 +499,36 @@
             min-width: var(--card-width);
             height: var(--card-height);
             background-color: #333;
-            border-radius: 4px;
+            border-radius: 6px;
             background-size: cover;
             background-position: center;
             cursor: pointer;
             position: relative;
             transition: var(--transition-smooth);
             flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .item-card:hover {
-            transform: scale(1.3);
+            transform: scale(1.35);
             z-index: 500;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.9);
+            box-shadow: 0 20px 40px rgba(0,0,0,1);
         }
 
         .item-overlay {
             position: absolute;
             inset: 0;
             background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, transparent 60%);
-            border-radius: 4px;
+            border-radius: 6px;
         }
 
         .item-label {
             position: absolute;
-            bottom: 12px;
-            left: 12px;
+            bottom: 15px;
+            left: 15px;
             font-weight: 700;
-            font-size: 1rem;
-            text-shadow: 2px 2px 4px black;
+            font-size: 1.1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
             pointer-events: none;
             transition: opacity 0.3s;
         }
@@ -395,9 +541,9 @@
             position: absolute;
             bottom: 0;
             width: 100%;
-            padding: 15px;
+            padding: 20px;
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s ease;
             z-index: 2;
         }
 
@@ -407,57 +553,63 @@
 
         .icon-bar {
             display: flex;
-            gap: 8px;
-            margin-bottom: 10px;
+            gap: 10px;
+            margin-bottom: 12px;
         }
 
         .icon-bar i {
-            width: 32px;
-            height: 32px;
-            border: 2px solid rgba(255,255,255,0.5);
+            width: 34px;
+            height: 34px;
+            border: 2px solid rgba(255,255,255,0.4);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.85rem;
-            background-color: rgba(42,42,42,0.6);
+            font-size: 0.9rem;
+            background-color: rgba(42,42,42,0.7);
+            transition: 0.2s;
         }
 
         .icon-bar i:hover {
             border-color: white;
             background-color: white;
             color: black;
+            transform: scale(1.1);
         }
 
         .item-tags {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--success-green);
             font-weight: 800;
+            letter-spacing: 0.5px;
         }
 
         .slider-btn {
             position: absolute;
-            top: 20px;
-            bottom: 50px;
-            width: 45px;
-            background: rgba(0,0,0,0.4);
+            top: 25px;
+            bottom: 60px;
+            width: 50px;
+            background: rgba(0,0,0,0.5);
             color: white;
             border: none;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             cursor: pointer;
             z-index: 600;
             opacity: 0;
-            transition: opacity 0.3s, background 0.3s;
+            transition: opacity 0.4s, background 0.4s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .carousel-outer:hover .slider-btn { opacity: 1; }
-        .slider-btn:hover { background: rgba(0,0,0,0.7); }
-        .slider-left { left: 0; }
-        .slider-right { right: 0; }
+        .slider-btn:hover { background: rgba(0,0,0,0.8); }
+        .slider-left { left: 0; border-radius: 0 4px 4px 0; }
+        .slider-right { right: 0; border-radius: 4px 0 0 4px; }
 
         /* 
         --------------------------------------------------------------------------
-           MODAL FULLSCREEN SYSTEM
+           MODAL SYSTEM (FULLSCREEN)
         --------------------------------------------------------------------------
         */
         .modal-fullscreen {
@@ -468,10 +620,10 @@
             width: 100%;
             height: 100%;
             background-color: var(--netflix-black);
-            z-index: 8000;
+            z-index: var(--modal-z);
             overflow-y: auto;
             opacity: 0;
-            transition: opacity var(--transition-smooth);
+            transition: opacity 0.6s ease;
         }
 
         .modal-fullscreen.active {
@@ -480,14 +632,14 @@
         }
 
         .modal-hero {
-            height: 60vh;
+            height: 65vh;
             width: 100%;
             background-size: cover;
             background-position: center;
             position: relative;
             display: flex;
             align-items: flex-end;
-            padding: 60px 8%;
+            padding: 80px 8%;
         }
 
         .modal-hero::after {
@@ -499,162 +651,186 @@
 
         .close-modal-circle {
             position: fixed;
-            top: 35px;
-            right: 35px;
+            top: 40px;
+            right: 40px;
             background: #181818;
             color: white;
             border: 2px solid rgba(255,255,255,0.2);
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 9000;
-            transition: background 0.3s;
+            z-index: 9999;
+            transition: 0.3s;
         }
 
-        .close-modal-circle:hover { background: #333; }
+        .close-modal-circle:hover { 
+            background: #444; 
+            transform: rotate(90deg) scale(1.1);
+        }
 
         .modal-body {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 60px 5%;
-            line-height: 2;
+            padding: 80px 5%;
+            line-height: 2.1;
         }
 
         .modal-main-title {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 900;
             position: relative;
             z-index: 2;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            line-height: 1;
         }
 
         .modal-body h3 {
             color: var(--netflix-red);
-            font-size: 2.2rem;
-            margin: 60px 0 30px 0;
-            border-left: 6px solid var(--netflix-red);
-            padding-left: 25px;
+            font-size: 2.4rem;
+            margin: 70px 0 35px 0;
+            border-left: 8px solid var(--netflix-red);
+            padding-left: 30px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            font-weight: 900;
         }
 
         .modal-body h4 {
-            font-size: 1.6rem;
-            margin: 40px 0 20px 0;
+            font-size: 1.8rem;
+            margin: 50px 0 25px 0;
             color: #fff;
             border-bottom: 1px solid #333;
-            padding-bottom: 12px;
+            padding-bottom: 15px;
+            font-weight: 700;
         }
 
         .modal-body p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #cecece;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-align: justify;
         }
 
         .modal-body blockquote {
             background: #1f1f1f;
-            padding: 40px;
-            border-left: 5px solid var(--netflix-red);
-            margin: 50px 0;
+            padding: 50px;
+            border-left: 6px solid var(--netflix-red);
+            margin: 60px 0;
             font-style: italic;
-            font-size: 1.3rem;
-            color: #ccc;
-            border-radius: 0 8px 8px 0;
+            font-size: 1.4rem;
+            color: #ddd;
+            border-radius: 0 10px 10px 0;
+            line-height: 1.8;
         }
 
         /* 
         --------------------------------------------------------------------------
-           TABLES & LISTS
+           MODAL ELEMENTS: TABLES & LISTS
         --------------------------------------------------------------------------
         */
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 40px 0;
+            margin: 50px 0;
             background: #1a1a1a;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
 
         .data-table th {
             background-color: var(--netflix-red);
             color: white;
             text-align: left;
-            padding: 20px;
-            font-size: 1.1rem;
+            padding: 25px;
+            font-size: 1.2rem;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .data-table td {
-            padding: 20px;
+            padding: 25px;
             border-bottom: 1px solid #282828;
-            color: #bbb;
+            color: #ccc;
             vertical-align: top;
+            font-size: 1.15rem;
         }
 
-        .data-table tr:hover { background-color: #222; }
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover { 
+            background-color: #222; 
+        }
 
         .list-group {
             list-style: none;
-            margin: 20px 0;
+            margin: 30px 0;
         }
 
         .list-item {
-            padding: 18px;
+            padding: 20px;
             background: #222;
-            margin-bottom: 12px;
-            border-radius: 6px;
+            margin-bottom: 15px;
+            border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
         }
 
-        .list-item:hover { transform: translateX(10px); background: #282828; }
+        .list-item:hover { 
+            transform: translateX(15px); 
+            background: #282828; 
+            border-color: #444;
+        }
 
         .badge-score {
             background-color: var(--netflix-red);
-            padding: 6px 15px;
-            border-radius: 20px;
+            padding: 8px 20px;
+            border-radius: 25px;
             font-weight: 900;
-            font-size: 0.95rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(229, 9, 20, 0.3);
+            color: white;
         }
 
         /* 
         --------------------------------------------------------------------------
-           CONTENT BOXES
+           CONTENT CARDS (NESTED IN MODALS)
         --------------------------------------------------------------------------
         */
         .content-card {
             background: #222;
-            padding: 35px;
-            border-radius: 12px;
-            margin-bottom: 40px;
-            border-top: 5px solid var(--netflix-red);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+            padding: 45px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            border-top: 6px solid var(--netflix-red);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.7);
         }
 
         .content-card h5 {
             color: var(--netflix-red);
-            font-size: 1.4rem;
-            margin-bottom: 20px;
+            font-size: 1.6rem;
+            margin-bottom: 25px;
             text-transform: uppercase;
             font-weight: 900;
+            letter-spacing: 1px;
         }
 
         .log-entry {
-            margin-bottom: 20px;
-            padding-left: 25px;
+            margin-bottom: 25px;
+            padding-left: 35px;
             position: relative;
+            color: #eee;
+            font-size: 1.25rem;
         }
 
         .log-entry::before {
@@ -662,29 +838,29 @@
             color: var(--netflix-red);
             position: absolute;
             left: 0;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
 
         /* 
         --------------------------------------------------------------------------
-           GALLERY STYLES (REFINED)
+           GALLERY SYSTEMS
         --------------------------------------------------------------------------
         */
         .gallery-box {
-            margin-top: 50px;
+            margin-top: 60px;
         }
 
         .main-media-display {
             width: 100%;
-            height: 600px;
+            height: 650px;
             background: #000;
-            border-radius: 12px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            margin-bottom: 25px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            margin-bottom: 30px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9);
             border: 1px solid #333;
         }
 
@@ -693,80 +869,140 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s ease;
         }
 
         .thumb-strip {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             overflow-x: auto;
-            padding-bottom: 20px;
+            padding-bottom: 25px;
             scrollbar-width: thin;
         }
 
         .thumb-box {
-            min-width: 190px;
-            height: 110px;
+            min-width: 200px;
+            height: 120px;
             border: 4px solid transparent;
-            border-radius: 6px;
+            border-radius: 8px;
             background-size: cover;
             background-position: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             flex-shrink: 0;
+            filter: grayscale(40%);
+        }
+
+        .thumb-box:hover {
+            filter: grayscale(0%);
+            transform: translateY(-5px);
         }
 
         .thumb-box.active-thumb {
             border-color: var(--netflix-red);
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            filter: grayscale(0%);
+            box-shadow: 0 10px 20px rgba(229, 9, 20, 0.4);
         }
 
         /* 
         --------------------------------------------------------------------------
-           ABOUT ME STYLES
+           FOOTER
         --------------------------------------------------------------------------
         */
-        .about-wrap {
-            display: flex;
-            gap: 60px;
+        footer {
+            padding: 80px 4%;
+            background-color: var(--netflix-black);
+            color: var(--text-muted);
+            border-top: 1px solid #333;
             margin-top: 50px;
-            align-items: flex-start;
         }
 
-        .about-side {
-            flex: 1;
+        .footer-top {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
             text-align: center;
-            position: sticky;
-            top: 100px;
+            padding-top: 40px;
+            border-top: 1px solid #222;
         }
 
-        .profile-pfp {
-            width: 320px;
-            height: 320px;
-            border-radius: 50%;
-            border: 8px solid var(--netflix-red);
-            background: url('https://cdn.discordapp.com/attachments/981254035568996394/1421149956395372595/Screenshot_20250926_230216_Gallery.jpg?ex=68d7fc89&is=68d6ab09&hm=cff2fc5ce09d6216ed0e9e9e114b43fcfc28f81073a6e1a3bb42a75e7c6ce2e3&') center/cover;
-            margin: 0 auto 35px;
-            box-shadow: 0 0 40px rgba(229, 9, 20, 0.4);
+        .footer-bottom p {
+            font-size: 0.85rem;
+            margin-bottom: 15px;
         }
 
-        .about-socials {
+        .footer-socials {
             display: flex;
             justify-content: center;
             gap: 25px;
-            font-size: 2.5rem;
+            font-size: 1.5rem;
         }
 
-        .about-socials a { color: #666; transition: 0.3s; }
-        .about-socials a:hover { color: var(--netflix-red); transform: scale(1.2); }
+        .footer-socials a { color: var(--text-muted); transition: 0.3s; }
+        .footer-socials a:hover { color: white; }
 
-        .about-info { flex: 2; }
+        /* 
+        --------------------------------------------------------------------------
+           MEDIA QUERIES
+        --------------------------------------------------------------------------
+        */
+        @media (max-width: 1200px) {
+            .hero-title { font-size: 4rem; }
+            .profile-poster { width: 300px; height: 420px; }
+        }
+
+        @media (max-width: 992px) {
+            nav { display: none; }
+            .hero-title { font-size: 3.5rem; }
+            .featured-profile-row { flex-direction: column; text-align: center; }
+            .profile-stats { justify-content: center; }
+            .footer-top { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-btn { padding: 10px 25px; font-size: 1rem; }
+            .welcome-brand { font-size: 4rem; }
+            .modal-main-title { font-size: 2.5rem; }
+            .footer-top { grid-template-columns: 1fr; }
+        }
 
     </style>
 </head>
 <body>
 
-    <!-- OVERLAY ENTRANCE -->
+    <!-- 1. WELCOME OVERLAY -->
     <div id="welcome-overlay">
         <div class="welcome-box">
             <div class="welcome-brand">Welcome</div>
@@ -781,10 +1017,7 @@
         </div>
     </div>
 
-    <!-- AUDIO EFFECTS -->
-    <audio id="sound-hover" src="https://assets.mixkit.co/sfx/preview/mixkit-interface-hint-notification-911.mp3" preload="auto"></audio>
-
-    <!-- NAVIGATION HEADER -->
+    <!-- 2. NAVIGATION -->
     <header id="site-header">
         <div class="header-logo">
             <h1 onclick="window.scrollTo(0,0)">Portfolio</h1>
@@ -794,43 +1027,85 @@
             <a href="#reflections-sec">Reflections</a>
             <a href="#galleries-sec">Galleries</a>
             <a href="#presentation-sec">Presentation</a>
+            <a href="#about-sec" style="font-weight: 900; color: var(--netflix-red);">About Me</a>
         </nav>
         <div class="header-controls">
-            <i class="fas fa-search search-trigger"></i>
-            <div class="user-profile" onclick="openModal('modal-about-me')"></div>
+            <i class="fas fa-search" style="font-size:1.2rem; cursor:pointer;"></i>
+            <div class="user-profile-trigger" onclick="openModal('modal-about-me')">
+                <div class="user-profile-img"></div>
+                <i class="fas fa-caret-down"></i>
+            </div>
         </div>
     </header>
 
-    <!-- FEATURED HERO SECTION -->
+    <!-- 3. HERO BANNER -->
     <section class="hero">
         <div class="hero-content">
             <div class="hero-badge"><i class="fas fa-star"></i> Featured Reflection</div>
             <h2 class="hero-title">What's In My Bag?</h2>
             <div class="hero-meta">
-                <span style="color:#46d369; margin-right:15px;">99% Match</span>
-                <span>2025 • Season 1 • Emotional Journey</span>
+                <span style="color:var(--success-green); font-weight:bold;">99% Match</span>
+                <span>2025</span>
+                <span style="border:1px solid #888; padding:0 8px; font-size:0.8rem;">18+</span>
+                <span>Season 1</span>
             </div>
             <div class="hero-desc">
                 A deep, honest exploration of the internal weights I carry. From familial expectations to the escape mechanisms I use to survive the pressure of being "perfect."
             </div>
             <div class="hero-action-btns">
-                <button class="hero-btn hero-btn-play" onclick="openModal('modal-bag-reflection')"><i class="fas fa-play"></i> Read Now</button>
-                <button class="hero-btn hero-btn-info" onclick="openModal('modal-bag-reflection')"><i class="fas fa-info-circle"></i> More Info</button>
+                <button class="hero-btn hero-btn-play" onclick="openModal('modal-bag-reflection')">
+                    <i class="fas fa-play"></i> Play
+                </button>
+                <button class="hero-btn hero-btn-info" onclick="openModal('modal-bag-reflection')">
+                    <i class="fas fa-info-circle"></i> More Info
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- MAIN CAROUSEL ROWS -->
+    <!-- 4. FEATURED ABOUT ME SECTION (NEW PROMINENCE) -->
+    <section id="about-sec" class="featured-profile-row">
+        <div class="profile-poster"></div>
+        <div class="profile-info-box">
+            <h4>Profile Spotlight</h4>
+            <h2>Sophia Rodina Sahagun</h2>
+            <p>Hello! Welcome to my online portfolio. I’m an 18-year-old first-year college student pursuing a <strong>Bachelor of Science in Information Technology</strong>. I’m truly happy to have you here as I share my journey, my personal growth, and the steps I'm taking toward my dreams in the tech field.</p>
+            <p>This portfolio is more than a collection of school projects; it's a reflection of who I am, what I value, and my aspirations for the future. You'll find my written works, activities, and experiences that showcase my growth both academically and personally.</p>
+            <p>My dream is to pursue a career in Information Technology, and this is only the beginning of that path. Feel free to explore my work and join me as I continue to learn, grow, and take steady steps toward becoming the best version of myself.</p>
+            
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <span class="stat-value">Salutatorian</span>
+                    <span class="stat-label">HS Ranking</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">5.0 / 5.0</span>
+                    <span class="stat-label">TOWPEP Score</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">BS IT</span>
+                    <span class="stat-label">Current Goal</span>
+                </div>
+            </div>
+
+            <div class="about-social-links" style="display:flex; gap:25px; margin-top:40px;">
+                <a href="#" style="font-size:2rem; color:white;"><i class="fab fa-facebook"></i></a>
+                <a href="#" style="font-size:2rem; color:white;"><i class="fab fa-instagram"></i></a>
+                <a href="#" style="font-size:2rem; color:white;"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. MAIN CONTENT ROWS -->
     <main>
 
-        <!-- ROW: IC ACTIVITIES -->
+        <!-- ROW: ACTIVITIES -->
         <section id="activities-sec" class="row-container">
             <h2 class="row-title">📚 IC Activities</h2>
             <div class="carousel-outer">
                 <button class="slider-btn slider-left" onclick="slide(this, -1)"><i class="fas fa-chevron-left"></i></button>
                 <div class="carousel-track">
                     
-                    <!-- Activity 1 -->
                     <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/b9/59/8e/b9598e398a486e6f3be396e4d913e792.jpg')" onclick="openModal('modal-act1')">
                         <div class="item-overlay"></div>
                         <div class="item-label">Discussion Forum 1</div>
@@ -840,7 +1115,6 @@
                         </div>
                     </div>
 
-                    <!-- Activity 2 -->
                     <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/b0/16/3a/b0163a93d05a19fbb79790c751b43927.jpg')" onclick="openModal('modal-act2')">
                         <div class="item-overlay"></div>
                         <div class="item-label">Needs Assessment</div>
@@ -850,7 +1124,6 @@
                         </div>
                     </div>
 
-                    <!-- Activity 3 -->
                     <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/31/8d/ed/318dedd6095c9b80f86a8c2b23a91341.jpg')" onclick="openModal('modal-act3')">
                         <div class="item-overlay"></div>
                         <div class="item-label">TOWPEP Scores</div>
@@ -860,7 +1133,6 @@
                         </div>
                     </div>
 
-                    <!-- Activity 4 -->
                     <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/71/a6/72/71a6723214d3581dbf0534f98f85675c.jpg')" onclick="openModal('modal-act4')">
                         <div class="item-overlay"></div>
                         <div class="item-label">Convocation Log</div>
@@ -870,7 +1142,6 @@
                         </div>
                     </div>
 
-                    <!-- Activity 5 -->
                     <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/b4/8d/9e/b48d9e65b6d6c08cd03f6529c49fd3b4.jpg')" onclick="openModal('modal-actMI')">
                         <div class="item-overlay"></div>
                         <div class="item-label">Multiple Intelligences</div>
@@ -880,7 +1151,6 @@
                         </div>
                     </div>
 
-                    <!-- Activity 6 -->
                     <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/72/e7/c0/72e7c0785fd01e8512508e5ef29546bb.jpg')" onclick="openModal('modal-actRRR')">
                         <div class="item-overlay"></div>
                         <div class="item-label">Reflect, Research, Reduce</div>
@@ -890,7 +1160,6 @@
                         </div>
                     </div>
 
-                    <!-- Activity 7 -->
                     <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/d6/4f/d1/d64fd1419a443b77fccad4d3443a67c4.jpg')" onclick="openModal('modal-strat-plan')">
                         <div class="item-overlay"></div>
                         <div class="item-label">Strategic Plan</div>
@@ -953,7 +1222,7 @@
             </div>
         </section>
 
-        <!-- ROW: IMAGE GALLERIES -->
+        <!-- ROW: GALLERIES -->
         <section id="galleries-sec" class="row-container">
             <h2 class="row-title">📷 Image Galleries</h2>
             <div class="carousel-outer">
@@ -980,12 +1249,11 @@
             </div>
         </section>
 
-        <!-- NEW ROW: PRESENTATION ACTIVITY -->
+        <!-- ROW: PRESENTATION -->
         <section id="presentation-sec" class="row-container">
-            <h2 class="row-header" style="padding-left:4%; margin-bottom:15px; font-size:1.6rem; font-weight:700;">📺 Presentation Activity</h2>
+            <h2 class="row-title">📺 Presentation Activity</h2>
             <div class="carousel-outer">
                 <div class="carousel-track">
-                    <!-- USING PMO COVER STYLE AS REQUESTED -->
                     <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg')" onclick="openModal('modal-gal-presentation')">
                         <div class="item-overlay"></div>
                         <div class="item-label">Presentation Showcase</div>
@@ -999,7 +1267,7 @@
         </section>
 
         <!-- ROW: ACHIEVEMENTS -->
-        <section class="row-container">
+        <section class="row-container" style="padding-bottom:100px;">
             <h2 class="row-title">🏆 Hall of Fame</h2>
             <div class="carousel-outer">
                 <div class="carousel-track">
@@ -1015,7 +1283,7 @@
 
     <!-- 
     ==========================================================================
-       MODAL CONTENT DEFINITIONS (ALL TEXT RESTORED)
+       MODAL CONTENT DEFINITIONS (ALL TEXT PRESERVED IN FULL)
     ==========================================================================
     -->
 
@@ -1072,14 +1340,14 @@
     <div id="modal-act2" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-act2')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/b0/16/3a/b0163a93d05a19fbb79790c751b43927.jpg');">
-            <h2 class="modal-title-main">Online Needs Assessment</h2>
+            <h2 class="modal-main-title">Online Needs Assessment</h2>
         </div>
         <div class="modal-body">
             <h3>Student Profile & Concerns</h3>
             <div class="content-card">
                 <p><strong>Name:</strong> Sahagun, Sophia Rodina G. | <strong>Course:</strong> BS Information Technology</p>
                 <hr style="border: 0; border-top: 1px solid #444; margin: 20px 0;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
                     <div>
                         <h5>Health Concerns</h5>
                         <ul class="list-group">
@@ -1115,11 +1383,11 @@
         </div>
     </div>
 
-    <!-- 4. TOWPEP SCORES (35 ITEMS FULL) -->
+    <!-- 4. TOWPEP ASSESSMENT (ALL 35 ITEMS IN FULL) -->
     <div id="modal-act3" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-act3')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/31/8d/ed/318dedd6095c9b80f86a8c2b23a91341.jpg');">
-            <h2 class="modal-title-main">TOWPEP Assessment</h2>
+            <h2 class="modal-main-title">TOWPEP Assessment</h2>
         </div>
         <div class="modal-body">
             <h3>Personal Effectiveness Profile</h3>
@@ -1169,11 +1437,11 @@
         </div>
     </div>
 
-    <!-- 5. TOWPEP CONVOCATION (TABLES FULL) -->
+    <!-- 5. TOWPEP CONVOCATION -->
     <div id="modal-act4" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-act4')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/71/a6/72/71a6723214d3581dbf0534f98f85675c.jpg');">
-            <h2 class="modal-title-main">TOWPEP Convocation</h2>
+            <h2 class="modal-main-title">TOWPEP Convocation</h2>
         </div>
         <div class="modal-body">
             <h3>The 5C's Celebration</h3>
@@ -1224,11 +1492,11 @@
         </div>
     </div>
 
-    <!-- 6. MULTIPLE INTELLIGENCES (FULL) -->
+    <!-- 6. MULTIPLE INTELLIGENCES -->
     <div id="modal-actMI" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-actMI')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/b4/8d/9e/b48d9e65b6d6c08cd03f6529c49fd3b4.jpg');">
-            <h2 class="modal-title-main">Multiple Intelligences</h2>
+            <h2 class="modal-main-title">Multiple Intelligences</h2>
         </div>
         <div class="modal-body">
             <h3>Self-Discovery through Quiz</h3>
@@ -1254,11 +1522,11 @@
         </div>
     </div>
 
-    <!-- 7. RRR (FULL) -->
+    <!-- 7. RRR -->
     <div id="modal-actRRR" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-actRRR')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/72/e7/c0/72e7c0785fd01e8512508e5ef29546bb.jpg');">
-            <h2 class="modal-title-main">Reflect, Research, Reduce</h2>
+            <h2 class="modal-main-title">Reflect, Research, Reduce</h2>
         </div>
         <div class="modal-body">
             <h3>Part I – Waste Research</h3>
@@ -1301,11 +1569,11 @@
         </div>
     </div>
 
-    <!-- 8. STRATEGIC PLAN (FULL) -->
+    <!-- 8. STRATEGIC PLAN -->
     <div id="modal-strat-plan" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-strat-plan')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/d6/4f/d1/d64fd1419a443b77fccad4d3443a67c4.jpg');">
-            <h2 class="modal-title-main">Strategic Plan 2029-2033</h2>
+            <h2 class="modal-main-title">Strategic Plan 2029-2033</h2>
         </div>
         <div class="modal-body">
             <h3>5-Year Roadmap for Growth</h3>
@@ -1342,11 +1610,11 @@
         </div>
     </div>
 
-    <!-- 9. ACTS OF KINDNESS (FULL 4 WEEKS LOG) -->
+    <!-- 9. ACTS OF KINDNESS (ALL 4 WEEKS IN FULL) -->
     <div id="modal-kindness-series" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-kindness-series')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/e7/a5/25/e7a525fb5c242f964d563eb373b973fe.jpg');">
-            <h2 class="modal-title-main">Acts of Kindness</h2>
+            <h2 class="modal-main-title">Acts of Kindness</h2>
         </div>
         <div class="modal-body">
             <h3>Weekly Documentation Journal</h3>
@@ -1385,16 +1653,15 @@
             </div>
 
             <h3>General Series Reflection</h3>
-            <p>Over the past four weeks, I have realized that kindness is a muscle that needs to be exercised. At the start (Week 1), my acts were mostly reactionary—returning items that were lost. By Week 4, I was seeking out ways to help, whether it was supporting an online friend or sharing my drink with an elderly woman.</p>
-            <p>These acts, though seemingly minor, built my reputation as a reliable and caring person among my peers. It taught me that character is not built in big moments, but in the small choices we make every day to notice the needs of others. Helping Ken retrieval his bag led to a mentorship; helping Ryzza feel included led to a stronger bond in class. Kindness is an investment that pays off in human connection.</p>
+            <p>Over the past four weeks, I have realized that kindness is a muscle that needs to be exercised. At the start (Week 1), my acts were mostly reactionary—returning items that were lost. By Week 4, I was seeking out ways to help, whether it was supporting an online friend or sharing my drink with an elderly woman. These acts, though seemingly minor, built my reputation as a reliable and caring person among my peers. It taught me that character is not built in big moments, but in the small choices we make every day to notice the needs of others.</p>
         </div>
     </div>
 
-    <!-- 10. PSALM 23 (FULL) -->
+    <!-- 10. PSALM 23 -->
     <div id="modal-psalm-23" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-psalm-23')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/0c/c1/a3/0cc1a3f78c65efaa6c7772deabb922f1.jpg');">
-            <h2 class="modal-title-main">Psalm 23 of My Life</h2>
+            <h2 class="modal-main-title">Psalm 23 of My Life</h2>
         </div>
         <div class="modal-body">
             <h3>Part 1: Me as a Shepherd and a Sheep</h3>
@@ -1444,11 +1711,11 @@
         </div>
     </div>
 
-    <!-- 11. 5S (FULL LOG) -->
+    <!-- 11. 5S DISCIPLINE -->
     <div id="modal-five-s" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-five-s')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg');">
-            <h2 class="modal-title-main">5S in My Life</h2>
+            <h2 class="modal-main-title">5S in My Life</h2>
         </div>
         <div class="modal-body">
             <h3>Student Assistant Log</h3>
@@ -1468,11 +1735,11 @@
         </div>
     </div>
 
-    <!-- 12. 5C'S (FULL SECTIONS) -->
+    <!-- 12. MY 5C'S (ALL PARAGRAPHS IN FULL) -->
     <div id="modal-five-cs" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-five-cs')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/aa/44/8c/aa448c70cf77a312d84413d16206ac2f.jpg');">
-            <h2 class="modal-title-main">My 5C's Reflections</h2>
+            <h2 class="modal-main-title">My 5C's Reflections</h2>
         </div>
         <div class="modal-body">
             <h3>The Southville Values in My Life</h3>
@@ -1518,11 +1785,11 @@
     <div id="modal-achievements" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-achievements')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/81/b7/5f/81b75f06a48722ed96442e17474b14c3.jpg');">
-            <h2 class="modal-title-main">Academic Achievements</h2>
+            <h2 class="modal-main-title">Academic Achievements</h2>
         </div>
         <div class="modal-body">
             <h3>Honors and Recognition</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;">
                 <div class="content-card"><h5>Graduated Salutatorian</h5><p>Grade 12 Graduation ranking, recognizing top-tier academic performance and consistent dedication.</p></div>
                 <div class="content-card"><h5>Highest Honor</h5><p>Awarded for excellence in all academic subjects with exceptional grade point averages.</p></div>
                 <div class="content-card"><h5>Consistent Honors</h5><p>Maintained a position in the honors list throughout every school year in high school.</p></div>
@@ -1533,230 +1800,174 @@
         </div>
     </div>
 
-    <!-- 14. ABOUT ME (FULL) -->
+    <!-- 14. ABOUT ME MODAL (SYMMETRY) -->
     <div id="modal-about-me" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-about-me')">✕</button>
-        <div class="modal-body">
-            <div class="about-wrap">
-                <div class="about-side">
-                    <div class="profile-pfp"></div>
-                    <h2>Sophia Rodina Sahagun</h2>
-                    <p style="color:var(--netflix-red); font-weight:bold; margin-bottom:20px;">BS Information Technology</p>
-                    <div class="about-socials">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                    </div>
+        <div class="modal-body" style="padding-top:120px;">
+            <div style="display:flex; gap:60px; align-items:flex-start;">
+                <div style="flex-shrink:0;">
+                    <div style="width:350px; height:350px; border-radius:50%; border:10px solid var(--netflix-red); background:url('https://cdn.discordapp.com/attachments/981254035568996394/1421149956395372595/Screenshot_20250926_230216_Gallery.jpg?ex=68d7fc89&is=68d6ab09&hm=cff2fc5ce09d6216ed0e9e9e114b43fcfc28f81073a6e1a3bb42a75e7c6ce2e3&') center/cover;"></div>
+                    <h2 style="margin-top:30px; font-size:2.5rem; text-align:center;">Sophia Sahagun</h2>
+                    <p style="text-align:center; color:var(--netflix-red); font-weight:bold; letter-spacing:2px;">BS IT STUDENT</p>
                 </div>
-                <div class="about-info">
-                    <h3>About My Journey</h3>
-                    <p>Hello! Welcome to my online portfolio. I’m an 18-year-old first-year college student pursuing a <strong>Bachelor of Science in Information Technology</strong>. I’m truly happy to have you here as I share my journey, my personal growth, and the steps I'm taking toward my dreams in the tech field.</p>
+                <div style="flex:1;">
+                    <h3>Personal Narrative</h3>
+                    <p>Hello! Welcome to my online portfolio. I’m an 18-year-old first-year college student pursuing a Bachelor of Science in Information Technology. I’m truly happy to have you here as I share my journey, my personal growth, and the steps I'm taking toward my dreams in the tech field.</p>
                     <p>This portfolio is more than a collection of school projects; it's a reflection of who I am, what I value, and my aspirations for the future. You'll find my written works, activities, and experiences that showcase my growth both academically and personally.</p>
-                    <blockquote>My dream is to pursue a career in Information Technology, and this is only the beginning of that path. Feel free to explore my work and join me as I continue to learn, grow, and take steady steps toward becoming the best version of myself.</blockquote>
+                    <p>My dream is to pursue a career in Information Technology, and this is only the beginning of that path. Feel free to explore my work and join me as I continue to learn, grow, and take steady steps toward becoming the best version of myself.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 15. TOWPEP ASSEMBLY GALLERY (FULL) -->
+    <!-- GALLERIES (FULL MODALS) -->
     <div id="modal-gal-towpep" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-gal-towpep')">✕</button>
         <div class="modal-body">
-            <h3>TOWPEP Assembly Showcase</h3>
+            <h3>TOWPEP Assembly Gallery</h3>
             <div class="gallery-box">
                 <div class="main-media-display" id="disp-towpep">
                     <img src="portfolio/image-3.png">
                 </div>
                 <div class="thumb-strip">
-                    <div class="thumb-box active-thumb" style="background-image:url('portfolio/image-3.png')" data-type="image" onclick="swapMedia('disp-towpep', this)"></div>
-                    <div class="thumb-box" style="background-image:url('portfolio/20250807_133735.jpg')" data-type="image" onclick="swapMedia('disp-towpep', this)"></div>
-                    <div class="thumb-box" style="background-image:url('portfolio/20250807_162113.jpg')" data-type="image" onclick="swapMedia('disp-towpep', this)"></div>
-                    <div class="thumb-box" style="background-image:url('portfolio/20250807_164044.webp')" data-type="image" onclick="swapMedia('disp-towpep', this)"></div>
-                    <div class="thumb-box" style="background-image:url('portfolio/20250807_174240.jpg')" data-type="image" onclick="swapMedia('disp-towpep', this)"></div>
+                    <div class="thumb-box active-thumb" style="background-image:url('portfolio/image-3.png')" onclick="swapMedia('disp-towpep', this)"></div>
+                    <div class="thumb-box" style="background-image:url('portfolio/20250807_133735.jpg')" onclick="swapMedia('disp-towpep', this)"></div>
+                    <div class="thumb-box" style="background-image:url('portfolio/20250807_162113.jpg')" onclick="swapMedia('disp-towpep', this)"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 16. MUFTI DAY GALLERY (FULL) -->
     <div id="modal-gal-mufti" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-gal-mufti')">✕</button>
         <div class="modal-body">
-            <h3>Mufti Day Showcase</h3>
-            <div class="gallery-box">
-                <div class="main-media-display" id="disp-mufti">
-                    <img src="portfolio/FB_IMG_1763550293433.jpg">
-                </div>
-                <div class="thumb-strip">
-                    <div class="thumb-box active-thumb" style="background-image:url('portfolio/FB_IMG_1763550293433.jpg')" data-type="image" onclick="swapMedia('disp-mufti', this)"></div>
-                    <div class="thumb-box" style="background-image:url('portfolio/1.webp')" data-type="image" onclick="swapMedia('disp-mufti', this)"></div>
-                    <div class="thumb-box" style="background-image:url('portfolio/5.webp')" data-type="image" onclick="swapMedia('disp-mufti', this)"></div>
-                    <div class="thumb-box" style="background-image:url('portfolio/10.webp')" data-type="image" onclick="swapMedia('disp-mufti', this)"></div>
-                    <div class="thumb-box" style="background-image:url('portfolio/16.webp')" data-type="image" onclick="swapMedia('disp-mufti', this)"></div>
-                </div>
+            <h3>Mufti Day Gallery</h3>
+            <div class="main-media-display" id="disp-mufti">
+                <img src="portfolio/FB_IMG_1763550293433.jpg">
+            </div>
+            <div class="thumb-strip">
+                <div class="thumb-box active-thumb" style="background-image:url('portfolio/FB_IMG_1763550293433.jpg')" onclick="swapMedia('disp-mufti', this)"></div>
+                <div class="thumb-box" style="background-image:url('portfolio/1.webp')" onclick="swapMedia('disp-mufti', this)"></div>
             </div>
         </div>
     </div>
 
-    <!-- 17. PMO ASSEMBLY GALLERY (FULL) -->
     <div id="modal-gal-pmo" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-gal-pmo')">✕</button>
         <div class="modal-body">
-            <h3>Peer Mentor Organization</h3>
-            <div class="gallery-box">
-                <div class="main-media-display" id="disp-pmo">
-                    <img src="portfolio/01.webp">
-                </div>
-                <div class="thumb-strip">
-                    <div class="thumb-box active-thumb" style="background-image:url('portfolio/01.webp')" data-type="image" onclick="swapMedia('disp-pmo', this)"></div>
-                    <div class="thumb-box" style="background-image:url('portfolio/02.webp')" data-type="image" onclick="swapMedia('disp-pmo', this)"></div>
-                    <div class="thumb-box" style="background-image:url('portfolio/05.webp')" data-type="image" onclick="swapMedia('disp-pmo', this)"></div>
-                    <div class="thumb-box" style="background-image:url('portfolio/08.webp')" data-type="image" onclick="swapMedia('disp-pmo', this)"></div>
-                </div>
+            <h3>PMO Assembly Gallery</h3>
+            <div class="main-media-display" id="disp-pmo">
+                <img src="portfolio/01.webp">
             </div>
-        </div>
-    </div>
-
-   <!-- PRESENTATION MODAL -->
-<div id="modal-gal-presentation" class="modal-fullscreen">
-    <button class="close-modal-circle" onclick="closeModal('modal-gal-presentation')">✕</button>
-
-    <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg');">
-        <h2 class="modal-main-title">Presentation Showcase</h2>
-    </div>
-
-    <div class="modal-body">
-
-        <h3>Presentation Gallery</h3>
-
-        <div class="gallery-box">
-
-            <!-- MAIN DISPLAY -->
-            <div class="main-media-display" id="presentation-main">
-
-                <!-- VIDEO LINK REPLACED PLAYER -->
-                <a href="https://drive.google.com/drive/u/0/folders/1BLI1p6mXEdXDNcdZ4eAyzBwIlw678Xba" target="_blank" style="text-decoration:none; color:white; display:flex; flex-direction:column; align-items:center; gap:20px;">
-                    <i class="fas fa-play-circle" style="font-size:5rem; color:var(--netflix-red);"></i>
-                    <span style="font-size:1.5rem; font-weight:bold; text-transform:uppercase; letter-spacing:2px;">Click to Watch Presentation</span>
-                </a>
-
-            </div>
-
-            <!-- THUMBNAILS -->
             <div class="thumb-strip">
-
-                <!-- VIDEO THUMB -->
-                 
-                 <div class="thumb-box" style="background-image:url('portfolio/649522874_4376167539376910_8482921962761084191_n.jpg')" data-type="image" onclick="swapMedia('disp-mufti', this)"></div>
-                
-                <div class="thumb-box active-thumb"
-                     style="background-image:url('https://img.icons8.com/ios-filled/500/video.png')"
-                     onclick="showPresentationMedia('video', '', this)">
-                </div>
-
-                <!-- IMAGE 1 -->
-                <div class="thumb-box"
-                     style="background-image:url('images/p1.jpg')"
-                     onclick="showPresentationMedia('img','images/p1.jpg', this)">
-                </div>
-
-                <!-- IMAGE 2 -->
-                <div class="thumb-box"
-                     style="background-image:url('images/p2.jpg')"
-                     onclick="showPresentationMedia('img','images/p2.jpg', this)">
-                </div>
-
-                <!-- IMAGE 3 -->
-                <div class="thumb-box"
-                     style="background-image:url('images/p3.jpg')"
-                     onclick="showPresentationMedia('img','images/p3.jpg', this)">
-                </div>
-
+                <div class="thumb-box active-thumb" style="background-image:url('portfolio/01.webp')" onclick="swapMedia('disp-pmo', this)"></div>
+                <div class="thumb-box" style="background-image:url('portfolio/02.webp')" onclick="swapMedia('disp-pmo', this)"></div>
             </div>
-
         </div>
-
     </div>
-</div>
 
-    <!-- 
-    ==========================================================================
-       JAVASCRIPT LOGIC
-    ==========================================================================
-    -->
+    <div id="modal-gal-presentation" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-gal-presentation')">✕</button>
+        <div class="modal-body">
+            <h3>Presentation Activity</h3>
+            <div class="main-media-display" style="flex-direction:column;">
+                <i class="fas fa-play-circle" style="font-size:6rem; color:var(--netflix-red); margin-bottom:30px;"></i>
+                <a href="https://drive.google.com/drive/u/0/folders/1BLI1p6mXEdXDNcdZ4eAyzBwIlw678Xba" target="_blank" style="text-decoration:none; color:white; font-size:1.8rem; font-weight:900; background:var(--netflix-red); padding:15px 40px; border-radius:4px;">Watch Presentation Folder</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. FOOTER -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#activities-sec">Activities</a></li>
+                    <li><a href="#reflections-sec">Reflections</a></li>
+                    <li><a href="#galleries-sec">Galleries</a></li>
+                    <li><a href="#about-sec">About Me</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Programs</h4>
+                <ul>
+                    <li><a href="#">Information Technology</a></li>
+                    <li><a href="#">Southville International</a></li>
+                    <li><a href="#">Student Assistant Program</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Organizations</h4>
+                <ul>
+                    <li><a href="#">SYNC:D Dance Troupe</a></li>
+                    <li><a href="#">Peer Mentor Organization</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Contact Support</a></li>
+                    <li><a href="#">Resource Center</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Sophia Rodina Sahagun Portfolio. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 7. SCRIPTS -->
     <script>
-
-        function showPresentationMedia(type, src, el) {
-            const container = document.getElementById("presentation-main");
-
-            // SWITCH CONTENT
-            if (type === "video") {
-                container.innerHTML = `
-                    <a href="https://drive.google.com/drive/u/0/folders/1BLI1p6mXEdXDNcdZ4eAyzBwIlw678Xba" target="_blank" style="text-decoration:none; color:white; display:flex; flex-direction:column; align-items:center; gap:20px;">
-                        <i class="fas fa-play-circle" style="font-size:5rem; color:var(--netflix-red);"></i>
-                        <span style="font-size:1.5rem; font-weight:bold; text-transform:uppercase; letter-spacing:2px;">Click to Watch Presentation</span>
-                    </a>
-                `;
-            } else {
-                container.innerHTML = `<img src="${src}" alt="presentation image">`;
-            }
-
-            // ACTIVE THUMB UI
-            document.querySelectorAll("#modal-gal-presentation .thumb-box")
-                .forEach(t => t.classList.remove("active-thumb"));
-
-            el.classList.add("active-thumb");
-        }
-
-
-        function closeModal(id) {
-            const modal = document.getElementById(id);
-            modal.classList.remove('active');
-            
-            // Wait for transition before hiding element
-            setTimeout(() => {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }, 500);
-        }
-
         /**
-         * Hide the welcome screen with transition
+         * Hide Welcome Screen
          */
         function hideWelcome() {
             const overlay = document.getElementById('welcome-overlay');
             overlay.classList.add('fade-out');
-            document.body.style.overflow = 'auto'; // Allow scrolling once entered
+            document.body.style.overflow = 'auto';
             setTimeout(() => {
                 overlay.style.display = 'none';
-            }, 1200);
+            }, 1500);
         }
 
         /**
-         * Header scroll effect
+         * Modal Management
+         */
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 50);
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 600);
+        }
+
+        /**
+         * Header Scroll Transition
          */
         window.onscroll = function() {
             const header = document.getElementById('site-header');
-            if (window.pageYOffset > 80) {
+            if (window.pageYOffset > 50) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
             }
         };
-
-        /**
-         * Modal Management System
-         */
-        function openModal(id) {
-            const modal = document.getElementById(id);
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Stop background scrolling
-            
-            // Allow browser to render display:block before adding opacity
-            setTimeout(() => {
-                modal.classList.add('active');
-            }, 10);
-        }
 
         /**
          * Carousel Slider Logic
@@ -1768,43 +1979,40 @@
         }
 
         /**
-         * Universal Media Swapper (Images & Videos)
+         * Gallery Swapper
          */
         function swapMedia(containerId, thumb) {
             const container = document.getElementById(containerId);
-            const imgTarget = container.querySelector('img');
-            const type = thumb.getAttribute('data-type');
-
-            // Visual active feedback for thumbnails
+            const img = container.querySelector('img');
             const parentStrip = thumb.parentElement;
+            
+            // UI Update
             parentStrip.querySelectorAll('.thumb-box').forEach(t => t.classList.remove('active-thumb'));
             thumb.classList.add('active-thumb');
 
-            // Fade out current view briefly
-            if(imgTarget) imgTarget.style.opacity = '0';
-
+            // Image Update with fade
+            img.style.opacity = '0';
             setTimeout(() => {
                 const source = thumb.style.backgroundImage.slice(5, -2).replace(/"/g, "");
-                if (imgTarget) {
-                    imgTarget.style.display = 'block';
-                    imgTarget.src = source;
-                    imgTarget.style.opacity = '1';
-                }
-            }, 400);
+                img.src = source;
+                img.style.opacity = '1';
+            }, 300);
         }
 
         /**
-         * Sound effects for Netflix immersion
+         * Sound Trigger on Hover
          */
         document.addEventListener('mouseover', (e) => {
-            if (e.target.closest('.item-card')) {
-                const hoverSound = document.getElementById('sound-hover');
-                hoverSound.currentTime = 0;
-                hoverSound.volume = 0.2;
-                hoverSound.play().catch(() => {});
+            if (e.target.closest('.item-card') || e.target.closest('.thumb-box')) {
+                const sound = document.getElementById('sound-hover');
+                sound.currentTime = 0;
+                sound.volume = 0.15;
+                sound.play().catch(() => {});
             }
         });
 
+        // Initialize state
+        document.body.style.overflow = 'hidden';
     </script>
 </body>
 </html>
