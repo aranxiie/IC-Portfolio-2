@@ -1617,8 +1617,7 @@
         </div>
     </div>
 
-    <!-- 18. PRESENTATION ACTIVITY (SEPARATE CATEGORY) -->
-   <!-- PRESENTATION VIDEO MODAL -->
+   <!-- PRESENTATION MODAL (FULLY FIXED) -->
 <div id="modal-gal-presentation" class="modal-fullscreen">
     <button class="close-modal-circle" onclick="closeModal('modal-gal-presentation')">✕</button>
 
@@ -1628,44 +1627,53 @@
 
     <div class="modal-body">
 
-        <h3>Presentation Video</h3>
+        <h3>Presentation Gallery</h3>
 
         <div class="gallery-box">
-            <div class="main-media-display">
 
-                <!-- ✅ THIS IS THE FIX -->
-                <video id="presentation-video" controls preload="metadata">
+            <!-- MAIN DISPLAY -->
+            <div class="main-media-display" id="presentation-main">
+
+                <!-- DEFAULT = VIDEO -->
+                <video id="presentation-video" controls>
                     <source src="videos/presentation.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
                 </video>
-</div>
-                </div>
-                <div class="thumb-strip">
-                    <!-- THUMBNAILS FOR THE MEDIA -->
-                    <div class="thumb-box active-thumb" 
-                         style="background-image:url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg')" 
-                         data-type="video" 
-                         data-src="portfolio/presentation.mp4" 
-                         onclick="swapMedia('disp-presentation', this)"></div>
-                         
-                    <div class="thumb-box" 
-                         style="background-image:url('portfolio/649522874_4376167539376910_8482921962761084191_n.jpg')" 
-                         data-type="image" 
-                         onclick="swapMedia('disp-presentation', this)"></div>
-                         
-                    <div class="thumb-box" 
-                         style="background-image:url('https://i.pinimg.com/1200x/b4/8d/9e/b48d9e65b6d6c08cd03f6529c49fd3b4.jpg')" 
-                         data-type="video" 
-                         data-src="videos/presentation.mp4" 
-                         onclick="swapMedia('disp-presentation', this)"></div>
-                </div>
+
             </div>
-            <div class="content-card">
-                <h5>Activity Details</h5>
-                <p>This section documents the oral presentation regarding Information Technology trends and personal academic growth. Through this activity, I enhanced my communication skills and technical knowledge, learning to explain complex concepts in a simplified manner.</p>
+
+            <!-- THUMBNAILS -->
+            <div class="thumb-strip">
+
+                <!-- VIDEO THUMB -->
+                <div class="thumb-box active-thumb"
+                     style="background-image:url('https://img.icons8.com/ios-filled/500/video.png')"
+                     onclick="showPresentationMedia('video', this)">
+                </div>
+
+                <!-- IMAGE 1 -->
+                <div class="thumb-box"
+                     style="background-image:url('images/p1.jpg')"
+                     onclick="showPresentationMedia('img','images/p1.jpg', this)">
+                </div>
+
+                <!-- IMAGE 2 -->
+                <div class="thumb-box"
+                     style="background-image:url('images/p2.jpg')"
+                     onclick="showPresentationMedia('img','images/p2.jpg', this)">
+                </div>
+
+                <!-- IMAGE 3 -->
+                <div class="thumb-box"
+                     style="background-image:url('images/p3.jpg')"
+                     onclick="showPresentationMedia('img','images/p3.jpg', this)">
+                </div>
+
             </div>
+
         </div>
+
     </div>
+</div>
 
     <!-- 
     ==========================================================================
@@ -1673,6 +1681,46 @@
     ==========================================================================
     -->
     <script>
+
+        function showPresentationMedia(type, src, el) {
+    const container = document.getElementById("presentation-main");
+
+    // 🔴 stop any playing video
+    const existingVideo = container.querySelector("video");
+    if (existingVideo) {
+        existingVideo.pause();
+    }
+
+    // SWITCH CONTENT
+    if (type === "video") {
+        container.innerHTML = `
+            <video controls autoplay>
+                <source src="videos/presentation.mp4" type="video/mp4">
+            </video>
+        `;
+    } else {
+        container.innerHTML = `<img src="${src}" alt="presentation image">`;
+    }
+
+    // ACTIVE THUMB UI
+    document.querySelectorAll("#modal-gal-presentation .thumb-box")
+        .forEach(t => t.classList.remove("active-thumb"));
+
+    el.classList.add("active-thumb");
+}
+
+
+// 🔥 FIX: STOP VIDEO WHEN MODAL CLOSES
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    modal.classList.remove('active');
+
+    const video = modal.querySelector("video");
+    if (video) {
+        video.pause();
+        video.currentTime = 0;
+    }
+}
         /**
          * Hide the welcome screen with transition
          */
