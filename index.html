@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Portfolio - Sophia Sahagun</title>
+
+    <!-- EXTERNAL ASSETS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* 
+        ==========================================================================
+           1. MASTER DESIGN SYSTEM (NETFLIX CINEMATIC V2)
+        ==========================================================================
+        */
+
+        :root {
+            --netflix-red: #e50914;
+            --netflix-black: #141414;
+            --netflix-dark: #181818;
+            --netflix-grey: #2f2f2f;
+            --text-main: #ffffff;
+            --text-secondary: #b3b3b3;
+            --transition-main: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: 0.2s ease;
+            --card-width: 300px;
+            --card-height: 169px;
+            --modal-bg: #141414;
+            --shadow-standard: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* --- GLOBAL RESET --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--netflix-black);
+            color: var(--text-main);
+            font-family: 'Roboto', Arial, sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 
+        --------------------------------------------------------------------------
+           2. WELCOME OVERLAY (GITHUB COMPATIBLE)
+        --------------------------------------------------------------------------
+        */
+        #welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--netflix-black);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            transition: opacity 1.2s ease;
+        }
+
+        #welcome-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .welcome-container {
+            max-width: 900px;
+            text-align: center;
+            animation: welcomeFadeIn 1.8s ease;
+        }
+
+        .welcome-logo {
+            color: var(--netflix-red);
+            font-size: 6.5rem;
+            font-weight: 900;
+            letter-spacing: -4px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            font-family: 'Roboto', sans-serif;
+            filter: drop-shadow(0 0 15px rgba(229, 9, 20, 0.3));
+        }
+
+        .welcome-text {
+            margin-bottom: 50px;
+        }
+
+        .welcome-text p {
+            font-size: 1.25rem;
+            color: #f1f1f1;
+            margin-bottom: 30px;
+            line-height: 1.9;
+            text-align: justify;
+            font-weight: 300;
+        }
+
+        .btn-enter {
+            background-color: var(--netflix-red);
+            color: white;
+            border: none;
+            padding: 22px 95px;
+            font-size: 1.6rem;
+            font-weight: 900;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 30px rgba(229, 9, 20, 0.5);
+        }
+
+        .btn-enter:hover {
+            background-color: #ff0a16;
+            transform: scale(1.06);
+            box-shadow: 0 0 50px rgba(229, 9, 20, 0.6);
+        }
+
+        @keyframes welcomeFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* 
+        --------------------------------------------------------------------------
+           3. MASTER NAVIGATION
+        --------------------------------------------------------------------------
+        */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 60px;
+            z-index: 2000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+            transition: all 0.5s ease;
+        }
+
+        header.scrolled {
+            background-color: var(--netflix-black);
+            padding: 15px 60px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.8);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo h1 {
+            color: var(--netflix-red);
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-right: 50px;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--text-secondary);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .search-container {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid #666;
+            padding: 7px 15px;
+            color: white;
+            border-radius: 4px;
+            width: 280px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-container input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+        }
+
+        .search-container input:focus { outline: none; }
+
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            background: url('Portfolio images/Screenshot_20250926_230216_Gallery.jpg') center/cover;
+            cursor: pointer;
+            border: 1px solid #555;
+            transition: transform 0.2s;
+        }
+
+        .profile-img:hover { transform: scale(1.1); }
+
+        /* 
+        --------------------------------------------------------------------------
+           4. HERO SECTION (MAIN FEATURE)
+        --------------------------------------------------------------------------
+        */
+        .hero {
+            position: relative;
+            height: 95vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 60px;
+            background-size: cover;
+            background-position: center;
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('Portfolio images/89960c808b61f0148faf270fd69819ce.jpg');
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to top, var(--netflix-black) 5%, transparent 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+        }
+
+        .feature-badge {
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #eee;
+            font-size: 1.3rem;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .hero-title {
+            font-size: 6.5rem;
+            font-weight: 900;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 40px rgba(0,0,0,1);
+            line-height: 0.9;
+        }
+
+        .hero-info {
+            margin-bottom: 30px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .match-pct { color: #46d369; font-weight: 900; }
+        .age-rating { border: 1px solid rgba(255,255,255,0.6); padding: 2px 10px; font-size: 1.1rem; }
+
+        .hero-desc {
+            font-size: 1.55rem;
+            margin-bottom: 50px;
+            text-shadow: 1px 1px 15px rgba(0,0,0,1);
+            line-height: 1.4;
+            color: #ffffff;
+            font-weight: 400;
+            max-width: 750px;
+        }
+
+        .hero-controls {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-action {
+            padding: 18px 55px;
+            border-radius: 4px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s var(--transition-main);
+        }
+
+        .btn-white { background-color: white; color: black; }
+        .btn-grey { background-color: rgba(109, 109, 110, 0.8); color: white; }
+        
+        .btn-action:hover { filter: brightness(0.85); transform: scale(1.05); }
+
+        /* 
+        --------------------------------------------------------------------------
+           5. BROWSING CAROUSELS
+        --------------------------------------------------------------------------
+        */
+        .section-row {
+            padding: 40px 0;
+            position: relative;
+        }
+
+        .section-title {
+            padding: 0 60px;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e5e5e5;
+        }
+
+        .carousel-container {
+            position: relative;
+            padding: 0 60px;
+        }
+
+        .carousel-view {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 25px 0 70px 0;
+            scrollbar-width: none; 
+            scroll-behavior: smooth;
+        }
+
+        .carousel-view::-webkit-scrollbar { display: none; }
+
+        .card {
+            min-width: var(--card-width);
+            height: var(--card-height);
+            background-color: #222;
+            border-radius: 4px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+        }
+
+        .card:hover {
+            transform: scale(1.4);
+            z-index: 500;
+            box-shadow: 0 20px 50px rgba(0,0,0,1);
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,1) 5%, transparent 60%);
+            border-radius: 4px;
+        }
+
+        .card-label {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-shadow: 2px 2px 10px black;
+            transition: opacity 0.2s;
+        }
+
+        .card-hover-detail {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 15px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 2;
+            background: linear-gradient(to top, rgba(20,20,20,1) 80%, transparent);
+        }
+
+        .card:hover .card-hover-detail { opacity: 1; }
+        .card:hover .card-label { opacity: 0; }
+
+        .icon-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .icon-bar i {
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(255,255,255,0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            background-color: rgba(42,42,42,0.8);
+            transition: all 0.2s;
+        }
+
+        .icon-bar i:hover { border-color: white; background-color: var(--netflix-grey); }
+
+        .meta-tags { font-size: 0.95rem; color: #46d369; font-weight: 900; margin-bottom: 5px; }
+
+        .scroll-control {
+            position: absolute;
+            top: 25px;
+            bottom: 70px;
+            width: 55px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            font-size: 3rem;
+            cursor: pointer;
+            z-index: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-container:hover .scroll-control { opacity: 1; }
+        .scroll-control.left-btn { left: 0; }
+        .scroll-control.right-btn { right: 0; }
+
+        /* 
+        --------------------------------------------------------------------------
+           6. FULLSCREEN MODAL ARCHITECTURE
+        --------------------------------------------------------------------------
+        */
+        .modal-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--netflix-black);
+            z-index: 5000;
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity var(--transition-main);
+        }
+
+        .modal-screen.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .modal-hero {
+            height: 70vh;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 80px 10%;
+        }
+
+        .modal-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to top, var(--netflix-black) 5%, transparent 100%);
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 35px;
+            right: 50px;
+            background: #000;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.4);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            font-size: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 7000;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover { background: #222; transform: rotate(90deg); }
+
+        .modal-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 5%;
+            line-height: 2.2;
+        }
+
+        .modal-title {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 30px black;
+        }
+
+        .modal-content h3 {
+            color: var(--netflix-red);
+            font-size: 2.8rem;
+            margin: 80px 0 40px 0;
+            border-left: 10px solid var(--netflix-red);
+            padding-left: 30px;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        .modal-content h4 {
+            font-size: 2rem;
+            margin: 50px 0 25px 0;
+            color: #fff;
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .modal-content p {
+            font-size: 1.35rem;
+            color: #e0e0e0;
+            margin-bottom: 35px;
+            text-align: justify;
+            font-weight: 300;
+        }
+
+        .modal-content blockquote {
+            background: #1a1a1a;
+            padding: 50px;
+            border-left: 8px solid var(--netflix-red);
+            margin: 60px 0;
+            font-size: 1.55rem;
+            font-style: italic;
+            color: #d1d1d1;
+            line-height: 1.8;
+            box-shadow: var(--shadow-standard);
+        }
+
+        /* --- DATA TABLES --- */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 50px 0;
+            background: #1c1c1c;
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 1.3rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .data-table th {
+            background-color: var(--netflix-red);
+            color: white;
+            text-align: left;
+            padding: 30px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .data-table td {
+            padding: 30px;
+            border-bottom: 1px solid #2a2a2a;
+            color: #ccc;
+        }
+
+        .data-table tr:hover { background-color: #222; }
+
+        /* --- LISTS --- */
+        .fancy-list { list-style: none; }
+        .fancy-list li {
+            padding: 25px;
+            background: #222;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.35rem;
+            border-left: 6px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .fancy-list li:hover {
+            transform: translateX(20px);
+            border-left-color: var(--netflix-red);
+            background: #2a2a2a;
+        }
+
+        .pill {
+            background-color: var(--netflix-red);
+            padding: 8px 25px;
+            border-radius: 40px;
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+
+        /* 
+        --------------------------------------------------------------------------
+           7. GALLERY ENGINE (GITHUB PATHS)
+        --------------------------------------------------------------------------
+        */
+        .gallery-viewport {
+            margin-top: 80px;
+        }
+
+        .gallery-main {
+            width: 100%;
+            height: 750px;
+            background: #000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 0 60px rgba(0,0,0,1);
+            border: 1px solid #333;
+        }
+
+        .gallery-main img, .gallery-main video {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: opacity 0.5s;
+        }
+
+        .gallery-thumbs {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 5px 50px 5px;
+        }
+
+        .thumb {
+            min-width: 220px;
+            height: 124px;
+            border: 4px solid transparent;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .thumb::after {
+            content: '';
+            position: absolute;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.4);
+        }
+
+        .thumb.active-thumb { 
+            border-color: var(--netflix-red);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(229, 9, 20, 0.5);
+        }
+
+        .thumb.active-thumb::after { opacity: 0; }
+
+        .play-icon {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2.5rem;
+            z-index: 5;
+            text-shadow: 0 0 20px black;
+        }
+
+        /* 
+        --------------------------------------------------------------------------
+           8. ABOUT ME & ACHIEVEMENTS
+        --------------------------------------------------------------------------
+        */
+        .about-wrap {
+            display: flex;
+            gap: 100px;
+            margin-top: 100px;
+        }
+
+        .about-portrait {
+            flex: 1;
+            text-align: center;
+            position: sticky;
+            top: 140px;
+        }
+
+        .portrait-circle {
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            border: 12px solid var(--netflix-red);
+            background: url('Portfolio images/Screenshot_20250926_230216_Gallery.jpg') center/cover;
+            margin: 0 auto 50px;
+            box-shadow: 0 0 60px rgba(229, 9, 20, 0.6);
+        }
+
+        .social-tray {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            font-size: 3.5rem;
+        }
+
+        .social-tray a { color: #888; transition: all 0.4s; }
+        .social-tray a:hover { color: var(--netflix-red); transform: scale(1.2) rotate(10deg); }
+
+        .about-bio { flex: 2; }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .fancy-card {
+            background: #222;
+            padding: 60px 40px;
+            border-radius: 20px;
+            transition: all 0.5s ease;
+            border-top: 8px solid var(--netflix-red);
+            box-shadow: var(--shadow-standard);
+        }
+
+        .fancy-card:hover {
+            background: #2a2a2a;
+            transform: translateY(-20px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+
+        .fancy-card i { font-size: 4rem; color: var(--netflix-red); margin-bottom: 30px; display: block; }
+        .fancy-card h4 { font-size: 1.8rem; margin-bottom: 20px; }
+
+    </style>
+</head>
+<body>
+
+    <!-- 1. WELCOME OVERLAY (FULL TEXT) -->
+    <div id="welcome-overlay">
+        <div class="welcome-container">
+            <div class="welcome-logo">Sophia</div>
+            <div class="welcome-text">
+                <p>Welcome to my professional portfolio website! This site is a collection of my school activities, reflections, and experiences. It was made to organize my work in one place, so it is easier to share and look back on everything I have done.</p>
+                <p>Here, you will find different activities that I completed in class. Each one includes a short description of what the task was about and a reflection where I explain what I learned from it. This way, the portfolio is not only a record of my work but also a record of my growth as a student.</p>
+                <p>The portfolio is arranged in a way that makes it simple to explore. You can go through the activities one by one, just like browsing through a collection. Each section tells a story about my progress—what I was asked to do, how I responded, and what lessons I took with me afterward.</p>
+                <p>This portfolio is more than just a requirement for school. It also serves as a guide for me to see how much I have improved and what I still need to work on. It shows how I am slowly building my knowledge, skills, and character, step by step, as I continue my studies.</p>
+                <p>Feel free to explore and read through my activities and reflections. I hope this portfolio gives you a clear picture of my journey as a student and how I am working toward my goals.</p>
+            </div>
+            <button class="btn-enter" onclick="startApp()">Enter Portfolio</button>
+        </div>
+    </div>
+
+    <audio id="sfx-hover" src="https://assets.mixkit.co/sfx/preview/mixkit-interface-hint-notification-911.mp3" preload="auto"></audio>
+
+    <!-- 2. HEADER NAVIGATION -->
+    <header id="site-header">
+        <div class="nav-left">
+            <div class="nav-logo">
+                <h1 onclick="window.scrollTo({top:0, behavior:'smooth'})">Sophia</h1>
+            </div>
+            <nav>
+                <a href="#activities-sec">Activities</a>
+                <a href="#reflections-sec">Reflections</a>
+                <a href="#galleries-sec">Galleries</a>
+                <a href="#" onclick="openModal('about-modal'); return false;">About Me</a>
+            </nav>
+        </div>
+        <div class="nav-right">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Titles, reflections, skills...">
+            </div>
+            <div class="profile-img" onclick="openModal('about-modal')"></div>
+        </div>
+    </header>
+
+    <!-- 3. FEATURED HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="feature-badge">Must-Read Reflection</span>
+            <h2 class="hero-title">What's In My Bag?</h2>
+            <div class="hero-info">
+                <span class="match-pct">99% Match</span>
+                <span>2025</span>
+                <span class="age-rating">18+</span>
+                <span>Season 1</span>
+            </div>
+            <div class="hero-desc">
+                Inside my bag are expectations that feel heavier than anything I physically carry. 
+                As the youngest in my family, explore a raw, unfiltered deep-dive into the psychological 
+                weight of familial pressure, excellence, and the fantasy worlds used to survive it.
+            </div>
+            <div class="hero-controls">
+                <button class="btn-action btn-white" onclick="openModal('bag-modal')"><i class="fas fa-play"></i> Read Full Essay</button>
+                <button class="btn-action btn-grey" onclick="openModal('bag-modal')"><i class="fas fa-info-circle"></i> More Info</button>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <!-- 4. ACTIVITIES ROW -->
+        <section id="activities-sec" class="section-row">
+            <h2 class="section-title">📚 Institutional Course: Season 1</h2>
+            <div class="carousel-container">
+                <button class="scroll-control left-btn" onclick="slide(this, -1)"><i class="fas fa-chevron-left"></i></button>
+                <div class="carousel-view">
+                    
+                    <div class="card" style="background-image:url('Portfolio images/b9598e398a486e6f3be396e4d913e792.jpg')" onclick="openModal('act1-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">Discussion Forum 1</div>
+                        <div class="card-hover-detail">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="meta-tags">New Release</div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="background-image:url('Portfolio images/b0163a93d05a19fbb79790c751b43927.jpg')" onclick="openModal('act2-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">Needs Assessment</div>
+                        <div class="card-hover-detail">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i></div>
+                            <div class="meta-tags">Self-Awareness</div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="background-image:url('Portfolio images/318dedd6095c9b80f86a8c2b23a91341.jpg')" onclick="openModal('act3-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">TOWPEP Assessment</div>
+                        <div class="card-hover-detail">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i></div>
+                            <div class="meta-tags">35 Key Indicators</div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="background-image:url('Portfolio images/71a6723214d3581dbf0534f98f85675c.jpg')" onclick="openModal('act4-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">Convocation Documentation</div>
+                        <div class="card-hover-detail">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i></div>
+                            <div class="meta-tags">Event Log</div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="background-image:url('Portfolio images/b48d9e65b6d6c08cd03f6529c49fd3b4.jpg')" onclick="openModal('actMI-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">Multiple Intelligences</div>
+                        <div class="card-hover-detail">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i></div>
+                            <div class="meta-tags">Personality Profile</div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="background-image:url('Portfolio images/72e7c0785fd01e8512508e5ef29546bb.jpg')" onclick="openModal('actRRR-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">Environmental RRR</div>
+                        <div class="card-hover-detail">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i></div>
+                            <div class="meta-tags">Research & Reduce</div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="background-image:url('Portfolio images/d64fd1419a443b77fccad4d3443a67c4.jpg')" onclick="openModal('strat-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">Strategic Plan</div>
+                        <div class="card-hover-detail">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i></div>
+                            <div class="meta-tags">2029-2033 Roadmap</div>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="scroll-control right-btn" onclick="slide(this, 1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <!-- 5. REFLECTIONS ROW -->
+        <section id="reflections-sec" class="section-row">
+            <h2 class="section-title">🎬 Character Development</h2>
+            <div class="carousel-container">
+                <button class="scroll-control left-btn" onclick="slide(this, -1)"><i class="fas fa-chevron-left"></i></button>
+                <div class="carousel-view">
+
+                    <div class="card" style="background-image:url('Portfolio images/e7a525fb5c242f964d563eb373b973fe.jpg')" onclick="openModal('kindness-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">Acts of Kindness</div>
+                        <div class="card-hover-detail">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i></div>
+                            <div class="meta-tags">Weekly Journal</div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="background-image:url('Portfolio images/0cc1a3f78c65efaa6c7772deabb922f1.jpg')" onclick="openModal('psalm-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">Psalm 23</div>
+                        <div class="card-hover-detail">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i></div>
+                            <div class="meta-tags">Faith Reflection</div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="background-image:url('Portfolio images/71df53feb1a0a8833908e34201b0ba04.jpg')" onclick="openModal('fiveS-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">5S Discipline</div>
+                        <div class="card-hover-detail">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i></div>
+                            <div class="meta-tags">Office Management</div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="background-image:url('Portfolio images/aa448c70cf77a312d84413d16206ac2f.jpg')" onclick="openModal('fiveC-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">The 5C's</div>
+                        <div class="card-hover-detail">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i></div>
+                            <div class="meta-tags">Values Reflection</div>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="scroll-control right-btn" onclick="slide(this, 1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <!-- 6. GALLERIES ROW (FULL LIST) -->
+        <section id="galleries-sec" class="section-row">
+            <h2 class="section-title">📷 Campus Galleries</h2>
+            <div class="carousel-container">
+                <button class="scroll-control left-btn" onclick="slide(this, -1)"><i class="fas fa-chevron-left"></i></button>
+                <div class="carousel-view">
+
+                    <div class="card" style="background-image:url('Portfolio images/649522874_4376167539376910_8482921962761084191_n.jpg')" onclick="openModal('gal-pres-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">Presentation Activity</div>
+                    </div>
+
+                    <div class="card" style="background-image:url('Portfolio images/image-3.png')" onclick="openModal('gal-tow-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">TOWPEP Assembly</div>
+                    </div>
+
+                    <div class="card" style="background-image:url('Portfolio images/FB_IMG_1763550293433.jpg')" onclick="openModal('gal-mufti-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">Mufti Day</div>
+                    </div>
+
+                    <div class="card" style="background-image:url('Portfolio images/01.webp')" onclick="openModal('gal-pmo-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">PMO Assembly</div>
+                    </div>
+
+                </div>
+                <button class="scroll-control right-btn" onclick="slide(this, 1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <!-- 7. ACHIEVEMENTS -->
+        <section class="section-row">
+            <h2 class="section-title">🏆 Academic Excellence</h2>
+            <div class="carousel-container">
+                <div class="carousel-view">
+                    <div class="card" style="background-image:url('Portfolio images/MYXJ_20260302193912272_save (1).jpg')" onclick="openModal('achieve-modal')">
+                        <div class="card-overlay"></div>
+                        <div class="card-label">Dean Lister & Honors</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 
+    ==========================================================================
+       8. MODAL WINDOWS (UNSUMMARIZED CONTENT)
+    ==========================================================================
+    -->
+
+    <!-- BAG REFLECTION MODAL (FULL ESSAY) -->
+    <div id="bag-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('bag-modal')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('Portfolio images/89960c808b61f0148faf270fd69819ce.jpg');">
+            <h2 class="modal-title">What is in my bag?</h2>
+        </div>
+        <div class="modal-content">
+            <h3>The Hidden Expectations</h3>
+            <p>Inside my bag are expectations that feel heavier than anything I physically carry. As the youngest in my family, I am constantly seen as the one with the brightest future ahead. They place their hopes on me—consistent good grades, awards, achievements, excellence in everything I do. At first, their pride felt motivating. But over time, that pride became pressure. The more I achieve, the higher their expectations rise. It never settles. There is no pause, no space to breathe or simply exist without proving something.</p>
+            <p>Every accomplishment becomes a new standard I must maintain and surpass. I am not only chasing their expectations but also competing against my past self. There are responsibilities attached to their belief in me. Responsibilities to succeed, to represent the family well, to not fail publicly. And when I feel myself slipping even slightly, the fear sets in. The fear of disappointing them, the fear of not living up to the image they proudly speak about. Sometimes it feels like everything I’ve built could collapse if I fail just once.</p>
+
+            <h3>The Heaviest Pressure</h3>
+            <p>Expectation is the heaviest for they do not end. They only grow. Each achievement raises the bar higher, and I worry that one day I won’t be able to keep up with the version of myself people admire. I fear reaching a point where I can no longer surpass my previous successes, where I may fall behind. The most suffocating part is the possibility of disappointment. Not just theirs, but my own. I am afraid of being stuck in a place where I can no longer “improve,” where I become less than what I was once believed to be.</p>
+
+            <h3>The Mechanism of Escape</h3>
+            <p>When the weight becomes unbearable, I retreat. I drown myself in fantasy, imagined worlds, stories, scenarios where I am not defined by expectations. It becomes my escape. Since I find it difficult to open up to my family about how overwhelmed I feel, I instead try to silence the chaos in my head with logic. I attempt to reason with myself, constructing practical thoughts to fight the endless “what ifs.” I distract myself with temporary comforts, watching dramas, playing games, consuming stories that allow me to step outside of my own reality. In those moments, I can breathe. Even if it’s only brief, it gives me relief.</p>
+        </div>
+    </div>
+
+    <!-- DISCUSSION FORUM 1 MODAL (FULL) -->
+    <div id="act1-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('act1-modal')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('Portfolio images/b9598e398a486e6f3be396e4d913e792.jpg');">
+            <h2 class="modal-title">Forum 1</h2>
+        </div>
+        <div class="modal-content">
+            <h3>Institutional Beginnings</h3>
+            <h4>1. Why did you choose Southville?</h4>
+            <p>I chose Southville because it has always been my dream school. I’ve admired the uniform for a long time; it really suits my style. On a practical note, Southville is also the closest school to my home, which makes commuting much more convenient and less of a hassle. And lastly, I believe Southville offers a quality education since it is an international school with a good academic reputation.</p>
+            
+            <h4>2. What are my expectations for this class?</h4>
+            <p>I hope to have a meaningful learning experience this semester. I look forward to gaining new knowledge. I also hope the class will be enjoyable, not too stressful or overwhelming, something a bit more relaxed and fun, while still being productive and engaging.</p>
+            
+            <h3>Narrative Reflection</h3>
+            <blockquote>
+                Participating in this discussion forum gave me the chance to look back at why I am here in Southville and what I truly want to achieve in this class. Writing my answer helped me realize that my decision to study here was not just based on convenience, but also on admiration, values, and trust in the school’s quality education. It reminded me that I am in the right place to grow, both academically and personally.
+                <br><br>
+                Reflecting on my expectations also helped me set the tone for the semester. I realized that while I want to challenge myself and gain new knowledge, I also value a learning environment that is balanced—fun, interactive, and engaging, without being overly stressful. This shows that I am aware of my own learning style: I do best when I feel comfortable, motivated, and connected to my classmates and professors.
+            </blockquote>
+        </div>
+    </div>
+
+    <!-- NEEDS ASSESSMENT MODAL (FULL) -->
+    <div id="act2-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('act2-modal')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('Portfolio images/b0163a93d05a19fbb79790c751b43927.jpg');">
+            <h2 class="modal-title">Needs Assessment</h2>
+        </div>
+        <div class="modal-content">
+            <div class="entry-box">
+                <h5>Student Profile</h5>
+                <p><strong>Name:</strong> Sahagun, Sophia Rodina G. | <strong>Course:</strong> BS Information Technology</p>
+                <hr style="border:0; border-top:1px solid #444; margin: 25px 0;">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:50px;">
+                    <div>
+                        <p class="match-pct">Health Indicators</p>
+                        <ul class="fancy-list">
+                            <li>Often have headaches</li>
+                            <li>Not enough sleep</li>
+                            <li>Gets tired easily</li>
+                            <li>Cannot see very well</li>
+                            <li>Often gets sick</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="match-pct">Academic Indicators</p>
+                        <ul class="fancy-list">
+                            <li>Cannot finish given assignment</li>
+                            <li>Interested only in some school subjects</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top:50px;">
+                    <p class="match-pct">Personal & Peer Indicators</p>
+                    <ul class="fancy-list">
+                        <li>Easily angered at times / Gets irritated easily</li>
+                        <li>Afraid to make mistakes / Afraid to recite in class</li>
+                        <li>Feels timid and shy / Unable to express oneself</li>
+                        <li>Feels shy with admirers / Embarrassed around others</li>
+                    </ul>
+                </div>
+                <blockquote style="margin-top:60px;">
+                    "My primary concern is being shy with people. It makes it difficult to interact as I'm unable to approach them and express my thoughts clearly."
+                </blockquote>
+            </div>
+
+            <h3>Critical Reflection</h3>
+            <p>Answering the needs assessment made me more aware of the areas in my life that need improvement. By reflecting on my answers, I realized that many of my struggles are connected, such as lack of sleep leading to tiredness, which then affects my focus on academics. My personal shyness also makes it harder for me to engage in class and build confidence when speaking in front of others.</p>
+            <p>At first, I felt nervous about being honest in the form, but I understood that it was meant to help me, not judge me. By sharing my challenges, I opened the door to possible support from teachers, counselors, and mentors. This activity taught me that it is okay to recognize and admit weaknesses because it is the first step to self-growth. I also realized that shyness and fear of making mistakes are normal, but they can be overcome through practice, self-confidence, and guidance.</p>
+        </div>
+    </div>
+
+    <!-- TOWPEP SCORES MODAL (ALL 35 ITEMS) -->
+    <div id="act3-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('act3-modal')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('Portfolio images/318dedd6095c9b80f86a8c2b23a91341.jpg');">
+            <h2 class="modal-title">TOWPEP Scores</h2>
+        </div>
+        <div class="modal-content">
+            <h3>Effectiveness Indicators</h3>
+            <ul class="fancy-list">
+                <li>1. Demonstrates open-mindedness to new fresh ideas. <span class="pill">5 / 5</span></li>
+                <li>2. Shows candor and truthfulness in actions. <span class="pill">5 / 5</span></li>
+                <li>3. Shows effective personal relations and sensitivity. <span class="pill">5 / 5</span></li>
+                <li>4. Exerts extra effort to accomplish tasks under pressure. <span class="pill">5 / 5</span></li>
+                <li>5. Shows thankfulness for small and big things. <span class="pill">5 / 5</span></li>
+                <li>6. Handles smoothly multiple demands and priorities. <span class="pill">5 / 5</span></li>
+                <li>7. Demonstrates honesty with oneself and others. <span class="pill">5 / 5</span></li>
+                <li>8. Accommodates changes based on feedback. <span class="pill">5 / 5</span></li>
+                <li>9. Exerts effort toward task mastery. <span class="pill">5 / 5</span></li>
+                <li>10. Expresses appreciation for what one has. <span class="pill">5 / 5</span></li>
+                <li>11. Shifts strategy in response to demands. <span class="pill">5 / 5</span></li>
+                <li>12. Demonstrates to be true to who one really is. <span class="pill">5 / 5</span></li>
+                <li>13. Accommodates various perspectives and ideas. <span class="pill">5 / 5</span></li>
+                <li>14. Exerts effort toward task mastery (Consistent). <span class="pill">5 / 5</span></li>
+                <li>15. Lives out one’s passion and achievement of goals. <span class="pill">5 / 5</span></li>
+                <li>16. Looks for opportunities to apply learning. <span class="pill">5 / 5</span></li>
+                <li>17. Shows awareness and sensitivity to feelings of others. <span class="pill">5 / 5</span></li>
+                <li>18. Demonstrates sensitivity and concern for others. <span class="pill">5 / 5</span></li>
+                <li>19. Finds ways to be efficient for completion of tasks. <span class="pill">5 / 5</span></li>
+                <li>20. Involved in self-directed projects or service. <span class="pill">5 / 5</span></li>
+                <li>21. Demonstrates respect for self and others. <span class="pill">5 / 5</span></li>
+                <li>22. Capacity to work with diverse backgrounds. <span class="pill">5 / 5</span></li>
+                <li>23. Works hard and finishes what is started. <span class="pill">5 / 5</span></li>
+                <li>24. Drive to keep going when things get tough. <span class="pill">5 / 5</span></li>
+                <li>25. Shows humility in success. <span class="pill">5 / 5</span></li>
+                <li>26. Admits mistakes and confronts unethical actions. <span class="pill">5 / 5</span></li>
+                <li>27. Works out blocks to achieve goals. <span class="pill">5 / 5</span></li>
+                <li>28. Accepts one’s weaknesses and limitations. <span class="pill">5 / 5</span></li>
+                <li>29. Commits to perform assigned duties. <span class="pill">5 / 5</span></li>
+                <li>30. Persists despite interruptions or setbacks. <span class="pill">5 / 5</span></li>
+                <li>31. Demonstrates consistency in words and actions. <span class="pill">5 / 5</span></li>
+                <li>32. Feels internal sense of direction and motivation. <span class="pill">5 / 5</span></li>
+                <li>33. Chooses ethical path in midst of opposition. <span class="pill">5 / 5</span></li>
+                <li>34. Gets things done with sense of urgency. <span class="pill">5 / 5</span></li>
+                <li>35. Honors spoken word and keeps true to promises. <span class="pill">5 / 5</span></li>
+            </ul>
+            <h3>TOWPEP Reflection</h3>
+            <p>Completing the TOWPEP Questionnaire made me realize the importance of self-assessment and self-awareness. By rating myself, I was able to see how I value qualities like honesty, perseverance, gratitude, and responsibility. I noticed that I often strive to give my best in every task, show respect to others, and remain truthful even in difficult situations. This reflection gave me a sense of pride because it showed that I am aware of my personal strengths. At the same time, it reminded me that there is always room for growth. For example, while I scored myself high in adaptability and perseverance, I know that real-life challenges may test these traits, and I must continue to practice them in different situations.</p>
+        </div>
+    </div>
+
+    <!-- CONVOCATION MODAL (FULL LOGS) -->
+    <div id="act4-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('act4-modal')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('Portfolio images/71a6723214d3581dbf0534f98f85675c.jpg');">
+            <h2 class="modal-title">Convocation</h2>
+        </div>
+        <div class="modal-content">
+            <h3>Event Documentation</h3>
+            <p>The TOWPEP Convocation was a meaningful event that brought together students, mentors, and faculty to focus on growth, reflection, and community. The program highlighted the importance of not just academics but also values, discipline, and self-discovery. I felt inspired by how the event connected directly to the 5Cs—Character, Competence, Commitment, Creativity, and Collaboration—and encouraged us to see them as lifelong guides in both studies and life.</p>
+
+            <h4>A. Growth Mindset</h4>
+            <table class="data-table">
+                <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
+                <tr><td>Adaptability</td><td>5.00</td><td>Very High</td></tr>
+                <tr><td>Openness to Learn</td><td>5.00</td><td>Very High</td></tr>
+            </table>
+
+            <h4>B. Character Attributes</h4>
+            <table class="data-table">
+                <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
+                <tr><td>Authenticity / Empathy</td><td>5.00</td><td>Very High</td></tr>
+                <tr><td>Good Manners / Professionalism</td><td>5.00</td><td>Very High</td></tr>
+                <tr><td>Integrity / Humility / Responsibility</td><td>5.00</td><td>Very High</td></tr>
+                <tr><td>Trustworthiness</td><td>5.00</td><td>Very High</td></tr>
+            </table>
+
+            <h4>C. Collaboration Profile</h4>
+            <table class="data-table">
+                <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
+                <tr><td>Emotional Stability / Stress Tolerance</td><td>5.00</td><td>Very High</td></tr>
+                <tr><td>Flexibility / Interpersonal Sensitivity</td><td>5.00</td><td>Very High</td></tr>
+            </table>
+
+            <h4>D. Grit & Commitment</h4>
+            <table class="data-table">
+                <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
+                <tr><td>Drive / Perseverance / Resilience</td><td>5.00</td><td>Very High</td></tr>
+                <tr><td>Output Driven / Sense of Urgency</td><td>5.00</td><td>Very High</td></tr>
+            </table>
+
+            <h4>E. Wellness Log</h4>
+            <table class="data-table">
+                <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
+                <tr><td>Gratitude / Sense of Purpose</td><td>5.00</td><td>Very High</td></tr>
+            </table>
+
+            <h3>Personal Performance</h3>
+            <p>One of my proudest achievements during this event was performing as part of the <strong>SYNC:D Dance Troupe</strong>. We worked hard during practices, training for long hours to perfect our routine. Performing in front of the assembly was both exciting and nerve-wracking, but in the end, it was incredibly fulfilling. Our group gave its best performance, and I learned the value of teamwork, discipline, and confidence. More importantly, I realized that achievements are not only about the applause but also about the joy of working together and growing as a group.</p>
+            <p>I also had the chance to join the <strong>Peer Mentor Organization</strong>, managed partly by Sir Ramcis. This experience was equally meaningful because it brought students from different courses together. It was not only fun and engaging but also gave me a chance to meet new people and form connections outside my circle.</p>
+
+            <h3>Final Convocation Reflection</h3>
+            <p>Looking back at the TOWPEP Convocation, I see it as more than an event—it was a celebration of growth, values, and community. The results of my TOWPEP profile remind me that I have strong qualities such as adaptability, empathy, and perseverance, but they also remind me to stay humble and keep improving. Both experiences—the dance intermission and peer mentoring—showed me that achievements are not only about personal success but also about building confidence, friendships, and community spirit.</p>
+        </div>
+    </div>
+
+    <!-- STRATEGIC PLAN MODAL (FULL 5 YEARS) -->
+    <div id="strat-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('strat-modal')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('Portfolio images/d64fd1419a443b77fccad4d3443a67c4.jpg');">
+            <h2 class="modal-title">Strategic Plan</h2>
+        </div>
+        <div class="modal-content">
+            <h3>Vision 2029 - 2033</h3>
+            
+            <div class="entry-box">
+                <h5>Year 1 — 2029: Entry Into Professional Service</h5>
+                <p>After graduation, I will immediately begin my required return service as a scholar. If accepted into the teaching program, I will handle both teaching and office duties, just like other scholars before me. My first year will focus on adjusting to the work environment, building strong work habits, and forming positive relationships with colleagues. I will start contributing financially to my family while practicing budgeting and saving.</p>
+            </div>
+
+            <div class="entry-box">
+                <h5>Year 2 — 2030: Skills Enhancement and Responsibility</h5>
+                <p>In my second year, I aim to strengthen my abilities in teaching and administrative tasks. I will join seminars and workshops to improve my communication, leadership, and technical skills. As I gain more experience, I want to handle more tasks with less supervision. I will also increase my financial support for my family and continue growing my savings.</p>
+            </div>
+
+            <div class="entry-box">
+                <h5>Year 3 — 2031: Leadership Growth and Family Support</h5>
+                <p>By my third year, I plan to take on minor leadership roles or participate in special school projects. I hope to guide younger scholars or newly hired staff, following the example of those who helped me. For my family, I aim to support them more in household needs and plan simple trips as signs of gratitude. I will also prepare for opportunities beyond my return service.</p>
+            </div>
+
+            <div class="entry-box">
+                <h5>Year 4 — 2032: Completion of Service & Career Prep</h5>
+                <p>During my fourth year, I will complete my required service with commitment and professionalism. I will begin exploring job opportunities outside the institution to broaden my experience. I will update my résumé, request recommendations, and choose the career path that fits my long-term goals. I hope to celebrate this milestone with my family through a simple trip or gathering.</p>
+            </div>
+
+            <div class="entry-box">
+                <h5>Year 5 — 2033: Transition to New Opportunities</h5>
+                <p>After completing my service, I will pursue new job opportunities to expand my skills and improve financially. I plan to take additional courses or certifications to strengthen my qualifications. With better financial stability, I want to bring my family on international trips and create meaningful experiences. My goal is to support my family while building a stable and fulfilling career.</p>
+            </div>
+
+            <h3>Long-Term Narrative</h3>
+            <blockquote>
+                Beyond the five-year plan, my goal is to maintain a stable career, continue improving professionally, and consistently give back to my family. I want to travel with them, support them long-term, and build a secure life rooted in gratitude, effort, and purpose.
+            </blockquote>
+        </div>
+    </div>
+
+    <!-- KINDNESS MODAL (FULL 4 WEEKS) -->
+    <div id="kindness-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('kindness-modal')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('Portfolio images/e7a525fb5c242f964d563eb373b973fe.jpg');">
+            <h2 class="modal-title">Kindness Journal</h2>
+        </div>
+        <div class="modal-content">
+            <h3>Weekly Logs: Season 1</h3>
+
+            <div class="entry-box">
+                <h5>Week 1: Physical Care</h5>
+                <p class="kindness-point">I have returned a water jug that was left behind in class. It belonged to Mikhaela.</p>
+                <p class="kindness-point">Zak forgot his powerbank inside the dance studio and I returned it to him.</p>
+                <p class="kindness-point">Ken left his bag in the classroom. He didn't know where to find it when the professor handed it to Dr. Aris. I assisted him to retrieve his bag.</p>
+                <p class="kindness-point">We also became close afterwards and I started giving him advices when he needed one.</p>
+                <p><strong>Reflection:</strong> This week was about being observant of my environment. Helping Ken not only solved his immediate problem but initiated a new friendship. Simple acts of physical assistance bridge gaps.</p>
+            </div>
+
+            <div class="entry-box">
+                <h5>Week 2: Social Inclusions</h5>
+                <p class="kindness-point">I bought food for a friend just because I felt like treating them. It was a rare moment for me since I don’t usually buy food for others unless we’re really close. Still, I noticed that the part of me who used to give freely is slowly coming back.</p>
+                <p class="kindness-point">Spending time with a transferee student after class, listening to their struggles making friends, and introducing them to my circle to help them expand.</p>
+                <p class="kindness-point">Ryzza is often by herself at times. Whenever I notice she’s alone, I go and spend time with her, as she’s the only female in IE.</p>
+                <p><strong>Reflection:</strong> Inclusion is powerful. By bringing a transferee into my group and keeping Ryzza company, I prevented the loneliness that comes with isolation. Kindness makes sure no one feels invisible.</p>
+            </div>
+
+            <div class="entry-box">
+                <h5>Week 3: The Listening Ear</h5>
+                <p class="kindness-point">Bought lunch for Li and coffee for Jill during the Monarch’s Cup to ensure they were comfortable during the event.</p>
+                <p class="kindness-point">Listened to Jill talk about her relationship problems, sharing advice based on my own experiences to offer a new perspective.</p>
+                <p class="kindness-point">Li End up venting to me about an issue involving a girl he likes. I simply listened and let him express frustrations, helping lighten the mood.</p>
+                <p><strong>Reflection:</strong> Listening is underrated. By letting Li and Jill vent, I provided a safe emotional space. Sometimes you don't need to solve a problem—you just need to witness it.</p>
+            </div>
+
+            <div class="entry-box">
+                <h5>Week 4: Presence & Compassion</h5>
+                <p class="kindness-point">ZUS Coffee hangout bonding with Jill, Pia, and Quincy to support Jill through a romantic struggle. We exchanged thoughts and offered support.</p>
+                <p class="kindness-point">Gave my coffee to an elderly woman on the street as I had no coins, remembering food/drinks are often better to give than cash.</p>
+                <p class="kindness-point">Supported an online friend in another country during a family crisis via video call. I stayed while she cried, offering presence and comfort.</p>
+                <p><strong>Reflection:</strong> Kindness has no distance. Week 4 helped me see that being present—emotionally or physically—is the core of character.</p>
+            </div>
+
+            <h3>Concluding Narrative</h3>
+            <p>Over the past four weeks, I have realized that kindness is a muscle that needs to be exercised. At the start (Week 1), my acts were mostly reactionary. By Week 4, I was seeking out ways to help. These acts built my reputation as a reliable and caring person. Character is not built in big moments, but in the small choices to notice others.</p>
+        </div>
+    </div>
+
+    <!-- PSALM 23 MODAL (FULL) -->
+    <div id="psalm-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('psalm-modal')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('Portfolio images/0cc1a3f78c65efaa6c7772deabb922f1.jpg');">
+            <h2 class="modal-title">Psalm 23</h2>
+        </div>
+        <div class="modal-content">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:50px;">
+                <div class="entry-box">
+                    <h5>A. Things that make me a Shepherd</h5>
+                    <ul class="fancy-list">
+                        <li>I take the lead in planning and organizing for the group.</li>
+                        <li>I offer a listening ear and provide comfort to those overthinking.</li>
+                        <li>I am fiercely loyal and protective of the people I care about.</li>
+                        <li>I strive to be a reliable presence for my friends.</li>
+                        <li>I am patient and understanding with processing feelings.</li>
+                    </ul>
+                </div>
+                <div class="entry-box">
+                    <h5>B. Things that make me a Sheep</h5>
+                    <ul class="fancy-list">
+                        <li>I am sensitive and affected by the moods of others.</li>
+                        <li>I rely on the wisdom of family for big life decisions.</li>
+                        <li>I feel lost when my routine is disrupted.</li>
+                        <li>I am vulnerable to disappointment when trust is misplaced.</li>
+                        <li>I look to others for guidance when facing new challenges.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Personal Q&A</h3>
+            <h4>1. What does Psalm 23 mean to you?</h4>
+            <p>To me, Psalm 23 is about trusting that I'm being looked after, especially when I feel completely lost and drained. It reminds me that I don't have to carry every burden myself. It impacts my hardest days, when my anxiety is high and my heart feels heavy, by telling me it's okay to rest and believe I’ll be guided to peace of mind.</p>
+            
+            <h4>2. Which line struck you the most? Why?</h4>
+            <p>The line that strikes me is, <em>"he leads me beside quiet waters."</em> My mind is always racing, and the idea of a place of pure calm feels like the relief I’ve been searching for.</p>
+            
+            <h4>3. Am I a Shepherd or a Sheep?</h4>
+            <p><strong>Family:</strong> Sheep | <strong>Friends:</strong> Shepherd | <strong>Studies:</strong> Shepherd | <strong>Goals:</strong> Sheep (Anxiety makes me uncertain sometimes).</p>
+
+            <h3>Final Summary Reflection</h3>
+            <blockquote>
+                Psalm 23 reminds me that I am never truly alone, even in moments when life feels confusing or heavy. It teaches me that I don’t have to carry everything on my own, because there is always guidance available. The part about “quiet waters” speaks deeply to me because my mind is often restless. This balance between being a Shepherd and a Sheep reminds me that life is about both giving and receiving. Accept both roles with humility, courage, and faith.
+            </blockquote>
+        </div>
+    </div>
+
+    <!-- 5S MODAL (FULL) -->
+    <div id="fiveS-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('fiveS-modal')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('Portfolio images/71df53feb1a0a8833908e34201b0ba04.jpg');">
+            <h2 class="modal-title">5S Discipline</h2>
+        </div>
+        <div class="modal-content">
+            <p>As a student assistant in the office, I practice the 5S in many ways that help me work better and keep the workplace organized.</p>
+            <div class="entry-box">
+                <p><strong>Sort:</strong> I separate documents carefully by putting the old files in archives and keeping the new ones easily accessible.</p>
+                <p><strong>Set in Order:</strong> I always return things to their proper place after using them.</p>
+                <p><strong>Shine:</strong> I make it a habit to clean the office before leaving, during hours, and upon arrival.</p>
+                <p><strong>Standardize:</strong> I follow routines like submitting tasks early and finishing before deadlines.</p>
+                <p><strong>Sustain:</strong> I remind myself to continue practicing these daily, because being consistent helps the office stay professional.</p>
+            </div>
+            <h3>Detailed Reflection</h3>
+            <p>Through this activity, I realized how much 5S principles shape my managing of responsibilities. As a student assistant, 5S developed my sense of discipline and professionalism. Small habits have big impacts on productivity. 5S is also about training the mind. Sorting files teaches decision-making, while sustaining routines builds self-discipline. These principles made me more efficient in studies because I learned to manage time without procrastination.</p>
+        </div>
+    </div>
+
+    <!-- 5C'S MODAL (FULL) -->
+    <div id="fiveC-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('fiveC-modal')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('Portfolio images/aa448c70cf77a312d84413d16206ac2f.jpg');">
+            <h2 class="modal-title">The 5C's</h2>
+        </div>
+        <div class="modal-content">
+            <h4>1. Character</h4>
+            <p>For me, character means the values that guide the way I live. In school, I practice honesty and kindness. As a student assistant, I am reliable and respectful. Small habits build trust and integrity. Character is the foundation; skills change, but values guide decisions.</p>
+
+            <h4>2. Competence</h4>
+            <p>Competence is about having the knowledge to do tasks well. As a BSIT student, I am building competence step by step—finishing assignments and applying lessons in practical ways. Applying 5S in the office shows I can handle responsibilities effectively. Competence is doing your best and prepared to grow.</p>
+
+            <h4>3. Commitment to Achieve</h4>
+            <p>Commitment means being consistent even when difficult. I show this by taking studies seriously and being responsible in the office. This shows my drive to stay motivated despite challenges. Consistent habits now prepare me for bigger responsibilities in the future.</p>
+
+            <h4>4. Creativity</h4>
+            <p>Creativity is one of my strengths. I enjoy designing pages and creating visuals. In IT, I want to use creativity in programming. It helps me solve problems and make tasks engaging. Creativity allowed me to share thoughts in Psalm 23 that were relatable.</p>
+
+            <h4>5. Collaboration</h4>
+            <p>Collaboration is working well with others. I admit this is an area for growth since I feel shy communicating. However, reflecting helped me see that collaboration is important for success. In the office, I help organize and clean with others as a team. Collaboration means listening and building trust.</p>
+
+            <h3>Summary</h3>
+            <blockquote>
+                Looking back at the 5C’s—Character, Competence, Commitment to achieve, Creativity, and Collaboration—I realized that they are all connected to my journey. Character reminds me to live with values, competence pushes learning, commitment motivates consistency, creativity inspires thinking, and collaboration teaches teamwork.
+            </blockquote>
+        </div>
+    </div>
+
+    <!-- MULTIPLE INTELLIGENCES MODAL (FULL) -->
+    <div id="actMI-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('actMI-modal')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('Portfolio images/b48d9e65b6d6c08cd03f6529c49fd3b4.jpg');">
+            <h2 class="modal-title">Intelligences</h2>
+        </div>
+        <div class="modal-content">
+            <table class="data-table">
+                <tr><th>Quiz Type</th><th>Result Link</th></tr>
+                <tr><td>Multiple Intelligences</td><td><a href="https://personalitymax.com/report/?mi=73-50-57-67-40-47-77-10&name_key=16ffb1fc9f" target="_blank" style="color:red">Report Link</a></td></tr>
+                <tr><td>Learning Styles</td><td><a href="https://personalitymax.com/report/?ls=74-64-77&name_key=16ffb1fc9f" target="_blank" style="color:red">Report Link</a></td></tr>
+            </table>
+            <h4>Analysis</h4>
+            <p>My top intelligences are Intrapersonal, Verbal/Linguistic, and Bodily/Kinesthetic. I spend time understanding my thoughts and express them clearly through writing. I connect better through actions (Kinesthetic). My dominant style is Kinesthetic because I remember things more when actively involved. I plan to improve study habits by rewriting notes by hand and teaching lessons out loud.</p>
+        </div>
+    </div>
+
+    <!-- RRR MODAL (FULL) -->
+    <div id="actRRR-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('actRRR-modal')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('Portfolio images/72e7c0785fd01e8512508e5ef29546bb.jpg');">
+            <h2 class="modal-title">RRR Research</h2>
+        </div>
+        <div class="modal-content">
+            <table class="data-table">
+                <tr><th>Waste Type</th><th>Definition</th><th>5 Examples</th></tr>
+                <tr><td>Recyclable</td><td>Remade into new things.</td><td>Newspapers, bottles, cardboard, cans, milk cartons</td></tr>
+                <tr><td>Biodegradable</td><td>Rot and break into soil.</td><td>Eggshells, fruit peels, scraps, leaves, leftovers</td></tr>
+                <tr><td>Non-biodegradable</td><td>Do not rot; stay as is.</td><td>Plastic, batteries, styrofoam, used pens, old CDs</td></tr>
+            </table>
+            <h4>Q&A</h4>
+            <p>1. Reduce plastic: Dine in instead of takeout, bring tumbler and utensils. 2. Influence others: Encourage recycling and make it a group challenge. 3. Challenges: Confusing labels. Overcome by learning what bins mean. 4. Philippines 10 years from now: Cleaner streets and fresher air due to responsible people.</p>
+        </div>
+    </div>
+
+    <!-- 
+    ==========================================================================
+       9. CINEMATIC GALLERY MODALS (RELATIVE GITHUB PATHS)
+    ==========================================================================
+    -->
+
+    <!-- PRESENTATION GALLERY -->
+    <div id="gal-pres-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('gal-pres-modal')">✕</button>
+        <div class="modal-content">
+            <h3>Presentation Activity Archive</h3>
+            <div class="gallery-stage">
+                <div class="gallery-main" id="main-pres-box">
+                    <video id="vid-pres" controls src="Portfolio images/AQM_qR9mcAWRPIHgo4mIM8l-eXzhCoarOL_zstyerZ3Z93TArtT-YwGCduZ_X5hFPGe_-gyB2hpLPEfL_mTNpHuOwI3tu5daTI3xQ8_xhg.mp4"></video>
+                    <img id="img-pres" style="display:none;" src="">
+                </div>
+                <div class="gallery-thumbs">
+                    <div class="thumb active-thumb" data-type="video" data-src="Portfolio images/AQM_qR9mcAWRPIHgo4mIM8l-eXzhCoarOL_zstyerZ3Z93TArtT-YwGCduZ_X5hFPGe_-gyB2hpLPEfL_mTNpHuOwI3tu5daTI3xQ8_xhg.mp4" onclick="swapMedia('pres', this)">
+                        <i class="fas fa-play play-icon"></i>
+                    </div>
+                    <div class="thumb" data-type="image" data-src="Portfolio images/649522874_4376167539376910_8482921962761084191_n.jpg" style="background-image:url('Portfolio images/649522874_4376167539376910_8482921962761084191_n.jpg')" onclick="swapMedia('pres', this)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOWPEP GALLERY -->
+    <div id="gal-tow-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('gal-tow-modal')">✕</button>
+        <div class="modal-content">
+            <h3>TOWPEP Assembly Gallery</h3>
+            <div class="gallery-stage">
+                <div class="gallery-main"><img id="main-tow" src="Portfolio images/image-3.png"></div>
+                <div class="gallery-thumbs">
+                    <div class="thumb active-thumb" style="background-image:url('Portfolio images/image-3.png')" onclick="swapImg('main-tow', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/20250807_162113.jpg')" onclick="swapImg('main-tow', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/20250807_164044.webp')" onclick="swapImg('main-tow', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/20250807_160548.webp')" onclick="swapImg('main-tow', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/20250807_133735.jpg')" onclick="swapImg('main-tow', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/20250807_173305.webp')" onclick="swapImg('main-tow', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/20250807_174240.jpg')" onclick="swapImg('main-tow', this)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MUFTI DAY GALLERY (ALL 17 IMAGES) -->
+    <div id="gal-mufti-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('gal-mufti-modal')">✕</button>
+        <div class="modal-content">
+            <h3>Mufti Day Memories</h3>
+            <div class="gallery-stage">
+                <div class="gallery-main"><img id="main-muf" src="Portfolio images/FB_IMG_1763550293433.jpg"></div>
+                <div class="gallery-thumbs">
+                    <div class="thumb active-thumb" style="background-image:url('Portfolio images/FB_IMG_1763550293433.jpg')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/1.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/2.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/3.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/4.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/5.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/6.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/7.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/8.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/9.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/10.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/11.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/12.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/13.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/14.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/15.webp')" onclick="swapImg('main-muf', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/16.webp')" onclick="swapImg('main-muf', this)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PMO GALLERY (ALL 8 IMAGES) -->
+    <div id="gal-pmo-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('gal-pmo-modal')">✕</button>
+        <div class="modal-content">
+            <h3>PMO Assembly Gallery</h3>
+            <div class="gallery-stage">
+                <div class="gallery-main"><img id="main-pmo" src="Portfolio images/01.webp"></div>
+                <div class="gallery-thumbs">
+                    <div class="thumb active-thumb" style="background-image:url('Portfolio images/01.webp')" onclick="swapImg('main-pmo', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/02.webp')" onclick="swapImg('main-pmo', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/03.webp')" onclick="swapImg('main-pmo', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/04.webp')" onclick="swapImg('main-pmo', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/05.webp')" onclick="swapImg('main-pmo', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/06.webp')" onclick="swapImg('main-pmo', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/07.webp')" onclick="swapImg('main-pmo', this)"></div>
+                    <div class="thumb" style="background-image:url('Portfolio images/08.webp')" onclick="swapImg('main-pmo', this)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DEAN LISTER & HS ACHIEVEMENTS -->
+    <div id="achieve-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('achieve-modal')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('Portfolio images/81b75f06a48722ed96442e17474b14c3.jpg');">
+            <h2 class="modal-title">Hall of Fame</h2>
+        </div>
+        <div class="modal-content">
+            <div class="entry-box">
+                <h5>Dean Lister Achievement</h5>
+                <div class="gallery-main" style="height:auto;"><img src="Portfolio images/MYXJ_20260302193912272_save (1).jpg" style="width:100%;"></div>
+                <p style="margin-top:30px;">Recognized for exceptional academic performance, maintaining a high GPA while balancing responsibilities as a student assistant and member of the SYNC:D dance troupe.</p>
+            </div>
+            <div class="grid-cards">
+                <div class="fancy-card"><i class="fas fa-graduation-cap"></i><h4>Salutatorian</h4><p>Grade 12 rank through consistent academic dedication.</p></div>
+                <div class="fancy-card"><i class="fas fa-medal"></i><h4>Highest Honor</h4><p>Awarded for excellence across all academic subjects.</p></div>
+                <div class="fancy-card"><i class="fas fa-users"></i><h4>Class Officer</h4><p>Represented and organized peers for multiple terms.</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT ME MODAL -->
+    <div id="about-modal" class="modal-screen">
+        <button class="close-btn" onclick="closeModal('about-modal')">✕</button>
+        <div class="modal-content">
+            <div class="about-wrap">
+                <div class="about-portrait">
+                    <div class="portrait-circle"></div>
+                    <h2>Sophia Rodina Sahagun</h2>
+                    <p class="match-pct" style="font-size:1.8rem; margin-top:20px;">BS Information Technology</p>
+                    <div class="social-tray">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="about-bio">
+                    <h3>The Narrative</h3>
+                    <p>Hello! Welcome to my online portfolio. I’m an 18-year-old first-year college student pursuing a <strong>Bachelor of Science in Information Technology</strong>. I’m truly happy to have you here as I share my journey, my personal growth, and the steps I'm taking toward my dreams in the tech field.</p>
+                    <p>This portfolio is more than a collection of school projects; it's a reflection of who I am, what I value, and my aspirations for the future. You'll find my written works, activities, and experiences that showcase my growth both academically and personally.</p>
+                    <p>I believe that discipline, constant curiosity, and resilience are the keys to mastering the ever-evolving world of IT. Whether I'm working as a student assistant, performing with my dance troupe, or coding my next project, I aim for excellence in every endeavor.</p>
+                    <blockquote>"My dream is to pursue a career in Information Technology, and this is only the beginning of that path. Feel free to explore my work and join me as I continue to learn, grow, and take steady steps toward becoming the best version of myself."</blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+    ==========================================================================
+       10. CORE JAVASCRIPT ENGINE
+    ==========================================================================
+    -->
+    <script>
+        /**
+         * STARTUP & WELCOME
+         */
+        function startApp() {
+            const overlay = document.getElementById('welcome-overlay');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            setTimeout(() => { overlay.style.display = 'none'; }, 1200);
+        }
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('site-header');
+            if (window.scrollY > 60) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        /**
+         * MODAL LOGIC
+         */
+        function openModal(id) {
+            const m = document.getElementById(id);
+            m.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => { m.classList.add('active'); }, 20);
+        }
+
+        function closeModal(id) {
+            const m = document.getElementById(id);
+            m.classList.remove('active');
+            
+            // Cleanup media
+            const v = m.querySelector('video');
+            if(v) v.pause();
+
+            setTimeout(() => { 
+                m.style.display = 'none';
+                document.body.style.overflow = 'auto'; 
+            }, 600);
+        }
+
+        /**
+         * CAROUSEL SLIDER
+         */
+        function slide(btn, dir) {
+            const row = btn.parentElement.querySelector('.carousel-view');
+            const amt = row.clientWidth * 0.8;
+            row.scrollBy({ left: amt * dir, behavior: 'smooth' });
+        }
+
+        /**
+         * IMAGE GALLERY SWAP
+         */
+        function swapImg(mainId, thumb) {
+            const main = document.getElementById(mainId);
+            const url = thumb.style.backgroundImage.slice(5, -2).replace(/"/g, "");
+            
+            // Active state
+            const p = thumb.parentElement;
+            p.querySelectorAll('.thumb').forEach(t => t.classList.remove('active-thumb'));
+            thumb.classList.add('active-thumb');
+
+            // Fading transition
+            main.style.opacity = '0';
+            setTimeout(() => {
+                main.src = url;
+                main.style.opacity = '1';
+            }, 300);
+        }
+
+        /**
+         * HYBRID MEDIA SWAP (VIDEO/IMAGE)
+         */
+        function swapMedia(key, thumb) {
+            const vid = document.getElementById('vid-' + key);
+            const img = document.getElementById('img-' + key);
+            const type = thumb.getAttribute('data-type');
+            const src = thumb.getAttribute('data-src');
+
+            // Active state
+            const p = thumb.parentElement;
+            p.querySelectorAll('.thumb').forEach(t => t.classList.remove('active-thumb'));
+            thumb.classList.add('active-thumb');
+
+            if(type === 'video') {
+                img.style.display = 'none';
+                vid.style.display = 'block';
+                vid.src = src;
+                vid.load();
+                vid.play();
+            } else {
+                vid.pause();
+                vid.style.display = 'none';
+                img.style.display = 'block';
+                img.src = src;
+            }
+        }
+
+        /**
+         * HOVER SOUNDS
+         */
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('.card') || e.target.closest('.thumb')) {
+                const s = document.getElementById('sfx-hover');
+                s.currentTime = 0;
+                s.play().catch(() => {});
+            }
+        });
+
+    </script>
+</body>
+</html>
