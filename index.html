@@ -1636,7 +1636,7 @@
 
                 <!-- DEFAULT = VIDEO -->
                 <video id="presentation-video" controls>
-                    <source src="videos/presentation.mp4" type="video/mp4">
+                    <source src="presentation.mp4" type="video/mp4">
                 </video>
 
             </div>
@@ -1766,16 +1766,7 @@ function closeModal(id) {
             }
         }
 
-        function closeModal(id) {
-            const modal = document.getElementById(id);
-            modal.classList.remove('active');
-            
-            // If there's a video, stop it immediately
-            const activeVid = modal.querySelector('video');
-            if (activeVid) {
-                activeVid.pause();
-            }
-
+     
             // Wait for transition before hiding element
             setTimeout(() => {
                 modal.style.display = 'none';
