@@ -1,1643 +1,1793 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Netflix Portfolio - Sophia Sahagun</title>
-  
-  <!-- EXTERNAL FONTS & ICONS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-
-  <style>
-    /* 
-    ==========================================================================
-       NETFLIX PORTFOLIO CSS - EXPANDED VERSION
-    ==========================================================================
-    */
-
-    :root {
-      --netflix-red: #e50914;
-      --netflix-black: #141414;
-      --netflix-dark: #181818;
-      --netflix-grey: #2f2f2f;
-      --text-main: #ffffff;
-      --text-secondary: #b3b3b3;
-      --transition-main: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* GLOBAL RESET */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background-color: var(--netflix-black);
-      color: var(--text-main);
-      font-family: 'Roboto', Arial, sans-serif;
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
-
-    /* 
-    --------------------------------------------------------------------------
-       WELCOME OVERLAY (ENTRANCE)
-    --------------------------------------------------------------------------
-    */
-    #welcome-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--netflix-black);
-      z-index: 10000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      transition: opacity 1s ease-in-out;
-    }
-
-    #welcome-overlay.fade-out {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .welcome-container {
-      max-width: 900px;
-      text-align: center;
-      animation: fadeIn 1.5s ease;
-    }
-
-    .netflix-logo-brand {
-      color: var(--netflix-red);
-      font-size: 5rem;
-      font-weight: 900;
-      letter-spacing: -2px;
-      text-transform: uppercase;
-      margin-bottom: 40px;
-      font-family: 'Roboto', sans-serif;
-    }
-
-    .welcome-text-content {
-      margin-bottom: 40px;
-    }
-
-    .welcome-text-content p {
-      font-size: 1.15rem;
-      color: #e5e5e5;
-      margin-bottom: 25px;
-      line-height: 1.8;
-      text-align: justify;
-    }
-
-    .enter-portfolio-btn {
-      background-color: var(--netflix-red);
-      color: white;
-      border: none;
-      padding: 18px 60px;
-      font-size: 1.4rem;
-      font-weight: bold;
-      border-radius: 4px;
-      cursor: pointer;
-      text-transform: uppercase;
-      transition: transform 0.3s, background 0.3s;
-      box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
-    }
-
-    .enter-portfolio-btn:hover {
-      background-color: #ff0a16;
-      transform: scale(1.05);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* 
-    --------------------------------------------------------------------------
-       HEADER & NAVIGATION
-    --------------------------------------------------------------------------
-    */
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 60px;
-      z-index: 2000;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
-      transition: background-color 0.5s;
-    }
-
-    header.nav-scrolled {
-      background-color: var(--netflix-black);
-    }
-
-    .header-logo h1 {
-      color: var(--netflix-red);
-      font-size: 1.8rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-    }
-
-    nav {
-      flex: 1;
-      margin-left: 50px;
-      display: flex;
-      gap: 25px;
-    }
-
-    nav a {
-      color: #e5e5e5;
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #b3b3b3;
-    }
-
-    .header-tools {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-    }
-
-    .search-box {
-      background: rgba(0,0,0,0.6);
-      border: 1px solid #777;
-      padding: 5px 12px;
-      color: white;
-      border-radius: 2px;
-    }
-
-    .profile-avatar {
-      width: 35px;
-      height: 35px;
-      border-radius: 4px;
-      background: url('https://cdn.discordapp.com/attachments/981254035568996394/1421149956395372595/Screenshot_20250926_230216_Gallery.jpg?ex=68d7fc89&is=68d6ab09&hm=cff2fc5ce09d6216ed0e9e9e114b43fcfc28f81073a6e1a3bb42a75e7c6ce2e3&') center/cover;
-      cursor: pointer;
-    }
-
-    /* 
-    --------------------------------------------------------------------------
-       HERO BANNER
-    --------------------------------------------------------------------------
-    */
-    .hero-container {
-      position: relative;
-      height: 90vh;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      padding: 0 60px;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .hero-container::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 40%;
-      background: linear-gradient(to top, var(--netflix-black), transparent);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 10;
-      max-width: 650px;
-    }
-
-    .hero-title {
-      font-size: 4rem;
-      font-weight: 900;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
-      line-height: 1.1;
-    }
-
-    .hero-meta-info {
-      margin-bottom: 25px;
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-
-    .hero-meta-info .match {
-      color: #46d369;
-      margin-right: 15px;
-    }
-
-    .hero-description {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
-    }
-
-    .hero-btns {
-      display: flex;
-      gap: 15px;
-    }
-
-    .btn-main {
-      padding: 12px 35px;
-      border-radius: 4px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: opacity 0.2s;
-    }
-
-    .btn-play { background-color: white; color: black; }
-    .btn-info { background-color: rgba(109, 109, 110, 0.7); color: white; }
-    .btn-main:hover { opacity: 0.8; }
-
-    /* 
-    --------------------------------------------------------------------------
-       BROWSING ROWS (CARDS)
-    --------------------------------------------------------------------------
-    */
-    .row-wrapper {
-      padding: 20px 0 40px 0;
-      overflow: visible;
-    }
-
-    .row-header {
-      padding: 0 60px;
-      margin-bottom: 15px;
-      font-size: 1.4rem;
-      font-weight: 700;
-    }
-
-    .card-carousel-container {
-      position: relative;
-      padding: 0 60px;
-    }
-
-    .card-carousel {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 20px 0 60px 0;
-      scrollbar-width: none; /* Firefox */
-      scroll-behavior: smooth;
-    }
-
-    .card-carousel::-webkit-scrollbar {
-      display: none;
-    }
-
-    .movie-card-item {
-      min-width: 250px;
-      height: 140px;
-      background-color: #333;
-      border-radius: 4px;
-      background-size: cover;
-      background-position: center;
-      cursor: pointer;
-      position: relative;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      flex-shrink: 0;
-    }
-
-    .movie-card-item:hover {
-      transform: scale(1.25);
-      z-index: 500;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.8);
-    }
-
-    .card-item-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to top, rgba(0,0,0,0.9) 15%, transparent 60%);
-      border-radius: 4px;
-    }
-
-    .card-title-label {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      font-weight: bold;
-      font-size: 1rem;
-      text-shadow: 2px 2px 4px black;
-      pointer-events: none;
-    }
-
-    .card-hover-info {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      padding: 10px;
-      opacity: 0;
-      transition: opacity 0.3s;
-      z-index: 2;
-    }
-
-    .movie-card-item:hover .card-hover-info { opacity: 1; }
-    .movie-card-item:hover .card-title-label { opacity: 0; }
-
-    .card-icon-tray {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .card-icon-tray i {
-      width: 28px;
-      height: 28px;
-      border: 1px solid white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      background-color: rgba(42,42,42,0.6);
-    }
-
-    .card-icon-tray i:hover {
-      background-color: white;
-      color: black;
-    }
-
-    .card-meta-tags {
-      font-size: 0.75rem;
-      color: #46d369;
-      font-weight: 700;
-    }
-
-    .carousel-control {
-      position: absolute;
-      top: 20px;
-      bottom: 60px;
-      width: 50px;
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: none;
-      font-size: 2rem;
-      cursor: pointer;
-      z-index: 600;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .card-carousel-container:hover .carousel-control { opacity: 1; }
-    .carousel-control.left { left: 0; }
-    .carousel-control.right { right: 0; }
-
-    /* 
-    --------------------------------------------------------------------------
-       FULLSCREEN MODAL VIEW
-    --------------------------------------------------------------------------
-    */
-    .content-modal-fullscreen {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--netflix-black);
-      z-index: 5000;
-      overflow-y: auto;
-      opacity: 0;
-      transition: opacity var(--transition-main);
-    }
-
-    .content-modal-fullscreen.active {
-      display: block;
-      opacity: 1;
-    }
-
-    .modal-hero-banner {
-      height: 60vh;
-      width: 100%;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      display: flex;
-      align-items: flex-end;
-      padding: 60px 10%;
-    }
-
-    .modal-hero-banner::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 50%;
-      background: linear-gradient(to top, var(--netflix-black), transparent);
-    }
-
-    .modal-close-btn {
-      position: fixed;
-      top: 30px;
-      right: 30px;
-      background: rgba(0,0,0,0.7);
-      color: white;
-      border: 2px solid rgba(255,255,255,0.3);
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      font-size: 1.5rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 6000;
-    }
-
-    .modal-close-btn:hover { background: white; color: black; }
-
-    .modal-body-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 40px 5%;
-      line-height: 1.9;
-    }
-
-    .modal-title-main {
-      font-size: 3.5rem;
-      font-weight: 900;
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .modal-body-container h3 {
-      color: var(--netflix-red);
-      font-size: 1.8rem;
-      margin: 50px 0 25px 0;
-      border-left: 5px solid var(--netflix-red);
-      padding-left: 20px;
-    }
-
-    .modal-body-container h4 {
-      font-size: 1.4rem;
-      margin: 35px 0 15px 0;
-      color: #fff;
-      border-bottom: 1px solid #333;
-      padding-bottom: 10px;
-    }
-
-    .modal-body-container p {
-      font-size: 1.15rem;
-      color: #d2d2d2;
-      margin-bottom: 25px;
-      text-align: justify;
-    }
-
-    .modal-body-container blockquote {
-      background: #1f1f1f;
-      padding: 30px;
-      border-left: 4px solid var(--netflix-red);
-      margin: 40px 0;
-      font-style: italic;
-      font-size: 1.2rem;
-      color: #bbb;
-    }
-
-    /* 
-    --------------------------------------------------------------------------
-       SPECIFIC CONTENT STYLES (TABLES/LISTS)
-    --------------------------------------------------------------------------
-    */
-    .content-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 30px 0;
-      background: #1a1a1a;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .content-table th {
-      background-color: var(--netflix-red);
-      color: white;
-      text-align: left;
-      padding: 18px;
-      font-size: 1.1rem;
-    }
-
-    .content-table td {
-      padding: 18px;
-      border-bottom: 1px solid #222;
-      color: #ccc;
-      vertical-align: top;
-    }
-
-    .content-table tr:hover { background-color: #252525; }
-
-    .questionnaire-list {
-      list-style: none;
-    }
-
-    .questionnaire-list li {
-      padding: 15px;
-      background: #222;
-      margin-bottom: 10px;
-      border-radius: 4px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .score-chip {
-      background-color: var(--netflix-red);
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-weight: bold;
-      font-size: 0.9rem;
-    }
-
-    /* 
-    --------------------------------------------------------------------------
-       KINDNESS LOG & BAG BOXES
-    --------------------------------------------------------------------------
-    */
-    .entry-box {
-      background: #222;
-      padding: 30px;
-      border-radius: 10px;
-      margin-bottom: 30px;
-      border-top: 4px solid var(--netflix-red);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    }
-
-    .entry-box h5 {
-      color: var(--netflix-red);
-      font-size: 1.2rem;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .kindness-point {
-      margin-bottom: 15px;
-      padding-left: 20px;
-      position: relative;
-    }
-
-    .kindness-point::before {
-      content: '•';
-      color: var(--netflix-red);
-      position: absolute;
-      left: 0;
-      font-weight: bold;
-    }
-
-    /* 
-    --------------------------------------------------------------------------
-       GALLERY STYLES
-    --------------------------------------------------------------------------
-    */
-    .gallery-stage {
-      margin-top: 40px;
-    }
-
-    .gallery-main-display {
-      width: 100%;
-      height: 550px;
-      background: #000;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
-
-    .gallery-main-display img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      transition: opacity 0.3s;
-    }
-
-    .gallery-thumbnails-row {
-      display: flex;
-      gap: 15px;
-      overflow-x: auto;
-      padding-bottom: 15px;
-    }
-
-    .gallery-thumb-item {
-      min-width: 180px;
-      height: 100px;
-      border: 3px solid transparent;
-      border-radius: 4px;
-      background-size: cover;
-      background-position: center;
-      cursor: pointer;
-      transition: border-color 0.3s;
-      flex-shrink: 0;
-    }
-
-    .gallery-thumb-item.thumb-active { border-color: var(--netflix-red); }
-
-    /* 
-    --------------------------------------------------------------------------
-       ABOUT ME SECTION
-    --------------------------------------------------------------------------
-    */
-    .about-flex-container {
-      display: flex;
-      gap: 50px;
-      margin-top: 40px;
-      align-items: flex-start;
-    }
-
-    .about-sidebar {
-      flex: 1;
-      text-align: center;
-    }
-
-    .about-pfp-circle {
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      border: 5px solid var(--netflix-red);
-      background: url('https://cdn.discordapp.com/attachments/981254035568996394/1421149956395372595/Screenshot_20250926_230216_Gallery.jpg?ex=68d7fc89&is=68d6ab09&hm=cff2fc5ce09d6216ed0e9e9e114b43fcfc28f81073a6e1a3bb42a75e7c6ce2e3&') center/cover;
-      margin: 0 auto 30px;
-    }
-
-    .social-links-container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      font-size: 2rem;
-    }
-
-    .social-links-container a { color: #888; transition: color 0.3s; }
-    .social-links-container a:hover { color: var(--netflix-red); }
-
-    .about-main-text { flex: 2; }
-
-    /* 
-    --------------------------------------------------------------------------
-       UTILITY / ADDITIONAL
-    --------------------------------------------------------------------------
-    */
-    .highlight-text { color: var(--netflix-red); font-weight: bold; }
-    .meta-green { color: #46d369; font-weight: bold; }
-
-  </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Netflix Portfolio - Sophia Sahagun</title>
+    
+    <!-- EXTERNAL ASSETS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* 
+        ==========================================================================
+           NETFLIX PORTFOLIO MASTER STYLESHEET
+           VERSION: 2.0.0 (EXPANDED)
+        ==========================================================================
+        */
+
+        :root {
+            --netflix-red: #e50914;
+            --netflix-black: #141414;
+            --netflix-dark-grey: #181818;
+            --netflix-light-grey: #2f2f2f;
+            --text-main: #ffffff;
+            --text-muted: #b3b3b3;
+            --success-green: #46d369;
+            --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --card-width: 250px;
+            --card-height: 140px;
+        }
+
+        /* 
+        --------------------------------------------------------------------------
+           GLOBAL RESET & SCROLLBAR
+        --------------------------------------------------------------------------
+        */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--netflix-black);
+            color: var(--text-main);
+            font-family: 'Roboto', Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* Custom Scrollbar for Chrome/Safari */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--netflix-black);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--netflix-red);
+        }
+
+        /* 
+        --------------------------------------------------------------------------
+           WELCOME OVERLAY ENTRANCE
+        --------------------------------------------------------------------------
+        */
+        #welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--netflix-black);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        #welcome-overlay.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .welcome-box {
+            max-width: 850px;
+            text-align: center;
+            animation: netflixIntro 1.8s ease-out forwards;
+        }
+
+        .welcome-brand {
+            color: var(--netflix-red);
+            font-size: 6rem;
+            font-weight: 900;
+            letter-spacing: -3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
+        }
+
+        .welcome-msg {
+            margin-bottom: 45px;
+        }
+
+        .welcome-msg p {
+            font-size: 1.2rem;
+            color: #efefef;
+            margin-bottom: 25px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .enter-btn {
+            background-color: var(--netflix-red);
+            color: white;
+            border: none;
+            padding: 20px 70px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(229, 9, 20, 0.4);
+        }
+
+        .enter-btn:hover {
+            background-color: #ff0a16;
+            transform: scale(1.08);
+            box-shadow: 0 15px 40px rgba(229, 9, 20, 0.6);
+        }
+
+        @keyframes netflixIntro {
+            0% { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0); }
+        }
+
+        /* 
+        --------------------------------------------------------------------------
+           HEADER & NAVIGATION
+        --------------------------------------------------------------------------
+        */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 4%;
+            z-index: 5000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 100%);
+            transition: background-color 0.6s ease;
+        }
+
+        header.scrolled {
+            background-color: var(--netflix-black);
+            padding: 15px 4%;
+        }
+
+        .header-logo h1 {
+            color: var(--netflix-red);
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            letter-spacing: 0px;
+        }
+
+        nav {
+            flex: 1;
+            margin-left: 50px;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: #e5e5e5;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #b3b3b3;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .search-trigger {
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .user-profile {
+            width: 34px;
+            height: 34px;
+            border-radius: 4px;
+            background: url('https://cdn.discordapp.com/attachments/981254035568996394/1421149956395372595/Screenshot_20250926_230216_Gallery.jpg?ex=68d7fc89&is=68d6ab09&hm=cff2fc5ce09d6216ed0e9e9e114b43fcfc28f81073a6e1a3bb42a75e7c6ce2e3&') center/cover;
+            cursor: pointer;
+            border: 1px solid #333;
+        }
+
+        /* 
+        --------------------------------------------------------------------------
+           HERO BANNER
+        --------------------------------------------------------------------------
+        */
+        .hero {
+            position: relative;
+            height: 85vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 4%;
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.pinimg.com/1200x/89/96/0c/89960c808b61f0148faf270fd69819ce.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 35%;
+            background: linear-gradient(to top, var(--netflix-black), transparent);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 700px;
+            animation: heroFadeIn 1.5s ease;
+        }
+
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .hero-badge {
+            font-weight: bold;
+            color: var(--success-green);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-shadow: 2px 4px 10px rgba(0,0,0,0.7);
+        }
+
+        .hero-meta {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .hero-desc {
+            font-size: 1.3rem;
+            margin-bottom: 35px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+            color: #efefef;
+            max-width: 550px;
+        }
+
+        .hero-action-btns {
+            display: flex;
+            gap: 15px;
+        }
+
+        .hero-btn {
+            padding: 12px 35px;
+            border-radius: 4px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: opacity 0.2s;
+        }
+
+        .hero-btn-play { background-color: white; color: black; }
+        .hero-btn-info { background-color: rgba(109, 109, 110, 0.7); color: white; }
+        .hero-btn:hover { opacity: 0.8; }
+
+        /* 
+        --------------------------------------------------------------------------
+           BROWSE ROWS & SLIDERS
+        --------------------------------------------------------------------------
+        */
+        .row-container {
+            padding: 30px 0;
+            position: relative;
+            z-index: 20;
+        }
+
+        .row-title {
+            padding-left: 4%;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #e5e5e5;
+        }
+
+        .carousel-outer {
+            position: relative;
+            padding: 0 4%;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 20px 0 50px 0;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .item-card {
+            min-width: var(--card-width);
+            height: var(--card-height);
+            background-color: #333;
+            border-radius: 4px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition-smooth);
+            flex-shrink: 0;
+        }
+
+        .item-card:hover {
+            transform: scale(1.3);
+            z-index: 500;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.9);
+        }
+
+        .item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, transparent 60%);
+            border-radius: 4px;
+        }
+
+        .item-label {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-shadow: 2px 2px 4px black;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .item-card:hover .item-label {
+            opacity: 0;
+        }
+
+        .item-hover-info {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 15px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 2;
+        }
+
+        .item-card:hover .item-hover-info {
+            opacity: 1;
+        }
+
+        .icon-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .icon-bar i {
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(255,255,255,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            background-color: rgba(42,42,42,0.6);
+        }
+
+        .icon-bar i:hover {
+            border-color: white;
+            background-color: white;
+            color: black;
+        }
+
+        .item-tags {
+            font-size: 0.8rem;
+            color: var(--success-green);
+            font-weight: 800;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 20px;
+            bottom: 50px;
+            width: 45px;
+            background: rgba(0,0,0,0.4);
+            color: white;
+            border: none;
+            font-size: 2.2rem;
+            cursor: pointer;
+            z-index: 600;
+            opacity: 0;
+            transition: opacity 0.3s, background 0.3s;
+        }
+
+        .carousel-outer:hover .slider-btn { opacity: 1; }
+        .slider-btn:hover { background: rgba(0,0,0,0.7); }
+        .slider-left { left: 0; }
+        .slider-right { right: 0; }
+
+        /* 
+        --------------------------------------------------------------------------
+           MODAL FULLSCREEN SYSTEM
+        --------------------------------------------------------------------------
+        */
+        .modal-fullscreen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--netflix-black);
+            z-index: 8000;
+            overflow-y: auto;
+            opacity: 0;
+            transition: opacity var(--transition-smooth);
+        }
+
+        .modal-fullscreen.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .modal-hero {
+            height: 60vh;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 60px 8%;
+        }
+
+        .modal-hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--netflix-black) 10%, transparent 80%);
+        }
+
+        .close-modal-circle {
+            position: fixed;
+            top: 35px;
+            right: 35px;
+            background: #181818;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.6rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9000;
+            transition: background 0.3s;
+        }
+
+        .close-modal-circle:hover { background: #333; }
+
+        .modal-body {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 5%;
+            line-height: 2;
+        }
+
+        .modal-main-title {
+            font-size: 4rem;
+            font-weight: 900;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 10px;
+        }
+
+        .modal-body h3 {
+            color: var(--netflix-red);
+            font-size: 2.2rem;
+            margin: 60px 0 30px 0;
+            border-left: 6px solid var(--netflix-red);
+            padding-left: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .modal-body h4 {
+            font-size: 1.6rem;
+            margin: 40px 0 20px 0;
+            color: #fff;
+            border-bottom: 1px solid #333;
+            padding-bottom: 12px;
+        }
+
+        .modal-body p {
+            font-size: 1.2rem;
+            color: #cecece;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .modal-body blockquote {
+            background: #1f1f1f;
+            padding: 40px;
+            border-left: 5px solid var(--netflix-red);
+            margin: 50px 0;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: #ccc;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* 
+        --------------------------------------------------------------------------
+           TABLES & LISTS
+        --------------------------------------------------------------------------
+        */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            background: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .data-table th {
+            background-color: var(--netflix-red);
+            color: white;
+            text-align: left;
+            padding: 20px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        .data-table td {
+            padding: 20px;
+            border-bottom: 1px solid #282828;
+            color: #bbb;
+            vertical-align: top;
+        }
+
+        .data-table tr:hover { background-color: #222; }
+
+        .list-group {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .list-item {
+            padding: 18px;
+            background: #222;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .list-item:hover { transform: translateX(10px); background: #282828; }
+
+        .badge-score {
+            background-color: var(--netflix-red);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 900;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* 
+        --------------------------------------------------------------------------
+           CONTENT BOXES
+        --------------------------------------------------------------------------
+        */
+        .content-card {
+            background: #222;
+            padding: 35px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border-top: 5px solid var(--netflix-red);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+
+        .content-card h5 {
+            color: var(--netflix-red);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        .log-entry {
+            margin-bottom: 20px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .log-entry::before {
+            content: '➤';
+            color: var(--netflix-red);
+            position: absolute;
+            left: 0;
+            font-size: 0.9rem;
+        }
+
+        /* 
+        --------------------------------------------------------------------------
+           GALLERY STYLES (REFINED)
+        --------------------------------------------------------------------------
+        */
+        .gallery-box {
+            margin-top: 50px;
+        }
+
+        .main-media-display {
+            width: 100%;
+            height: 600px;
+            background: #000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border: 1px solid #333;
+        }
+
+        .main-media-display img, 
+        .main-media-display video {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: opacity 0.4s ease;
+        }
+
+        .thumb-strip {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            scrollbar-width: thin;
+        }
+
+        .thumb-box {
+            min-width: 190px;
+            height: 110px;
+            border: 4px solid transparent;
+            border-radius: 6px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .thumb-box.active-thumb {
+            border-color: var(--netflix-red);
+            transform: translateY(-5px);
+        }
+
+        /* 
+        --------------------------------------------------------------------------
+           ABOUT ME STYLES
+        --------------------------------------------------------------------------
+        */
+        .about-wrap {
+            display: flex;
+            gap: 60px;
+            margin-top: 50px;
+            align-items: flex-start;
+        }
+
+        .about-side {
+            flex: 1;
+            text-align: center;
+            position: sticky;
+            top: 100px;
+        }
+
+        .profile-pfp {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            border: 8px solid var(--netflix-red);
+            background: url('https://cdn.discordapp.com/attachments/981254035568996394/1421149956395372595/Screenshot_20250926_230216_Gallery.jpg?ex=68d7fc89&is=68d6ab09&hm=cff2fc5ce09d6216ed0e9e9e114b43fcfc28f81073a6e1a3bb42a75e7c6ce2e3&') center/cover;
+            margin: 0 auto 35px;
+            box-shadow: 0 0 40px rgba(229, 9, 20, 0.4);
+        }
+
+        .about-socials {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            font-size: 2.5rem;
+        }
+
+        .about-socials a { color: #666; transition: 0.3s; }
+        .about-socials a:hover { color: var(--netflix-red); transform: scale(1.2); }
+
+        .about-info { flex: 2; }
+
+    </style>
 </head>
 <body>
 
-  <!-- WELCOME SCREEN (OVERLAY) -->
-  <div id="welcome-overlay">
-    <div class="welcome-container">
-      <div class="netflix-logo-brand">Welcome</div>
-      <div class="welcome-text-content">
-        <p>Welcome to my portfolio website! This site is a collection of my school activities, reflections, and experiences. It was made to organize my work in one place, so it is easier to share and look back on everything I have done.</p>
-        <p>Here, you will find different activities that I completed in class. Each one includes a short description of what the task was about and a reflection where I explain what I learned from it. This way, the portfolio is not only a record of my work but also a record of my growth as a student.</p>
-        <p>The portfolio is arranged in a way that makes it simple to explore. You can go through the activities one by one, just like browsing through a collection. Each section tells a story about my progress—what I was asked to do, how I responded, and what lessons I took with me afterward.</p>
-        <p>This portfolio is more than just a requirement for school. It also serves as a guide for me to see how much I have improved and what I still need to work on. It shows how I am slowly building my knowledge, skills, and character, step by step, as I continue my studies.</p>
-        <p>Feel free to explore and read through my activities and reflections. I hope this portfolio gives you a clear picture of my journey as a student and how I am working toward my goals.</p>
-      </div>
-      <button class="enter-portfolio-btn" onclick="enterPortfolio()">Enter Portfolio</button>
-    </div>
-  </div>
-
-  <audio id="hover-sound-effect" src="https://assets.mixkit.co/sfx/preview/mixkit-interface-hint-notification-911.mp3" preload="auto"></audio>
-
-  <!-- HEADER NAVIGATION -->
-  <header id="site-header">
-    <div class="header-logo">
-      <h1 onclick="window.scrollTo(0,0)">Portfolio</h1>
-    </div>
-    <nav>
-      <a href="#activities-sec">Activities</a>
-      <a href="#reflections-sec">Reflections</a>
-      <a href="#galleries-sec">Galleries</a>
-      <a href="#" onclick="openContent('about-me-modal'); return false;">About Me</a>
-    </nav>
-    <div class="header-tools">
-      <input type="text" class="search-box" placeholder="Search activities...">
-      <div class="profile-avatar" onclick="openContent('about-me-modal')"></div>
-    </div>
-  </header>
-
-  <!-- HERO SECTION: FEATURED CONTENT -->
-  <div class="hero-container" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.pinimg.com/1200x/89/96/0c/89960c808b61f0148faf270fd69819ce.jpg');">
-    <div class="hero-content">
-      <div class="meta-green"><i class="fas fa-star"></i> Featured Reflection</div>
-      <h2 class="hero-title">What's In My Bag?</h2>
-      <div class="hero-meta-info">
-        <span class="match">99% Match</span>
-        <span>2025 • Season 1 • Emotional Journey</span>
-      </div>
-      <div class="hero-description">
-        A deep, honest exploration of the internal weights I carry. From familial expectations to the escape mechanisms I use to survive the pressure of being "perfect."
-      </div>
-      <div class="hero-btns">
-        <button class="btn-main btn-play" onclick="openContent('bag-reflection-modal')"><i class="fas fa-play"></i> Read Now</button>
-        <button class="btn-main btn-info" onclick="openContent('bag-reflection-modal')"><i class="fas fa-info-circle"></i> More Info</button>
-      </div>
-    </div>
-  </div>
-
-  <main>
-    <!-- ROW: ACTIVITIES -->
-    <section id="activities-sec" class="row-wrapper">
-      <h2 class="row-header">📚 IC Activities</h2>
-      <div class="card-carousel-container">
-        <button class="carousel-control left" onclick="scrollCarousel(this, -1)"><i class="fas fa-chevron-left"></i></button>
-        <div class="card-carousel">
-          
-          <div class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/b9/59/8e/b9598e398a486e6f3be396e4d913e792.jpg')" onclick="openContent('activity1-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">Discussion Forum 1</div>
-            <div class="card-hover-info">
-              <div class="card-icon-tray"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
-              <div class="card-meta-tags">New Release</div>
+    <!-- OVERLAY ENTRANCE -->
+    <div id="welcome-overlay">
+        <div class="welcome-box">
+            <div class="welcome-brand">Welcome</div>
+            <div class="welcome-msg">
+                <p>Welcome to my portfolio website! This site is a collection of my school activities, reflections, and experiences. It was made to organize my work in one place, so it is easier to share and look back on everything I have done.</p>
+                <p>Here, you will find different activities that I completed in class. Each one includes a short description of what the task was about and a reflection where I explain what I learned from it. This way, the portfolio is not only a record of my work but also a record of my growth as a student.</p>
+                <p>The portfolio is arranged in a way that makes it simple to explore. You can go through the activities one by one, just like browsing through a collection. Each section tells a story about my progress—what I was asked to do, how I responded, and what lessons I took with me afterward.</p>
+                <p>This portfolio is more than just a requirement for school. It also serves as a guide for me to see how much I have improved and what I still need to work on. It shows how I am slowly building my knowledge, skills, and character, step by step, as I continue my studies.</p>
+                <p>Feel free to explore and read through my activities and reflections. I hope this portfolio gives you a clear picture of my journey as a student and how I am working toward my goals.</p>
             </div>
-          </div>
-
-          <div class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/b0/16/3a/b0163a93d05a19fbb79790c751b43927.jpg')" onclick="openContent('activity2-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">Needs Assessment</div>
-            <div class="card-hover-info">
-              <div class="card-icon-tray"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
-              <div class="card-meta-tags">Self-Awareness</div>
-            </div>
-          </div>
-
-          <div class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/31/8d/ed/318dedd6095c9b80f86a8c2b23a91341.jpg')" onclick="openContent('activity3-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">TOWPEP Scores</div>
-            <div class="card-hover-info">
-              <div class="card-icon-tray"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
-              <div class="card-meta-tags">High Scores</div>
-            </div>
-          </div>
-
-          <div class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/71/a6/72/71a6723214d3581dbf0534f98f85675c.jpg')" onclick="openContent('activity4-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">Convocation Log</div>
-            <div class="card-hover-info">
-              <div class="card-icon-tray"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
-              <div class="card-meta-tags">Documentation</div>
-            </div>
-          </div>
-
-          <div id="actMI-card" class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/b4/8d/9e/b48d9e65b6d6c08cd03f6529c49fd3b4.jpg')" onclick="openContent('activityMI-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">Multiple Intelligences</div>
-            <div class="card-hover-info">
-              <div class="card-icon-tray"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
-              <div class="card-meta-tags">Personality Max</div>
-            </div>
-          </div>
-
-          <div id="actRRR-card" class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/72/e7/c0/72e7c0785fd01e8512508e5ef29546bb.jpg')" onclick="openContent('activityRRR-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">Reflect, Research, Reduce</div>
-            <div class="card-hover-info">
-              <div class="card-icon-tray"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
-              <div class="card-meta-tags">Environment</div>
-            </div>
-          </div>
-
-          <div class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/d6/4f/d1/d64fd1419a443b77fccad4d3443a67c4.jpg')" onclick="openContent('strat-plan-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">Strategic Plan</div>
-            <div class="card-hover-info">
-              <div class="card-icon-tray"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
-              <div class="card-meta-tags">Career 2029-2033</div>
-            </div>
-          </div>
-
+            <button class="enter-btn" onclick="hideWelcome()">Enter Portfolio</button>
         </div>
-        <button class="carousel-control right" onclick="scrollCarousel(this, 1)"><i class="fas fa-chevron-right"></i></button>
-      </div>
+    </div>
+
+    <!-- AUDIO EFFECTS -->
+    <audio id="sound-hover" src="https://assets.mixkit.co/sfx/preview/mixkit-interface-hint-notification-911.mp3" preload="auto"></audio>
+
+    <!-- NAVIGATION HEADER -->
+    <header id="site-header">
+        <div class="header-logo">
+            <h1 onclick="window.scrollTo(0,0)">Portfolio</h1>
+        </div>
+        <nav>
+            <a href="#activities-sec">Activities</a>
+            <a href="#reflections-sec">Reflections</a>
+            <a href="#galleries-sec">Galleries</a>
+            <a href="#presentation-sec">Presentation</a>
+        </nav>
+        <div class="header-controls">
+            <i class="fas fa-search search-trigger"></i>
+            <div class="user-profile" onclick="openModal('modal-about-me')"></div>
+        </div>
+    </header>
+
+    <!-- FEATURED HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge"><i class="fas fa-star"></i> Featured Reflection</div>
+            <h2 class="hero-title">What's In My Bag?</h2>
+            <div class="hero-meta">
+                <span style="color:#46d369; margin-right:15px;">99% Match</span>
+                <span>2025 • Season 1 • Emotional Journey</span>
+            </div>
+            <div class="hero-desc">
+                A deep, honest exploration of the internal weights I carry. From familial expectations to the escape mechanisms I use to survive the pressure of being "perfect."
+            </div>
+            <div class="hero-action-btns">
+                <button class="hero-btn hero-btn-play" onclick="openModal('modal-bag-reflection')"><i class="fas fa-play"></i> Read Now</button>
+                <button class="hero-btn hero-btn-info" onclick="openModal('modal-bag-reflection')"><i class="fas fa-info-circle"></i> More Info</button>
+            </div>
+        </div>
     </section>
 
-    <!-- ROW: REFLECTIONS -->
-    <section id="reflections-sec" class="row-wrapper">
-      <h2 class="row-header">🎬 Reflections</h2>
-      <div class="card-carousel-container">
-        <button class="carousel-control left" onclick="scrollCarousel(this, -1)"><i class="fas fa-chevron-left"></i></button>
-        <div class="card-carousel">
+    <!-- MAIN CAROUSEL ROWS -->
+    <main>
 
-          <div class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/e7/a5/25/e7a525fb5c242f964d563eb373b973fe.jpg')" onclick="openContent('kindness-series-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">Acts of Kindness</div>
-            <div class="card-hover-info">
-              <div class="card-icon-tray"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
-              <div class="card-meta-tags">Documentation</div>
+        <!-- ROW: IC ACTIVITIES -->
+        <section id="activities-sec" class="row-container">
+            <h2 class="row-title">📚 IC Activities</h2>
+            <div class="carousel-outer">
+                <button class="slider-btn slider-left" onclick="slide(this, -1)"><i class="fas fa-chevron-left"></i></button>
+                <div class="carousel-track">
+                    
+                    <!-- Activity 1 -->
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/b9/59/8e/b9598e398a486e6f3be396e4d913e792.jpg')" onclick="openModal('modal-act1')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">Discussion Forum 1</div>
+                        <div class="item-hover-info">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="item-tags">New Release • Motivation</div>
+                        </div>
+                    </div>
+
+                    <!-- Activity 2 -->
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/b0/16/3a/b0163a93d05a19fbb79790c751b43927.jpg')" onclick="openModal('modal-act2')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">Needs Assessment</div>
+                        <div class="item-hover-info">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="item-tags">Critical • Self-Awareness</div>
+                        </div>
+                    </div>
+
+                    <!-- Activity 3 -->
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/31/8d/ed/318dedd6095c9b80f86a8c2b23a91341.jpg')" onclick="openModal('modal-act3')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">TOWPEP Scores</div>
+                        <div class="item-hover-info">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="item-tags">High Definition • Profiling</div>
+                        </div>
+                    </div>
+
+                    <!-- Activity 4 -->
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/71/a6/72/71a6723214d3581dbf0534f98f85675c.jpg')" onclick="openModal('modal-act4')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">Convocation Log</div>
+                        <div class="item-hover-info">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="item-tags">Values • 5C's Celebration</div>
+                        </div>
+                    </div>
+
+                    <!-- Activity 5 -->
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/b4/8d/9e/b48d9e65b6d6c08cd03f6529c49fd3b4.jpg')" onclick="openModal('modal-actMI')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">Multiple Intelligences</div>
+                        <div class="item-hover-info">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="item-tags">Discovery • Intelligence</div>
+                        </div>
+                    </div>
+
+                    <!-- Activity 6 -->
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/72/e7/c0/72e7c0785fd01e8512508e5ef29546bb.jpg')" onclick="openModal('modal-actRRR')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">Reflect, Research, Reduce</div>
+                        <div class="item-hover-info">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="item-tags">Environmental • 10 Years</div>
+                        </div>
+                    </div>
+
+                    <!-- Activity 7 -->
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/d6/4f/d1/d64fd1419a443b77fccad4d3443a67c4.jpg')" onclick="openModal('modal-strat-plan')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">Strategic Plan</div>
+                        <div class="item-hover-info">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="item-tags">Career • 2029-2033</div>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="slider-btn slider-right" onclick="slide(this, 1)"><i class="fas fa-chevron-right"></i></button>
             </div>
-          </div>
+        </section>
 
-          <div class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/0c/c1/a3/0cc1a3f78c65efaa6c7772deabb922f1.jpg')" onclick="openContent('psalm-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">Psalm 23</div>
-            <div class="card-hover-info">
-              <div class="card-icon-tray"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
-              <div class="card-meta-tags">Shepherd & Sheep</div>
+        <!-- ROW: REFLECTIONS -->
+        <section id="reflections-sec" class="row-container">
+            <h2 class="row-title">🎬 Reflections</h2>
+            <div class="carousel-outer">
+                <button class="slider-btn slider-left" onclick="slide(this, -1)"><i class="fas fa-chevron-left"></i></button>
+                <div class="carousel-track">
+
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/e7/a5/25/e7a525fb5c242f964d563eb373b973fe.jpg')" onclick="openModal('modal-kindness-series')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">Acts of Kindness</div>
+                        <div class="item-hover-info">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="item-tags">4 Weeks • Documentation</div>
+                        </div>
+                    </div>
+
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/0c/c1/a3/0cc1a3f78c65efaa6c7772deabb922f1.jpg')" onclick="openModal('modal-psalm-23')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">Psalm 23</div>
+                        <div class="item-hover-info">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="item-tags">Spiritual • Sheep & Shepherd</div>
+                        </div>
+                    </div>
+
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg')" onclick="openModal('modal-five-s')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">5S Discipline</div>
+                        <div class="item-hover-info">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="item-tags">Professional • Habit</div>
+                        </div>
+                    </div>
+
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/aa/44/8c/aa448c70cf77a312d84413d16206ac2f.jpg')" onclick="openModal('modal-five-cs')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">My 5C's</div>
+                        <div class="item-hover-info">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="item-tags">Values • Core Growth</div>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="slider-btn slider-right" onclick="slide(this, 1)"><i class="fas fa-chevron-right"></i></button>
             </div>
-          </div>
+        </section>
 
-          <div class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg')" onclick="openContent('five-s-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">5S Discipline</div>
-            <div class="card-hover-info">
-              <div class="card-icon-tray"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
-              <div class="card-meta-tags">Productivity</div>
+        <!-- ROW: IMAGE GALLERIES -->
+        <section id="galleries-sec" class="row-container">
+            <h2 class="row-title">📷 Image Galleries</h2>
+            <div class="carousel-outer">
+                <button class="slider-btn slider-left" onclick="slide(this, -1)"><i class="fas fa-chevron-left"></i></button>
+                <div class="carousel-track">
+
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/a2/35/62/a235625e987fee1a4c203713009412d2.jpg')" onclick="openModal('modal-gal-towpep')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">TOWPEP Assembly</div>
+                    </div>
+
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/cb/19/f6/cb19f6d8bc04767b908f9f5248c8e824.jpg')" onclick="openModal('modal-gal-mufti')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">Mufti Day</div>
+                    </div>
+
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg')" onclick="openModal('modal-gal-pmo')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">PMO Assembly</div>
+                    </div>
+
+                </div>
+                <button class="slider-btn slider-right" onclick="slide(this, 1)"><i class="fas fa-chevron-right"></i></button>
             </div>
-          </div>
+        </section>
 
-          <div class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/aa/44/8c/aa448c70cf77a312d84413d16206ac2f.jpg')" onclick="openContent('five-c-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">My 5C's</div>
-            <div class="card-hover-info">
-              <div class="card-icon-tray"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
-              <div class="card-meta-tags">Values</div>
+        <!-- NEW ROW: PRESENTATION ACTIVITY -->
+        <section id="presentation-sec" class="row-container">
+            <h2 class="row-header" style="padding-left:4%; margin-bottom:15px; font-size:1.6rem; font-weight:700;">📺 Presentation Activity</h2>
+            <div class="carousel-outer">
+                <div class="carousel-track">
+                    <!-- USING PMO COVER STYLE AS REQUESTED -->
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg')" onclick="openModal('modal-gal-presentation')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">Presentation Showcase</div>
+                        <div class="item-hover-info">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="item-tags">Video Feature • Tech Talk</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+        </section>
 
+        <!-- ROW: ACHIEVEMENTS -->
+        <section class="row-container">
+            <h2 class="row-title">🏆 Hall of Fame</h2>
+            <div class="carousel-outer">
+                <div class="carousel-track">
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/81/b7/5f/81b75f06a48722ed96442e17474b14c3.jpg')" onclick="openModal('modal-achievements')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">HS Achievements</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 
+    ==========================================================================
+       MODAL CONTENT DEFINITIONS (ALL TEXT RESTORED)
+    ==========================================================================
+    -->
+
+    <!-- 1. BAG REFLECTION -->
+    <div id="modal-bag-reflection" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-bag-reflection')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/89/96/0c/89960c808b61f0148faf270fd69819ce.jpg');">
+            <h2 class="modal-main-title">What is in my bag?</h2>
         </div>
-        <button class="carousel-control right" onclick="scrollCarousel(this, 1)"><i class="fas fa-chevron-right"></i></button>
-      </div>
-    </section>
+        <div class="modal-body">
+            <h3>The Weight of Expectations</h3>
+            <div class="content-card">
+                <h5>The Hidden Expectations</h5>
+                <p>Inside my bag are expectations that feel heavier than anything I physically carry. As the youngest in my family, I am constantly seen as the one with the brightest future ahead. They place their hopes on me—consistent good grades, awards, achievements, excellence in everything I do. At first, their pride felt motivating. But over time, that pride became pressure. The more I achieve, the higher their expectations rise. It never settles. There is no pause, no space to breathe or simply exist without proving something.</p>
+                <p>Every accomplishment becomes a new standard I must maintain and surpass. I am not only chasing their expectations but also competing against my past self. There are responsibilities attached to their belief in me. Responsibilities to succeed, to represent the family well, to not fail publicly. And when I feel myself slipping even slightly, the fear sets in. The fear of disappointing them, the fear of not living up to the image they proudly speak about. Sometimes it feels like everything I’ve built could collapse if I fail just once.</p>
+            </div>
 
-    <!-- ROW: GALLERIES -->
-    <section id="galleries-sec" class="row-wrapper">
-      <h2 class="row-header">📷 Image Galleries</h2>
-      <div class="card-carousel-container">
-        <button class="carousel-control left" onclick="scrollCarousel(this, -1)"><i class="fas fa-chevron-left"></i></button>
-        <div class="card-carousel">
+            <div class="content-card">
+                <h5>The Heaviest Pressure</h5>
+                <p>Expectation is the heaviest for they do not end. They only grow. Each achievement raises the bar higher, and I worry that one day I won’t be able to keep up with the version of myself people admire. I fear reaching a point where I can no longer surpass my previous successes, where I may fall behind. The most suffocating part is the possibility of disappointment. Not just theirs, but my own. I am afraid of being stuck in a place where I can no longer “improve,” where I become less than what I was once believed to be.</p>
+            </div>
 
-          <div class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/a2/35/62/a235625e987fee1a4c203713009412d2.jpg')" onclick="openContent('gal-towpep-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">TOWPEP Assembly</div>
-          </div>
-
-          <div class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/cb/19/f6/cb19f6d8bc04767b908f9f5248c8e824.jpg')" onclick="openContent('gal-mufti-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">Mufti Day</div>
-          </div>
-
-          <div class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg')" onclick="openContent('gal-pmo-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">PMO Assembly</div>
-          </div>
-
+            <div class="content-card">
+                <h5>The Mechanism of Escape</h5>
+                <p>When the weight becomes unbearable, I retreat. I drown myself in fantasy, imagined worlds, stories, scenarios where I am not defined by expectations. It becomes my escape. Since I find it difficult to open up to my family about how overwhelmed I feel, I instead try to silence the chaos in my head with logic. I attempt to reason with myself, constructing practical thoughts to fight the endless “what ifs.” I distract myself with temporary comforts, watching dramas, playing games, consuming stories that allow me to step outside of my own reality. In those moments, I can breathe. Even if it’s only brief, it gives me relief.</p>
+            </div>
         </div>
-        <button class="carousel-control right" onclick="scrollCarousel(this, 1)"><i class="fas fa-chevron-right"></i></button>
-      </div>
-    </section>
+    </div>
 
-    <!-- ROW: ACHIEVEMENTS -->
-    <section class="row-wrapper">
-      <h2 class="row-header">🏆 Hall of Fame</h2>
-      <div class="card-carousel-container">
-        <div class="card-carousel">
-          <div class="movie-card-item" style="background-image:url('https://i.pinimg.com/1200x/81/b7/5f/81b75f06a48722ed96442e17474b14c3.jpg')" onclick="openContent('achievements-modal')">
-            <div class="card-item-overlay"></div>
-            <div class="card-title-label">HS Achievements</div>
-          </div>
+    <!-- 2. DISCUSSION FORUM 1 -->
+    <div id="modal-act1" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-act1')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/b9/59/8e/b9598e398a486e6f3be396e4d913e792.jpg');">
+            <h2 class="modal-main-title">Discussion Forum 1</h2>
         </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- 
-  ==========================================================================
-     FULL MODAL CONTENTS (THE SCRIPTED CONTENT)
-  ==========================================================================
-  -->
-
-  <!-- MODAL: WHAT IS IN MY BAG? -->
-  <div id="bag-reflection-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('bag-reflection-modal')">✕</button>
-    <div class="modal-hero-banner" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/89/96/0c/89960c808b61f0148faf270fd69819ce.jpg');">
-      <h2 class="modal-title-main">What is in my bag?</h2>
+        <div class="modal-body">
+            <h3>The Journey Begins</h3>
+            <h4>1. Why did you choose Southville?</h4>
+            <p>I chose Southville because it has always been my dream school. I’ve admired the uniform for a long time; it really suits my style. On a practical note, Southville is also the closest school to my home, which makes commuting much more convenient and less of a hassle. And lastly, I believe Southville offers a quality education since it is an international school with a good academic reputation.</p>
+            
+            <h4>2. What are my expectations for this class?</h4>
+            <p>I hope to have a meaningful learning experience this semester. I look forward to gaining new knowledge. I also hope the class will be enjoyable, not too stressful or overwhelming, something a bit more relaxed and fun, while still being productive and engaging.</p>
+            
+            <h3>Reflection</h3>
+            <blockquote>
+                Participating in this discussion forum gave me the chance to look back at why I am here in Southville and what I truly want to achieve in this class. Writing my answer helped me realize that my decision to study here was not just based on convenience, but also on admiration, values, and trust in the school’s quality education. It reminded me that I am in the right place to grow, both academically and personally.
+                <br><br>
+                Reflecting on my expectations also helped me set the tone for the semester. I realized that while I want to challenge myself and gain new knowledge, I also value a learning environment that is balanced—fun, interactive, and engaging, without being overly stressful. This shows that I am aware of my own learning style: I do best when I feel comfortable, motivated, and connected to my classmates and professors.
+            </blockquote>
+        </div>
     </div>
-    <div class="modal-body-container">
-      <h3>The Weight of Expectations</h3>
-      <div class="entry-box">
-        <h5>The Hidden Expectations</h5>
-        <p>Inside my bag are expectations that feel heavier than anything I physically carry. As the youngest in my family, I am constantly seen as the one with the brightest future ahead. They place their hopes on me—consistent good grades, awards, achievements, excellence in everything I do. At first, their pride felt motivating. But over time, that pride became pressure. The more I achieve, the higher their expectations rise. It never settles. There is no pause, no space to breathe or simply exist without proving something.</p>
-        <p>Every accomplishment becomes a new standard I must maintain and surpass. I am not only chasing their expectations but also competing against my past self. There are responsibilities attached to their belief in me. Responsibilities to succeed, to represent the family well, to not fail publicly. And when I feel myself slipping even slightly, the fear sets in. The fear of disappointing them, the fear of not living up to the image they proudly speak about. Sometimes it feels like everything I’ve built could collapse if I fail just once.</p>
-      </div>
 
-      <div class="entry-box">
-        <h5>The Heaviest Pressure</h5>
-        <p>Expectation is the heaviest for they do not end. They only grow. Each achievement raises the bar higher, and I worry that one day I won’t be able to keep up with the version of myself people admire. I fear reaching a point where I can no longer surpass my previous successes, where I may fall behind. The most suffocating part is the possibility of disappointment. Not just theirs, but my own. I am afraid of being stuck in a place where I can no longer “improve,” where I become less than what I was once believed to be.</p>
-      </div>
+    <!-- 3. ONLINE NEEDS ASSESSMENT -->
+    <div id="modal-act2" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-act2')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/b0/16/3a/b0163a93d05a19fbb79790c751b43927.jpg');">
+            <h2 class="modal-title-main">Online Needs Assessment</h2>
+        </div>
+        <div class="modal-body">
+            <h3>Student Profile & Concerns</h3>
+            <div class="content-card">
+                <p><strong>Name:</strong> Sahagun, Sophia Rodina G. | <strong>Course:</strong> BS Information Technology</p>
+                <hr style="border: 0; border-top: 1px solid #444; margin: 20px 0;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <div>
+                        <h5>Health Concerns</h5>
+                        <ul class="list-group">
+                            <li class="list-item">Often have headaches</li>
+                            <li class="list-item">Not enough sleep</li>
+                            <li class="list-item">Gets tired easily</li>
+                            <li class="list-item">Cannot see very well</li>
+                            <li class="list-item">Often gets sick</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Academic Concerns</h5>
+                        <ul class="list-group">
+                            <li class="list-item">Cannot finish given assignment</li>
+                            <li class="list-item">Interested only in some school subjects</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 30px;">
+                    <h5>Personal & Peer Concerns</h5>
+                    <ul class="list-group">
+                        <li class="list-item">Easily angered at times / Gets irritated easily</li>
+                        <li class="list-item">Afraid to make mistakes / Afraid to recite</li>
+                        <li class="list-item">Feels timid and shy / Unable to express oneself</li>
+                        <li class="list-item">Feels shy with admirers / Embarrassed around others</li>
+                    </ul>
+                </div>
+            </div>
 
-      <div class="entry-box">
-        <h5>The Mechanism of Escape</h5>
-        <p>When the weight becomes unbearable, I retreat. I drown myself in fantasy, imagined worlds, stories, scenarios where I am not defined by expectations. It becomes my escape. Since I find it difficult to open up to my family about how overwhelmed I feel, I instead try to silence the chaos in my head with logic. I attempt to reason with myself, constructing practical thoughts to fight the endless “what ifs.” I distract myself with temporary comforts, watching dramas, playing games, consuming stories that allow me to step outside of my own reality. In those moments, I can breathe. Even if it’s only brief, it gives me relief.</p>
-      </div>
+            <h3>Overall Reflection</h3>
+            <p>Answering the needs assessment made me more aware of the areas in my life that need improvement. By reflecting on my answers, I realized that many of my struggles are connected, such as lack of sleep leading to tiredness, which then affects my focus on academics. My personal shyness also makes it harder for me to engage in class and build confidence when speaking in front of others.</p>
+            <p>At first, I felt nervous about being honest in the form, but I understood that it was meant to help me, not judge me. By sharing my challenges, I opened the door to possible support from teachers, counselors, and mentors. This activity taught me that it is okay to recognize and admit weaknesses because it is the first step to self-growth. I also realized that shyness and fear of making mistakes are normal, but they can be overcome through practice, self-confidence, and guidance.</p>
+        </div>
     </div>
-  </div>
 
-  <!-- MODAL: DISCUSSION FORUM 1 -->
-  <div id="activity1-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('activity1-modal')">✕</button>
-    <div class="modal-hero-banner" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/b9/59/8e/b9598e398a486e6f3be396e4d913e792.jpg');">
-      <h2 class="modal-title-main">Discussion Forum 1</h2>
-    </div>
-    <div class="modal-body-container">
-      <h3>The Journey Begins</h3>
-      <h4>1. Why did you choose Southville?</h4>
-      <p>I chose Southville because it has always been my dream school. I’ve admired the uniform for a long time; it really suits my style. On a practical note, Southville is also the closest school to my home, which makes commuting much more convenient and less of a hassle. And lastly, I believe Southville offers a quality education since it is an international school with a good academic reputation.</p>
-      
-      <h4>2. What are my expectations for this class?</h4>
-      <p>I hope to have a meaningful learning experience this semester. I look forward to gaining new knowledge. I also hope the class will be enjoyable, not too stressful or overwhelming, something a bit more relaxed and fun, while still being productive and engaging.</p>
-      
-      <h3>Reflection</h3>
-      <blockquote>
-        Participating in this discussion forum gave me the chance to look back at why I am here in Southville and what I truly want to achieve in this class. Writing my answer helped me realize that my decision to study here was not just based on convenience, but also on admiration, values, and trust in the school’s quality education. It reminded me that I am in the right place to grow, both academically and personally.
-        <br><br>
-        Reflecting on my expectations also helped me set the tone for the semester. I realized that while I want to challenge myself and gain new knowledge, I also value a learning environment that is balanced—fun, interactive, and engaging, without being overly stressful. This shows that I am aware of my own learning style: I do best when I feel comfortable, motivated, and connected to my classmates and professors.
-      </blockquote>
-    </div>
-  </div>
-
-  <!-- MODAL: NEEDS ASSESSMENT -->
-  <div id="activity2-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('activity2-modal')">✕</button>
-    <div class="modal-hero-banner" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/b0/16/3a/b0163a93d05a19fbb79790c751b43927.jpg');">
-      <h2 class="modal-title-main">Online Needs Assessment</h2>
-    </div>
-    <div class="modal-body-container">
-      <h3>Student Profile & Concerns</h3>
-      <div class="entry-box">
-        <p><strong>Name:</strong> Sahagun, Sophia Rodina G. | <strong>Course:</strong> BS Information Technology</p>
-        <hr style="border: 0; border-top: 1px solid #444; margin: 20px 0;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-          <div>
-            <h5>Health Concerns</h5>
-            <ul class="questionnaire-list">
-              <li>Often have headaches</li>
-              <li>Not enough sleep</li>
-              <li>Gets tired easily</li>
-              <li>Cannot see very well</li>
-              <li>Often gets sick</li>
+    <!-- 4. TOWPEP SCORES (35 ITEMS FULL) -->
+    <div id="modal-act3" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-act3')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/31/8d/ed/318dedd6095c9b80f86a8c2b23a91341.jpg');">
+            <h2 class="modal-title-main">TOWPEP Assessment</h2>
+        </div>
+        <div class="modal-body">
+            <h3>Personal Effectiveness Profile</h3>
+            <p>Transcript of Well-being and Personal Effectiveness. Ratings: 1 (Lowest) to 5 (Highest).</p>
+            
+            <ul class="list-group">
+                <li class="list-item">1. Demonstrates open-mindedness to new things, fresh ideas, and experiences. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">2. Shows candor and truthfulness in thoughts, words and actions even in difficult situations. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">3. Shows effective personal relations and interpersonal sensitivity. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">4. Exerts extra effort to accomplish tasks even when conditions are difficult. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">5. Shows thankfulness for small and big things in life. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">6. Handles smoothly multiple demands, shifting priorities, and rapid changes. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">7. Demonstrates honesty with oneself and others. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">8. Accommodates changes in plans based on feedback and suggestions of others. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">9. Exerts effort toward task mastery and accomplishment. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">10. Expresses appreciation for what one has and not what one wants. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">11. Shifts strategy or approach in response to demands of a situation. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">12. Demonstrates to be true to be who he / she really is. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">13. Accommodates various perspectives, other ideas and options. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">14. Exerts effort toward task mastery and accomplishment. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">15. Lives out one’s passion and achievement of goals. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">16. Looks for opportunities to apply learning. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">17. Shows awareness and sensitivity to the feelings and needs of others. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">18. Demonstrates sensitivity and concern for the needs of others. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">19. Finds ways to be efficient for the completion of tasks or projects. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">20. Gets involved in self-directed project(s) or service to others. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">21. Demonstrates respect for self and others. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">22. Demonstrates the capacity to work effectively with others from diverse backgrounds. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">23. Works hard and finishes what is started, despite barriers. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">24. Demonstrates the drive to keep going when things get tough. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">25. Shows humility in success by showing gratitude to those who helped. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">26. Admits one's mistakes and confronts unethical actions of others. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">27. Works out blocks to achieve short and long term goals. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">28. Accepts one’s weaknesses and limitations. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">29. Commits to perform an assigned or agreed upon tasks or duties. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">30. Persists at a task or problem despite interruptions, obstacles or setbacks. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">31. Demonstrates consistency in words and actions. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">32. Feels an internal sense of direction, motivation and compulsion to act. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">33. Chooses to do what is ethical even in the midst of opposition. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">34. Gets things done with sense of urgency. <span class="badge-score">5 / 5</span></li>
+                <li class="list-item">35. Honors the spoken word by keeping true to promises and fulfilling commitments. <span class="badge-score">5 / 5</span></li>
             </ul>
-          </div>
-          <div>
-            <h5>Academic Concerns</h5>
-            <ul class="questionnaire-list">
-              <li>Cannot finish given assignment</li>
-              <li>Interested only in some school subjects</li>
-            </ul>
-          </div>
+
+            <h3>Analysis & Reflection</h3>
+            <p>Completing the TOWPEP Questionnaire made me realize the importance of self-assessment and self-awareness. By rating myself, I was able to see how I value qualities like honesty, perseverance, gratitude, and responsibility. I noticed that I often strive to give my best in every task, show respect to others, and remain truthful even in difficult situations.</p>
+            <p>This reflection gave me a sense of pride because it showed that I am aware of my personal strengths. At the same time, it reminded me that there is always room for growth. For example, while I scored myself high in adaptability and perseverance, I know that real-life challenges may test these traits, and I must continue to practice them in different situations.</p>
         </div>
-        <div style="margin-top: 25px;">
-          <h5>Personal & Peer Concerns</h5>
-          <ul class="questionnaire-list">
-            <li>Easily angered at times / Gets irritated easily</li>
-            <li>Afraid to make mistakes / Afraid to recite</li>
-            <li>Feels timid and shy / Unable to express oneself</li>
-            <li>Feels shy with admirers / Embarrassed around others</li>
-          </ul>
+    </div>
+
+    <!-- 5. TOWPEP CONVOCATION (TABLES FULL) -->
+    <div id="modal-act4" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-act4')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/71/a6/72/71a6723214d3581dbf0534f98f85675c.jpg');">
+            <h2 class="modal-title-main">TOWPEP Convocation</h2>
         </div>
-      </div>
+        <div class="modal-body">
+            <h3>The 5C's Celebration</h3>
+            <p>The TOWPEP Convocation was a meaningful event that brought together students, mentors, and faculty to focus on growth, reflection, and community.</p>
 
-      <h3>Overall Reflection</h3>
-      <p>Answering the needs assessment made me more aware of the areas in my life that need improvement. By reflecting on my answers, I realized that many of my struggles are connected, such as lack of sleep leading to tiredness, which then affects my focus on academics. My personal shyness also makes it harder for me to engage in class and build confidence when speaking in front of others.</p>
-      <p>At first, I felt nervous about being honest in the form, but I understood that it was meant to help me, not judge me. By sharing my challenges, I opened the door to possible support from teachers, counselors, and mentors. This activity taught me that it is okay to recognize and admit weaknesses because it is the first step to self-growth. I also realized that shyness and fear of making mistakes are normal, but they can be overcome through practice, self-confidence, and guidance.</p>
-    </div>
-  </div>
+            <h4>A. Growth Mindset Profile</h4>
+            <table class="data-table">
+                <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
+                <tr><td>Adaptability</td><td>5.00</td><td>Very High</td></tr>
+                <tr><td>Openness to Learn</td><td>5.00</td><td>Very High</td></tr>
+            </table>
 
-  <!-- MODAL: TOWPEP SCORES (35 ITEMS FULL) -->
-  <div id="activity3-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('activity3-modal')">✕</button>
-    <div class="modal-hero-banner" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/31/8d/ed/318dedd6095c9b80f86a8c2b23a91341.jpg');">
-      <h2 class="modal-title-main">TOWPEP Assessment</h2>
-    </div>
-    <div class="modal-body-container">
-      <h3>Personal Effectiveness Profile</h3>
-      <p>Transcript of Well-being and Personal Effectiveness. Ratings: 1 (Lowest) to 5 (Highest).</p>
-      
-      <ul class="questionnaire-list">
-        <li>1. Demonstrates open-mindedness to new things, fresh ideas, and experiences. <span class="score-chip">5 / 5</span></li>
-        <li>2. Shows candor and truthfulness in thoughts, words and actions even in difficult situations. <span class="score-chip">5 / 5</span></li>
-        <li>3. Shows effective personal relations and interpersonal sensitivity. <span class="score-chip">5 / 5</span></li>
-        <li>4. Exerts extra effort to accomplish tasks even when conditions are difficult. <span class="score-chip">5 / 5</span></li>
-        <li>5. Shows thankfulness for small and big things in life. <span class="score-chip">5 / 5</span></li>
-        <li>6. Handles smoothly multiple demands, shifting priorities, and rapid changes. <span class="score-chip">5 / 5</span></li>
-        <li>7. Demonstrates honesty with oneself and others. <span class="score-chip">5 / 5</span></li>
-        <li>8. Accommodates changes in plans based on feedback and suggestions of others. <span class="score-chip">5 / 5</span></li>
-        <li>9. Exerts effort toward task mastery and accomplishment. <span class="score-chip">5 / 5</span></li>
-        <li>10. Expresses appreciation for what one has and not what one wants. <span class="score-chip">5 / 5</span></li>
-        <li>11. Shifts strategy or approach in response to demands of a situation. <span class="score-chip">5 / 5</span></li>
-        <li>12. Demonstrates to be true to be who he / she really is. <span class="score-chip">5 / 5</span></li>
-        <li>13. Accommodates various perspectives, other ideas and options. <span class="score-chip">5 / 5</span></li>
-        <li>14. Exerts effort toward task mastery and accomplishment. <span class="score-chip">5 / 5</span></li>
-        <li>15. Lives out one’s passion and achievement of goals. <span class="score-chip">5 / 5</span></li>
-        <li>16. Looks for opportunities to apply learning. <span class="score-chip">5 / 5</span></li>
-        <li>17. Shows awareness and sensitivity to the feelings and needs of others. <span class="score-chip">5 / 5</span></li>
-        <li>18. Demonstrates sensitivity and concern for the needs of others. <span class="score-chip">5 / 5</span></li>
-        <li>19. Finds ways to be efficient for the completion of tasks or projects. <span class="score-chip">5 / 5</span></li>
-        <li>20. Gets involved in self-directed project(s) or service to others. <span class="score-chip">5 / 5</span></li>
-        <li>21. Demonstrates respect for self and others. <span class="score-chip">5 / 5</span></li>
-        <li>22. Demonstrates the capacity to work effectively with others from diverse backgrounds. <span class="score-chip">5 / 5</span></li>
-        <li>23. Works hard and finishes what is started, despite barriers. <span class="score-chip">5 / 5</span></li>
-        <li>24. Demonstrates the drive to keep going when things get tough. <span class="score-chip">5 / 5</span></li>
-        <li>25. Shows humility in success by showing gratitude to those who helped. <span class="score-chip">5 / 5</span></li>
-        <li>26. Admits one's mistakes and confronts unethical actions of others. <span class="score-chip">5 / 5</span></li>
-        <li>27. Works out blocks to achieve short and long term goals. <span class="score-chip">5 / 5</span></li>
-        <li>28. Accepts one’s weaknesses and limitations. <span class="score-chip">5 / 5</span></li>
-        <li>29. Commits to perform an assigned or agreed upon tasks or duties. <span class="score-chip">5 / 5</span></li>
-        <li>30. Persists at a task or problem despite interruptions, obstacles or setbacks. <span class="score-chip">5 / 5</span></li>
-        <li>31. Demonstrates consistency in words and actions. <span class="score-chip">5 / 5</span></li>
-        <li>32. Feels an internal sense of direction, motivation and compulsion to act. <span class="score-chip">5 / 5</span></li>
-        <li>33. Chooses to do what is ethical even in the midst of opposition. <span class="score-chip">5 / 5</span></li>
-        <li>34. Gets things done with sense of urgency. <span class="score-chip">5 / 5</span></li>
-        <li>35. Honors the spoken word by keeping true to promises and fulfilling commitments. <span class="score-chip">5 / 5</span></li>
-      </ul>
+            <h4>B. Character</h4>
+            <table class="data-table">
+                <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
+                <tr><td>Authenticity / Empathy</td><td>5.00</td><td>Very High</td></tr>
+                <tr><td>Good Manners / Professionalism</td><td>5.00</td><td>Very High</td></tr>
+                <tr><td>Integrity / Humility / Responsibility</td><td>5.00</td><td>Very High</td></tr>
+                <tr><td>Trustworthiness</td><td>5.00</td><td>Very High</td></tr>
+            </table>
 
-      <h3>Analysis & Reflection</h3>
-      <p>Completing the TOWPEP Questionnaire made me realize the importance of self-assessment and self-awareness. By rating myself, I was able to see how I value qualities like honesty, perseverance, gratitude, and responsibility. I noticed that I often strive to give my best in every task, show respect to others, and remain truthful even in difficult situations.</p>
-      <p>This reflection gave me a sense of pride because it showed that I am aware of my personal strengths. At the same time, it reminded me that there is always room for growth. For example, while I scored myself high in adaptability and perseverance, I know that real-life challenges may test these traits, and I must continue to practice them in different situations.</p>
-    </div>
-  </div>
+            <h4>C. Collaboration</h4>
+            <table class="data-table">
+                <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
+                <tr><td>Emotional Stability / Stress Tolerance</td><td>5.00</td><td>Very High</td></tr>
+                <tr><td>Flexibility / Interpersonal Sensitivity</td><td>5.00</td><td>Very High</td></tr>
+            </table>
 
-  <!-- MODAL: TOWPEP CONVOCATION (TABLES FULL) -->
-  <div id="activity4-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('activity4-modal')">✕</button>
-    <div class="modal-hero-banner" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/71/a6/72/71a6723214d3581dbf0534f98f85675c.jpg');">
-      <h2 class="modal-title-main">TOWPEP Convocation</h2>
-    </div>
-    <div class="modal-body-container">
-      <h3>The 5C's Celebration</h3>
-      <p>The TOWPEP Convocation was a meaningful event that brought together students, mentors, and faculty to focus on growth, reflection, and community. The program highlighted the importance of not just academics but also values, discipline, and self-discovery.</p>
+            <h4>D. Grit / Commitment to Achieve</h4>
+            <table class="data-table">
+                <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
+                <tr><td>Drive / Perseverance / Resilience</td><td>5.00</td><td>Very High</td></tr>
+                <tr><td>Output Driven / Sense of Urgency</td><td>5.00</td><td>Very High</td></tr>
+            </table>
 
-      <h4>A. Growth Mindset Profile</h4>
-      <table class="content-table">
-        <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
-        <tr><td>Adaptability</td><td>5.00</td><td>Very High</td></tr>
-        <tr><td>Openness to Learn</td><td>5.00</td><td>Very High</td></tr>
-      </table>
+            <h4>E. Wellness</h4>
+            <table class="data-table">
+                <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
+                <tr><td>Gratitude / Sense of Purpose</td><td>5.00</td><td>Very High</td></tr>
+            </table>
 
-      <h4>B. Character</h4>
-      <table class="content-table">
-        <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
-        <tr><td>Authenticity / Empathy</td><td>5.00</td><td>Very High</td></tr>
-        <tr><td>Good Manners / Professionalism</td><td>5.00</td><td>Very High</td></tr>
-        <tr><td>Integrity / Humility / Responsibility</td><td>5.00</td><td>Very High</td></tr>
-        <tr><td>Trustworthiness</td><td>5.00</td><td>Very High</td></tr>
-      </table>
+            <h3>Achievements Description</h3>
+            <p>One of my proudest achievements during this event was performing as part of the <strong>SYNC:D Dance Troupe</strong>. We worked hard during practices, training for long hours to perfect our routine. Performing in front of the assembly was both exciting and nerve-wracking, but in the end, it was incredibly fulfilling. Our group gave its best performance, and I learned the value of teamwork, discipline, and confidence.</p>
+            <p>I also had the chance to join the <strong>Peer Mentor Organization</strong>, managed partly by Sir Ramcis. This experience was equally meaningful because it brought students from different courses together. It was not only fun and engaging but also gave me a chance to meet new people and form connections outside my circle.</p>
 
-      <h4>C. Collaboration</h4>
-      <table class="content-table">
-        <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
-        <tr><td>Emotional Stability / Stress Tolerance</td><td>5.00</td><td>Very High</td></tr>
-        <tr><td>Flexibility / Interpersonal Sensitivity</td><td>5.00</td><td>Very High</td></tr>
-      </table>
-
-      <h4>D. Grit / Commitment to Achieve</h4>
-      <table class="content-table">
-        <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
-        <tr><td>Drive / Perseverance / Resilience</td><td>5.00</td><td>Very High</td></tr>
-        <tr><td>Output Driven / Sense of Urgency</td><td>5.00</td><td>Very High</td></tr>
-      </table>
-
-      <h4>E. Wellness</h4>
-      <table class="content-table">
-        <tr><th>Category</th><th>Score</th><th>Remarks</th></tr>
-        <tr><td>Gratitude / Sense of Purpose</td><td>5.00</td><td>Very High</td></tr>
-      </table>
-
-      <h3>Achievements Description</h3>
-      <p>One of my proudest achievements during this event was performing as part of the <strong>SYNC:D Dance Troupe</strong>. We worked hard during practices, training for long hours to perfect our routine. Performing in front of the assembly was both exciting and nerve-wracking, but in the end, it was incredibly fulfilling. Our group gave its best performance, and I learned the value of teamwork, discipline, and confidence.</p>
-      <p>I also had the chance to join the <strong>Peer Mentor Organization</strong>, managed partly by Sir Ramcis. This experience was equally meaningful because it brought students from different courses together. It was not only fun and engaging but also gave me a chance to meet new people and form connections outside my circle.</p>
-
-      <h3>Overall Reflection</h3>
-      <p>Looking back at the TOWPEP Convocation, I see it as more than an event—it was a celebration of growth, values, and community. The results of my TOWPEP profile remind me that I have strong qualities such as adaptability, empathy, and perseverance, but they also remind me to stay humble and keep improving. Both experiences—the dance intermission and peer mentoring—showed me that achievements are not only about personal success but also about building confidence, friendships, and community spirit.</p>
-    </div>
-  </div>
-
-  <!-- MODAL: MULTIPLE INTELLIGENCES (FULL REFLECTION) -->
-  <div id="activityMI-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('activityMI-modal')">✕</button>
-    <div class="modal-hero-banner" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/b4/8d/9e/b48d9e65b6d6c08cd03f6529c49fd3b4.jpg');">
-      <h2 class="modal-title-main">Multiple Intelligences</h2>
-    </div>
-    <div class="modal-body-container">
-      <h3>Self-Discovery through Quiz</h3>
-      <table class="content-table">
-        <tr><th>Quiz</th><th>Link</th></tr>
-        <tr><td>Multiple Intelligences</td><td><a href="https://personalitymax.com/report/?mi=73-50-57-67-40-47-77-10&name_key=16ffb1fc9f" target="_blank" style="color:red">View Results</a></td></tr>
-        <tr><td>Learning Styles</td><td><a href="https://personalitymax.com/report/?ls=74-64-77&name_key=16ffb1fc9f" target="_blank" style="color:red">View Results</a></td></tr>
-      </table>
-
-      <h4>1. What are your top three (3) multiple intelligences?</h4>
-      <p>My top three multiple intelligences are Intrapersonal, Verbal/Linguistic, and Bodily/Kinesthetic, and I strongly agree with these results. I have Intrapersonal intelligence because I often spend time understanding my own thoughts and emotions. I like to reflect, write, and figure out why I feel certain things. My Verbal/Linguistic intelligence shows in how I express myself best through writing. I enjoy putting my feelings into words and explaining ideas clearly. Lastly, my Bodily/Kinesthetic intelligence means I learn and connect better through actions and real experiences. I like doing things rather than just talking about them because it helps me understand and feel more connected. These three intelligences truly describe how I think, learn, and express myself.</p>
-      
-      <h4>2. What is your dominant learning style?</h4>
-      <p>Based on the quiz, my dominant learning style is kinesthetic, which means I learn best by doing and experiencing things firsthand. I agree with this result because I understand and remember things more when I’m actively involved rather than just listening or reading. This also reflects how I connect with people, I value actions more than words. Simple things like spending time together, making something, or showing effort through gestures help me feel the connection more deeply. For me, learning and understanding, whether in school or in relationships, happens best when I can see, touch, and do something real, not just talk about it.</p>
-      
-      <h4>3. How will you improve your study habits?</h4>
-      <p>Based on my strengths in Kinesthetic, Intrapersonal, and Linguistic intelligences, I plan to improve my study habits by making learning more active, personal, and meaningful. Since I learn best through movement and hands-on activities, I will rewrite my notes by hand, walk around while reviewing, and teach lessons out loud to help me remember better. My intrapersonal strength helps me understand myself and connect lessons to my own experiences, so I will keep a study journal, set clear goals, and study in a quiet place where I can focus. Lastly, my linguistic intelligence allows me to learn well through words, so I will summarize lessons in my own words, create stories or acronyms to remember terms, and write glossaries of key concepts. By using these strategies together, I can make studying more engaging, effective, and suited to how I naturally learn best.</p>
-      
-      <h3>Summary</h3>
-      <blockquote>
-        Completing the Multiple Intelligences and Learning Styles activity helped me discover more about how I learn and think. I found that my strengths in Intrapersonal, Linguistic, and Kinesthetic intelligences truly describe how I approach both learning and life. I found that everyone learns differently, and there is no single “right” way to study. What matters is knowing yourself and using your strengths to your advantage.
-      </blockquote>
-    </div>
-  </div>
-
-  <!-- MODAL: RRR (FULL TABLE & QUESTIONS) -->
-  <div id="activityRRR-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('activityRRR-modal')">✕</button>
-    <div class="modal-hero-banner" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/72/e7/c0/72e7c0785fd01e8512508e5ef29546bb.jpg');">
-      <h2 class="modal-title-main">Reflect, Research, Reduce</h2>
-    </div>
-    <div class="modal-body-container">
-      <h3>Part I – Waste Research</h3>
-      <table class="content-table">
-        <tr><th>Type of Waste</th><th>Definition</th><th>5 Examples Found in Your Surroundings</th></tr>
-        <tr>
-          <td>Recyclable</td>
-          <td>Things that can be remade into something new.</td>
-          <td>Newspapers, Plastic water bottles, Cardboard boxes, Soda cans, Empty milk cartons</td>
-        </tr>
-        <tr>
-          <td>Biodegradable</td>
-          <td>Things that rot and break down into soil all by themselves.</td>
-          <td>Eggshells, Fruit peels, Vegetable scraps, Leaves, Leftover foods</td>
-        </tr>
-        <tr>
-          <td>Non-biodegradable</td>
-          <td>Things that do not rot. They stay as is for a very long time.</td>
-          <td>Plastic, Batteries, Styrofoam cup, Used pen, Old CDs</td>
-        </tr>
-      </table>
-
-      <h3>Part II – Reflection Questions</h3>
-      <h4>1. What small actions can I start doing to reduce my plastic use?</h4>
-      <p>To reduce my plastic use, I can choose to dine in instead of taking out food, bring my own tumbler and utensils, and use reusable containers instead of one-time use plastics.</p>
-      
-      <h4>2. How can I influence my classmates, friends, or family to recycle?</h4>
-      <p>I can influence my classmates, friends, and family by encouraging them to recycle like I do and making it fun, like turning it into a group activity or a small challenge with rewards to keep everyone motivated.</p>
-      
-      <h4>3. What challenges might I face in practicing waste segregation?</h4>
-      <p>One challenge is not knowing which bin to throw the trash in, especially when the labels use pictures instead of words, which can be confusing. Sometimes, when I’m in a hurry, I might also throw waste in the wrong bin by mistake. To overcome this, I can take time to learn what each bin means and make sure my trash goes to the right place.</p>
-      
-      <h4>4. Imagine the Philippines 10 years from now — what do you hope to see?</h4>
-      <p>I hope to see cleaner streets and fresher air. It would be wonderful to live in a place with less pollution because people have learned to be responsible, disciplined, and caring toward the environment.</p>
-      
-      <h3>Summary</h3>
-      <blockquote>
-        Doing the “Reflect, Research, and Reduce” activity helped me understand more about waste and my role in taking care of the environment. I realized that even small actions—like using less plastic, recycling properly, and knowing what kind of waste I’m throwing away—can make a big difference. I hope that if everyone becomes more responsible today, the future Philippines will be cleaner, greener, and a much healthier place to live in.
-      </blockquote>
-    </div>
-  </div>
-
-  <!-- MODAL: STRATEGIC PLAN (5 YEARS FULL) -->
-  <div id="strat-plan-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('strat-plan-modal')">✕</button>
-    <div class="modal-hero-banner" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/d6/4f/d1/d64fd1419a443b77fccad4d3443a67c4.jpg');">
-      <h2 class="modal-title-main">Strategic Plan 2029-2033</h2>
-    </div>
-    <div class="modal-body-container">
-      <h3>5-Year Roadmap for Growth</h3>
-      
-      <div class="entry-box">
-        <h5>Year 1 — 2029: Entry Into Professional Service</h5>
-        <p>After graduation, I will immediately begin my required return service as a scholar. If accepted into the teaching program, I will handle both teaching and office duties, just like other scholars before me. My first year will focus on adjusting to the work environment, building strong work habits, and forming positive relationships with colleagues. I will start contributing financially to my family while practicing budgeting and saving.</p>
-      </div>
-
-      <div class="entry-box">
-        <h5>Year 2 — 2030: Skills Enhancement and Responsibility</h5>
-        <p>In my second year, I aim to strengthen my abilities in teaching and administrative tasks. I will join seminars and workshops to improve my communication, leadership, and technical skills. As I gain more experience, I want to handle more tasks with less supervision. I will also increase my financial support for my family and continue growing my savings.</p>
-      </div>
-
-      <div class="entry-box">
-        <h5>Year 3 — 2031: Leadership Growth and Family Support</h5>
-        <p>By my third year, I plan to take on minor leadership roles or participate in special school projects. I hope to guide younger scholars or newly hired staff, following the example of those who helped me. For my family, I aim to support them more in household needs and plan simple trips as signs of gratitude. I will also prepare for opportunities beyond my return service.</p>
-      </div>
-
-      <div class="entry-box">
-        <h5>Year 4 — 2032: Completion of Service & Career Prep</h5>
-        <p>During my fourth year, I will complete my required service with commitment and professionalism. I will begin exploring job opportunities outside the institution to broaden my experience. I will update my résumé, request recommendations, and choose the career path that fits my long-term goals. I hope to celebrate this milestone with my family through a simple trip or gathering.</p>
-      </div>
-
-      <div class="entry-box">
-        <h5>Year 5 — 2033: Transition to New Opportunities</h5>
-        <p>After completing my service, I will pursue new job opportunities to expand my skills and improve financially. I plan to take additional courses or certifications to strengthen my qualifications. With better financial stability, I want to bring my family on international trips and create meaningful experiences. My goal is to support my family while building a stable and fulfilling career.</p>
-      </div>
-
-      <h3>Long-Term Vision</h3>
-      <blockquote>
-        Beyond the five-year plan, my goal is to maintain a stable career, continue improving professionally, and consistently give back to my family. I want to travel with them, support them long-term, and build a secure life rooted in gratitude, effort, and purpose.
-      </blockquote>
-    </div>
-  </div>
-
-  <!-- MODAL: ACTS OF KINDNESS (FULL 4 WEEKS LOG) -->
-  <div id="kindness-series-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('kindness-series-modal')">✕</button>
-    <div class="modal-hero-banner" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/e7/a5/25/e7a525fb5c242f964d563eb373b973fe.jpg');">
-      <h2 class="modal-title-main">Random Acts of Kindness</h2>
-    </div>
-    <div class="modal-body-container">
-      <h3>Weekly Documentation Journal</h3>
-
-      <div class="entry-box">
-        <h5>Week 1 Documentation</h5>
-        <p class="kindness-point">I have returned a water jug that was left behind in class. It belonged to Mikhaela.</p>
-        <p class="kindness-point">Zak forgot his powerbank inside the dance studio and I returned it to him.</p>
-        <p class="kindness-point">Ken left his bag in the classroom. He didn't know where to find it when the professor handed it to Dr. Aris. I assisted him to retrieve his bag.</p>
-        <p class="kindness-point">We also became close afterwards and I started giving him advices when he needed one.</p>
-        <p><strong>Reflection:</strong> This week was about being observant of my environment. Helping Ken not only solved his immediate problem of the lost bag but initiated a new friendship. It shows how simple acts of physical assistance can bridge the gap between strangers and turn them into friends.</p>
-      </div>
-
-      <div class="entry-box">
-        <h5>Week 2 Documentation</h5>
-        <p class="kindness-point">I bought food for a friend just because I felt like treating them. It was a rare moment for me since I don’t usually buy food for others unless we’re really close. Still, I noticed that the part of me who used to give freely is slowly coming back.</p>
-        <p class="kindness-point">There is a transferee student I’ve been spending time with after class and during breaks. I listened to their stories and learned that they used to struggle with making friends when they were younger. After hearing that, I started inviting them whenever I hang out with other people so I could introduce them and help them expand their social circle.</p>
-        <p class="kindness-point">Ryzza is often by herself at times. Whenever I notice she’s alone, I go and spend time with her, especially when we have class together. Since she’s the only female in Industrial Engineering, I don’t want her to feel left out. I offer her my time and friendship because I know how meaningful it can be to have a fellow female friend around.</p>
-        <p><strong>Reflection:</strong> Inclusion is a powerful act of kindness. By bringing a transferee into my social group and keeping Ryzza company, I am actively preventing the loneliness that often comes with new or isolated environments. Kindness this week was about making sure no one felt invisible.</p>
-      </div>
-
-      <div class="entry-box">
-        <h5>Week 3 Documentation</h5>
-        <p class="kindness-point">I bought lunch for Li and coffee for Jill during the Monarch’s Cup when she mentioned she was thirsty. It was a small gesture, but I wanted to make sure they were comfortable and had something to eat and drink during the event.</p>
-        <p class="kindness-point">I also took time to listen to Jill talk about her relationship problems with a guy. She seemed to need someone to hear her out, so I shared some thoughts and advice based on my own experiences in the hope that it might help her see things from another perspective.</p>
-        <p class="kindness-point">Previously, Li had also been upset because of an issue involving a girl he likes. He ended up venting to me about everything that happened. I simply listened and let him express his frustrations. Sometimes people just need someone willing to hear them out, especially someone who can offer a different perspective than what they usually get from their close group of male friends. While he was talking, I also engaged in conversation and socialized with him, which helped lighten the mood.</p>
-        <p><strong>Reflection:</strong> Listening is one of the most underrated forms of kindness. By letting Li and Jill vent, I provided a safe space for their emotions. This week taught me that sometimes, you don't need to solve a problem—you just need to witness it.</p>
-      </div>
-
-      <div class="entry-box">
-        <h5>Week 4 Documentation</h5>
-        <p class="kindness-point">We had a coffee hangout at ZUS Coffee in Robinsons, where I spent time bonding with Jill, Pia, and Quincy. Jill is currently going through something romantic in her life, and she wanted to talk about it. As her friends, we listened as she shared her story, making the most of the little time we had after class. We also exchanged thoughts and offered her some advice, supporting her as best as we could.</p>
-        <p class="kindness-point">On my way home, I gave the coffee I was drinking to an elderly woman I saw alone on the street. I didn’t have any coins with me since I usually use an e-wallet. Also, based on what my parents have told me, it’s often better to give food or drinks instead of money nowadays.</p>
-        <p class="kindness-point">I supported an online friend who is currently going through a difficult situation with her family. Since she lives in another country, we talked through a video call. I stayed with her while she cried and shared her frustrations. Although there wasn’t much I could physically do, I offered her my presence and comfort, which seemed to help her during that moment.</p>
-        <p><strong>Reflection:</strong> Kindness has no distance. Supporting an online friend through a video call is just as valid as giving a drink to a woman on the street. Week 4 helped me see that being present—emotionally or physically—is the core of character.</p>
-      </div>
-
-      <h3>General Series Reflection</h3>
-      <p>Over the past four weeks, I have realized that kindness is a muscle that needs to be exercised. At the start (Week 1), my acts were mostly reactionary—returning items that were lost. By Week 4, I was seeking out ways to help, whether it was supporting an online friend or sharing my drink with an elderly woman.</p>
-      <p>These acts, though seemingly minor, built my reputation as a reliable and caring person among my peers. It taught me that character is not built in big moments, but in the small choices we make every day to notice the needs of others. Helping Ken retrieval his bag led to a mentorship; helping Ryzza feel included led to a stronger bond in class. Kindness is an investment that pays off in human connection.</p>
-    </div>
-  </div>
-
-  <!-- MODAL: PSALM 23 (FULL LISTS) -->
-  <div id="psalm-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('psalm-modal')">✕</button>
-    <div class="modal-hero-banner" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/0c/c1/a3/0cc1a3f78c65efaa6c7772deabb922f1.jpg');">
-      <h2 class="modal-title-main">Psalm 23 of My Life</h2>
-    </div>
-    <div class="modal-body-container">
-      <h3>Part 1: Me as a Shepherd and a Sheep</h3>
-      
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-        <div>
-          <h5>A. Things that make me a Shepherd</h5>
-          <ul class="questionnaire-list">
-            <li>I take the lead in planning and organizing, ensuring everything runs smoothly for the group.</li>
-            <li>I offer a listening ear and provide comfort to those who are feeling down or overthinking.</li>
-            <li>I am fiercely loyal and protective of the people I care about.</li>
-            <li>I strive to be a reliable presence for my friends.</li>
-            <li>I am patient and understanding, giving people the space they need to process feelings.</li>
-          </ul>
+            <h3>Overall Reflection</h3>
+            <p>Looking back at the TOWPEP Convocation, I see it as more than an event—it was a celebration of growth, values, and community. The results of my TOWPEP profile remind me that I have strong qualities such as adaptability, empathy, and perseverance, but they also remind me to stay humble and keep improving. Both experiences—the dance intermission and peer mentoring—showed me that achievements are not only about personal success but also about building confidence, friendships, and community spirit.</p>
         </div>
-        <div>
-          <h5>B. Things that make me a Sheep</h5>
-          <ul class="questionnaire-list">
-            <li>I am sensitive and easily affected by the moods of those around me.</li>
-            <li>I rely on the wisdom and support of family and mentors for big life decisions.</li>
-            <li>I can feel lost when my routine is disrupted, craving familiar structure.</li>
-            <li>I am vulnerable to disappointment and can be hurt when my trust is misplaced.</li>
-            <li>I look to others for guidance when facing new challenges.</li>
-          </ul>
+    </div>
+
+    <!-- 6. MULTIPLE INTELLIGENCES (FULL) -->
+    <div id="modal-actMI" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-actMI')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/b4/8d/9e/b48d9e65b6d6c08cd03f6529c49fd3b4.jpg');">
+            <h2 class="modal-title-main">Multiple Intelligences</h2>
         </div>
-      </div>
+        <div class="modal-body">
+            <h3>Self-Discovery through Quiz</h3>
+            <table class="data-table">
+                <tr><th>Quiz</th><th>Link</th></tr>
+                <tr><td>Multiple Intelligences</td><td><a href="https://personalitymax.com/report/?mi=73-50-57-67-40-47-77-10&name_key=16ffb1fc9f" target="_blank" style="color:red; font-weight:bold;">View Full Report</a></td></tr>
+                <tr><td>Learning Styles</td><td><a href="https://personalitymax.com/report/?ls=74-64-77&name_key=16ffb1fc9f" target="_blank" style="color:red; font-weight:bold;">View Full Report</a></td></tr>
+            </table>
 
-      <h3>Part 2: Personal Reflection</h3>
-      <h4>1. What does Psalm 23 mean to you?</h4>
-      <p>To me, Psalm 23 is about trusting that I'm being looked after, especially when I feel completely lost and drained. It reminds me that I don't have to carry every burden myself. It impacts my hardest days, when my anxiety is high and my heart feels heavy, by telling me it's okay to rest and believe I’ll be guided to peace of mind.</p>
-      
-      <h4>2. Which line struck you the most? Why?</h4>
-      <p>The line that strikes me is, <em>"he leads me beside quiet waters."</em> My mind is always racing, and the idea of a place of pure calm feels like the relief I’ve been searching for.</p>
-      
-      <h4>3. Am I a Shepherd or a Sheep?</h4>
-      <p><strong>Family:</strong> Sheep – I rely on my parents for guidance and support. <br>
-      <strong>Friends:</strong> Shepherd – I look out for everyone and keep our circle strong. <br>
-      <strong>Studies:</strong> Shepherd – I set goals and discipline myself to succeed. <br>
-      <strong>Goals:</strong> Sheep – Anxiety sometimes makes me uncertain, but I’m learning to guide myself better.</p>
-
-      <h3>Overall Reflection</h3>
-      <blockquote>
-        Psalm 23 reminds me that I am never truly alone, even in moments when life feels confusing or heavy. It teaches me that I don’t have to carry everything on my own, because there is always guidance and comfort available. The part that says, “he leads me beside quiet waters” speaks deeply to me, because my mind is often restless with worries. It gives me hope that peace and calmness are possible if I learn to trust and let go.
-        <br><br>
-        This balance between being a Shepherd and a Sheep reminds me that life is about both giving and receiving. There are times when I am strong enough to lead, and there are times when I need to follow and trust others. Psalm 23 comforts me because it assures me that whether I am leading or following, I am still being guided and cared for. It teaches me to accept both roles with humility, courage, and faith.
-      </blockquote>
-    </div>
-  </div>
-
-  <!-- MODAL: 5S (FULL LOG) -->
-  <div id="five-s-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('five-s-modal')">✕</button>
-    <div class="modal-hero-banner" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg');">
-      <h2 class="modal-title-main">5S in My Life</h2>
-    </div>
-    <div class="modal-body-container">
-      <h3>Student Assistant Log</h3>
-      <p>As a student assistant in the office, I practice the 5S in many ways that help me work better and keep the workplace organized.</p>
-      
-      <div class="entry-box">
-        <p><strong>Sort:</strong> I separate documents carefully by putting the old files in archives and keeping the new and updated ones in a place where they are easy to access.</p>
-        <p><strong>Set in Order:</strong> I always return things to their proper place after using them.</p>
-        <p><strong>Shine:</strong> I make it a habit to clean the office not only before leaving but also during office hours and even upon arrival.</p>
-        <p><strong>Standardize:</strong> I follow routines like submitting tasks early and finishing work before the deadline.</p>
-        <p><strong>Sustain:</strong> I remind myself to continue practicing all these habits daily, because being consistent and disciplined helps the office stay organized, efficient, and professional.</p>
-      </div>
-
-      <h3>Reflection</h3>
-      <p>Through this discussion forum, I realized how much the 5S principles shape the way I work and manage my responsibilities. As a student assistant, applying 5S has helped me develop a sense of discipline, order, and professionalism. It made me understand that small, consistent habits—like keeping documents organized and cleaning regularly—have a big impact on productivity.</p>
-      <p>I also reflected that 5S is not just about cleaning or organizing physical spaces. It is also about training the mind and character. Sorting files teaches me decision-making, while sustaining routines builds self-discipline and reliability. Practicing these principles has made me more efficient, not only in the office but also in my studies, because I learned how to manage my time and finish tasks without procrastination.</p>
-    </div>
-  </div>
-
-  <!-- MODAL: 5C'S (FULL SECTIONS) -->
-  <div id="five-c-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('five-c-modal')">✕</button>
-    <div class="modal-hero-banner" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/aa/44/8c/aa448c70cf77a312d84413d16206ac2f.jpg');">
-      <h2 class="modal-title-main">My 5C's Reflections</h2>
-    </div>
-    <div class="modal-body-container">
-      <h3>The Southville Values in My Life</h3>
-
-      <h4>1. Character</h4>
-      <p>For me, character means the values and attitudes that guide the way I live and interact with others. In school and in my personal life, I always try to practice honesty, respect, and kindness. For example, as a student assistant, I make sure to be reliable with tasks and respectful to the people I work with. I also value discipline, like organizing documents properly and cleaning the office, because it shows responsibility and respect for the workplace.</p>
-      <p>Reflecting on my character made me realize that these small habits—such as being honest in answering the Online Needs Assessment or being truthful in the TOWPEP Questionnaire—help build trust and integrity. Having good character is important because it is the foundation of everything else. Skills and knowledge may change, but values stay with you and guide your decisions in life.</p>
-
-      <h4>2. Competence</h4>
-      <p>Competence is about being capable and having the knowledge and skills to do tasks well. In my journey as a BSIT student, I am still building my competence step by step. I may not know everything yet, but I show competence by finishing my assignments, learning new tools, and applying lessons in practical ways. For example, when I reflected on Psalm 23, I learned to connect values to real life, showing competence not only in academics but also in deeper understanding.</p>
-      <p>I also see competence in how I apply the 5S principles in my work as a student assistant—sorting, organizing, cleaning, and sustaining order. These habits may seem simple, but they show that I can handle responsibilities effectively. Competence is not just about grades; it is about doing your best and being prepared to grow more each day.</p>
-
-      <h4>3. Commitment to Achieve</h4>
-      <p>Commitment to achieve means being dedicated and consistent in what I do, even when it gets difficult. I show commitment by taking my studies seriously and by being responsible with my duties, whether in class or in the office. When I joined the discussion forums, I reflected honestly on why I chose Southville and what I expect from my classes. This shows my commitment to make the most out of my education and to stay motivated despite challenges.</p>
-      <p>I also see commitment in how I keep practicing habits like cleaning, organizing, and finishing tasks early. It’s not always easy to stay disciplined, especially when I feel tired or shy, but my commitment reminds me of my goals. If I stay consistent now, I know I’ll be more prepared for bigger responsibilities in the future.</p>
-
-      <h4>4. Creativity</h4>
-      <p>Creativity has always been one of my strengths. Even before college, I enjoyed designing pages and creating visuals. Now that I am studying IT, I want to use my creativity not just in art but also in programming and development. Creativity helps me think of new ways to solve problems and make tasks more engaging.</p>
-      <p>In my reflections, I often try to connect lessons to real life in a personal and meaningful way. For example, when I connected Psalm 23 to my life, I used creativity to express how the verse about “quiet waters” relates to my overthinking and need for peace. Creativity allows me to share my thoughts in ways that are more relatable and easier to understand. It is also important in IT, because technology is not just about coding—it’s also about design, user experience, and innovation.</p>
-
-      <h4>5. Collaboration</h4>
-      <p>Collaboration is about working well with others. I admit this is one area I still need to grow in, since I sometimes feel shy or afraid to make mistakes when communicating. In the Online Needs Assessment, I shared that being shy is one of my personal struggles. However, reflecting on it helped me see that collaboration is important if I want to succeed in both school and work.</p>
-      <p>As a student assistant, I practice collaboration by helping organize documents, cleaning with others, and making sure tasks are done smoothly as a team. Even if I am quiet at times, I try to support my classmates and coworkers in simple ways, like being reliable and respectful. Collaboration also means listening to others’ ideas, sharing my own when I can, and building trust. I believe that with practice, I can grow more confident in this area and learn to collaborate more actively.</p>
-
-      <h3>Final Reflection Summary</h3>
-      <blockquote>
-        Looking back at the 5C’s—Character, Competence, Commitment to achieve, Creativity, and Collaboration—I realized that they are all connected to my journey as a student and as a person. Some areas, like creativity and character, feel natural to me, while others, like collaboration and confidence, are things I still need to improve. But that is the point of reflection—to see where I am strong and where I need growth.
-      </blockquote>
-    </div>
-  </div>
-
-  <!-- MODAL: HS ACHIEVEMENTS -->
-  <div id="achievements-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('achievements-modal')">✕</button>
-    <div class="modal-hero-banner" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/81/b7/5f/81b75f06a48722ed96442e17474b14c3.jpg');">
-      <h2 class="modal-title-main">Academic Achievements</h2>
-    </div>
-    <div class="modal-body-container">
-      <h3>Accolades & Extracurriculars</h3>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
-        <div class="entry-box">
-          <h5>Graduated Salutatorian</h5>
-          <p>Grade 12 Graduation ranking, recognizing top-tier academic performance and consistent dedication.</p>
+            <h4>1. What are your top three (3) multiple intelligences?</h4>
+            <p>My top three multiple intelligences are Intrapersonal, Verbal/Linguistic, and Bodily/Kinesthetic, and I strongly agree with these results. I have Intrapersonal intelligence because I often spend time understanding my own thoughts and emotions. I like to reflect, write, and figure out why I feel certain things. My Verbal/Linguistic intelligence shows in how I express myself best through writing. I enjoy putting my feelings into words and explaining ideas clearly. Lastly, my Bodily/Kinesthetic intelligence means I learn and connect better through actions and real experiences. I like doing things rather than just talking about them because it helps me understand and feel more connected. These three intelligences truly describe how I think, learn, and express myself.</p>
+            
+            <h4>2. What is your dominant learning style?</h4>
+            <p>Based on the quiz, my dominant learning style is kinesthetic, which means I learn best by doing and experiencing things firsthand. I agree with this result because I understand and remember things more when I’m actively involved rather than just listening or reading. This also reflects how I connect with people, I value actions more than words. Simple things like spending time together, making something, or showing effort through gestures help me feel the connection more deeply. For me, learning and understanding, whether in school or in relationships, happens best when I can see, touch, and do something real, not just talk about it.</p>
+            
+            <h4>3. How will you improve your study habits?</h4>
+            <p>Based on my strengths in Kinesthetic, Intrapersonal, and Linguistic intelligences, I plan to improve my study habits by making learning more active, personal, and meaningful. Since I learn best through movement and hands-on activities, I will rewrite my notes by hand, walk around while reviewing, and teach lessons out loud to help me remember better. My intrapersonal strength helps me understand myself and connect lessons to my own experiences, so I will keep a study journal, set clear goals, and study in a quiet place where I can focus. Lastly, my linguistic intelligence allows me to learn well through words, so I will summarize lessons in my own words, create stories or acronyms to remember terms, and write glossaries of key concepts. By using these strategies together, I can make studying more engaging, effective, and suited to how I naturally learn best.</p>
+            
+            <h3>Summary</h3>
+            <blockquote>
+                Completing the Multiple Intelligences and Learning Styles activity helped me discover more about how I learn and think. I found that my strengths in Intrapersonal, Linguistic, and Kinesthetic intelligences truly describe how I approach both learning and life. I found that everyone learns differently, and there is no single “right” way to study. What matters is knowing yourself and using your strengths to your advantage.
+            </blockquote>
         </div>
-        <div class="entry-box">
-          <h5>With Highest Honor</h5>
-          <p>Awarded for excellence in all academic subjects with exceptional grade point averages.</p>
-        </div>
-        <div class="entry-box">
-          <h5>Consistent With Honors</h5>
-          <p>Maintained a position in the honors list throughout every school year in high school.</p>
-        </div>
-        <div class="entry-box">
-          <h5>Consistent Class Officer</h5>
-          <p>Elected and served in leadership roles to represent and organize classmates over multiple years.</p>
-        </div>
-        <div class="entry-box">
-          <h5>Contest Participation & Wins</h5>
-          <p>Participated and won in various school contests, including Quiz Bees and Cosplay competitions.</p>
-        </div>
-        <div class="entry-box">
-          <h5>Choir Member</h5>
-          <p>Active member of the school choir, performing during ceremonies and school-wide events.</p>
-        </div>
-        <div class="entry-box">
-          <h5>Literature Club</h5>
-          <p>Participated in writing and literary activities with the Literature Club.</p>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <!-- MODAL: ABOUT ME -->
-  <div id="about-me-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('about-me-modal')">✕</button>
-    <div class="modal-body-container">
-      <div class="about-flex-container">
-        <div class="about-sidebar">
-          <div class="about-pfp-circle"></div>
-          <h2>Sophia Rodina Sahagun</h2>
-          <p class="highlight-text">BS in Information Technology</p>
-          <div class="social-links-container">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-github"></i></a>
-          </div>
+    <!-- 7. RRR (FULL) -->
+    <div id="modal-actRRR" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-actRRR')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/72/e7/c0/72e7c0785fd01e8512508e5ef29546bb.jpg');">
+            <h2 class="modal-title-main">Reflect, Research, Reduce</h2>
         </div>
-        <div class="about-main-text">
-          <h3>About Me</h3>
-          <p>Hello! Welcome to my online portfolio. I’m an 18-year-old first-year college student pursuing a <strong>Bachelor of Science in Information Technology</strong>. I’m truly happy to have you here as I share my journey, my personal growth, and the steps I'm taking toward my dreams in the tech field.</p>
-          <p>This portfolio is more than a collection of school projects; it's a reflection of who I am, what I value, and my aspirations for the future. You'll find my written works, activities, and experiences that showcase my growth both academically and personally.</p>
-          <blockquote>My dream is to pursue a career in Information Technology, and this is only the beginning of that path. Feel free to explore my work and join me as I continue to learn, grow, and take steady steps toward becoming the best version of myself.</blockquote>
+        <div class="modal-body">
+            <h3>Part I – Waste Research</h3>
+            <table class="data-table">
+                <tr><th>Type of Waste</th><th>Definition</th><th>5 Examples Found in Your Surroundings</th></tr>
+                <tr>
+                    <td>Recyclable</td>
+                    <td>Things that can be remade into something new.</td>
+                    <td>Newspapers, Plastic water bottles, Cardboard boxes, Soda cans, Empty milk cartons</td>
+                </tr>
+                <tr>
+                    <td>Biodegradable</td>
+                    <td>Things that rot and break down into soil all by themselves.</td>
+                    <td>Eggshells, Fruit peels, Vegetable scraps, Leaves, Leftover foods</td>
+                </tr>
+                <tr>
+                    <td>Non-biodegradable</td>
+                    <td>Things that do not rot. They stay as is for a very long time.</td>
+                    <td>Plastic, Batteries, Styrofoam cup, Used pen, Old CDs</td>
+                </tr>
+            </table>
+
+            <h3>Part II – Reflection Questions</h3>
+            <h4>1. What small actions can I start doing to reduce my plastic use?</h4>
+            <p>To reduce my plastic use, I can choose to dine in instead of taking out food, bring my own tumbler and utensils, and use reusable containers instead of one-time use plastics.</p>
+            
+            <h4>2. How can I influence my classmates, friends, or family to recycle?</h4>
+            <p>I can influence my classmates, friends, and family by encouraging them to recycle like I do and making it fun, like turning it into a group activity or a small challenge with rewards to keep everyone motivated.</p>
+            
+            <h4>3. What challenges might I face in practicing waste segregation?</h4>
+            <p>One challenge is not knowing which bin to throw the trash in, especially when the labels use pictures instead of words, which can be confusing. Sometimes, when I’m in a hurry, I might also throw waste in the wrong bin by mistake. To overcome this, I can take time to learn what each bin means and make sure my trash goes to the right place.</p>
+            
+            <h4>4. Imagine the Philippines 10 years from now — what do you hope to see?</h4>
+            <p>I hope to see cleaner streets and fresher air. It would be wonderful to live in a place with less pollution because people have learned to be responsible, disciplined, and caring toward the environment.</p>
+            
+            <h3>Summary</h3>
+            <blockquote>
+                Doing the “Reflect, Research, and Reduce” activity helped me understand more about waste and my role in taking care of the environment. I realized that even small actions—like using less plastic, recycling properly, and knowing what kind of waste I’m throwing away—can make a big difference. I hope that if everyone becomes more responsible today, the future Philippines will be cleaner, greener, and a much healthier place to live in.
+            </blockquote>
         </div>
-      </div>
     </div>
-  </div>
 
-  <!-- GALLERY MODALS -->
+    <!-- 8. STRATEGIC PLAN (FULL) -->
+    <div id="modal-strat-plan" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-strat-plan')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/d6/4f/d1/d64fd1419a443b77fccad4d3443a67c4.jpg');">
+            <h2 class="modal-title-main">Strategic Plan 2029-2033</h2>
+        </div>
+        <div class="modal-body">
+            <h3>5-Year Roadmap for Growth</h3>
+            
+            <div class="content-card">
+                <h5>Year 1 — 2029: Entry Into Professional Service</h5>
+                <p>After graduation, I will immediately begin my required return service as a scholar. If accepted into the teaching program, I will handle both teaching and office duties, just like other scholars before me. My first year will focus on adjusting to the work environment, building strong work habits, and forming positive relationships with colleagues. I will start contributing financially to my family while practicing budgeting and saving.</p>
+            </div>
 
-  <!-- GALLERY MODALS (FIXED STRUCTURE) -->
+            <div class="content-card">
+                <h5>Year 2 — 2030: Skills Enhancement and Responsibility</h5>
+                <p>In my second year, I aim to strengthen my abilities in teaching and administrative tasks. I will join seminars and workshops to improve my communication, leadership, and technical skills. As I gain more experience, I want to handle more tasks with less supervision. I will also increase my financial support for my family and continue growing my savings.</p>
+            </div>
 
-  <!-- GALLERY MODALS -->
+            <div class="content-card">
+                <h5>Year 3 — 2031: Leadership Growth and Family Support</h5>
+                <p>By my third year, I plan to take on minor leadership roles or participate in special school projects. I hope to guide younger scholars or newly hired staff, following the example of those who helped me. For my family, I aim to support them more in household needs and plan simple trips as signs of gratitude. I will also prepare for opportunities beyond my return service.</p>
+            </div>
 
-  <!-- PRESENTATION ACTIVITY GALLERY (FIXED) -->
-  <div id="activity-pres-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('activity-pres-modal')">✕</button>
-    <div class="modal-body-container">
-      <h3>Presentation Activity</h3>
-      <div class="gallery-main-display" id="main-pres">
-        <!-- Default video element -->
-        <video id="pres-vid-player" src="portfolio/presentation.mp4" controls autoplay muted></video>
-        <img src="" style="display:none;">
-      </div>
-      <div class="gallery-thumbnails-row">
-        <!-- Main Video Thumbnail -->
-        <div class="gallery-thumb-item thumb-active" 
-             style="background-image:url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg')" 
-             data-type="video" 
-             data-video="portfolio/presentation.mp4" 
-             onclick="swapImg('main-pres', this)"></div>
-        <!-- Secondary Video Thumbnail -->
-        <div class="gallery-thumb-item" 
-             style="background-image:url('https://i.pinimg.com/1200x/b4/8d/9e/b48d9e65b6d6c08cd03f6529c49fd3b4.jpg')" 
-             data-type="video" 
-             data-video="portfolio/AQM_qR9mcAWRPIHgo4mIM8l-eXzhCoarOL_zstyerZ3Z93TArtT-YwGCduZ_X5hFPGe_-gyB2hpLPEfL_mTNpHuOwI3tu5daTI3xQ8_xhg.mp4" 
-             onclick="swapImg('main-pres', this)"></div>
-      </div>
+            <div class="content-card">
+                <h5>Year 4 — 2032: Completion of Service & Career Prep</h5>
+                <p>During my fourth year, I will complete my required service with commitment and professionalism. I will begin exploring job opportunities outside the institution to broaden my experience. I will update my résumé, request recommendations, and choose the career path that fits my long-term goals. I hope to celebrate this milestone with my family through a simple trip or gathering.</p>
+            </div>
+
+            <div class="content-card">
+                <h5>Year 5 — 2033: Transition to New Opportunities</h5>
+                <p>After completing my service, I will pursue new job opportunities to expand my skills and improve financially. I plan to take additional courses or certifications to strengthen my qualifications. With better financial stability, I want to bring my family on international trips and create meaningful experiences. My goal is to support my family while building a stable and fulfilling career.</p>
+            </div>
+
+            <h3>Long-Term Vision</h3>
+            <blockquote>
+                Beyond the five-year plan, my goal is to maintain a stable career, continue improving professionally, and consistently give back to my family. I want to travel with them, support them long-term, and build a secure life rooted in gratitude, effort, and purpose.
+            </blockquote>
+        </div>
     </div>
-  </div>
 
-  <!-- TOWPEP GALLERY -->
-  <div id="gal-towpep-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('gal-towpep-modal')">✕</button>
-    <div class="modal-body-container">
-      <h3>TOWPEP Assembly Gallery</h3>
-      <div class="gallery-main-display" id="main-tow">
-        <img src="portfolio/image-3.png">
-      </div>
-      <div class="gallery-thumbnails-row">
-        <div class="gallery-thumb-item thumb-active" style="background-image:url('portfolio/image-3.png')" data-type="image" onclick="swapImg('main-tow', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/20250807_133735.jpg')" data-type="image" onclick="swapImg('main-tow', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/20250807_162113.jpg')" data-type="image" onclick="swapImg('main-tow', this)"></div>
-      </div>
+    <!-- 9. ACTS OF KINDNESS (FULL 4 WEEKS LOG) -->
+    <div id="modal-kindness-series" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-kindness-series')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/e7/a5/25/e7a525fb5c242f964d563eb373b973fe.jpg');">
+            <h2 class="modal-title-main">Acts of Kindness</h2>
+        </div>
+        <div class="modal-body">
+            <h3>Weekly Documentation Journal</h3>
+
+            <div class="content-card">
+                <h5>Week 1 Documentation</h5>
+                <p class="log-entry">I have returned a water jug that was left behind in class. It belonged to Mikhaela.</p>
+                <p class="log-entry">Zak forgot his powerbank inside the dance studio and I returned it to him.</p>
+                <p class="log-entry">Ken left his bag in the classroom. He didn't know where to find it when the professor handed it to Dr. Aris. I assisted him to retrieve his bag.</p>
+                <p class="log-entry">We also became close afterwards and I started giving him advices when he needed one.</p>
+                <p><strong>Reflection:</strong> This week was about being observant of my environment. Helping Ken not only solved his immediate problem of the lost bag but initiated a new friendship. It shows how simple acts of physical assistance can bridge the gap between strangers and turn them into friends.</p>
+            </div>
+
+            <div class="content-card">
+                <h5>Week 2 Documentation</h5>
+                <p class="log-entry">I bought food for a friend just because I felt like treating them. It was a rare moment for me since I don’t usually buy food for others unless we’re really close. Still, I noticed that the part of me who used to give freely is slowly coming back.</p>
+                <p class="log-entry">There is a transferee student I’ve been spending time with after class and during breaks. I listened to their stories and learned that they used to struggle with making friends when they were younger. After hearing that, I started inviting them whenever I hang out with other people so I could introduce them and help them expand their social circle.</p>
+                <p class="log-entry">Ryzza is often by herself at times. Whenever I notice she’s alone, I go and spend time with her, especially when we have class together. Since she’s the only female in Industrial Engineering, I don’t want her to feel left out. I offer her my time and friendship because I know how meaningful it can be to have a fellow female friend around.</p>
+                <p><strong>Reflection:</strong> Inclusion is a powerful act of kindness. By bringing a transferee into my social group and keeping Ryzza company, I am actively preventing the loneliness that often comes with new or isolated environments. Kindness this week was about making sure no one felt invisible.</p>
+            </div>
+
+            <div class="content-card">
+                <h5>Week 3 Documentation</h5>
+                <p class="log-entry">I bought lunch for Li and coffee for Jill during the Monarch’s Cup when she mentioned she was thirsty. It was a small gesture, but I wanted to make sure they were comfortable and had something to eat and drink during the event.</p>
+                <p class="log-entry">I also took time to listen to Jill talk about her relationship problems with a guy. She seemed to need someone to hear her out, so I shared some thoughts and advice based on my own experiences in the hope that it might help her see things from another perspective.</p>
+                <p class="log-entry">Previously, Li had also been upset because of an issue involving a girl he likes. He ended up venting to me about everything that happened. I simply listened and let him express his frustrations. Sometimes people just need someone willing to hear them out, especially someone who can offer a different perspective than what they usually get from their close group of male friends. While he was talking, I also engaged in conversation and socialized with him, which helped lighten the mood.</p>
+                <p><strong>Reflection:</strong> Listening is one of the most underrated forms of kindness. By letting Li and Jill vent, I provided a safe space for their emotions. This week taught me that sometimes, you don't need to solve a problem—you just need to witness it.</p>
+            </div>
+
+            <div class="content-card">
+                <h5>Week 4 Documentation</h5>
+                <p class="log-entry">We had a coffee hangout at ZUS Coffee in Robinsons, where I spent time bonding with Jill, Pia, and Quincy. Jill is currently going through something romantic in her life, and she wanted to talk about it. As her friends, we listened as she shared her story, making the most of the little time we had after class. We also exchanged thoughts and offered her some advice, supporting her as best as we could.</p>
+                <p class="log-entry">On my way home, I gave the coffee I was drinking to an elderly woman I saw alone on the street. I didn’t have any coins with me since I usually use an e-wallet. Also, based on what my parents have told me, it’s often better to give food or drinks instead of money nowadays.</p>
+                <p class="log-entry">I supported an online friend who is currently going through a difficult situation with her family. Since she lives in another country, we talked through a video call. I stayed with her while she cried and shared her frustrations. Although there wasn’t much I could physically do, I offered her my presence and comfort, which seemed to help her during that moment.</p>
+                <p><strong>Reflection:</strong> Kindness has no distance. Supporting an online friend through a video call is just as valid as giving a drink to a woman on the street. Week 4 helped me see that being present—emotionally or physically—is the core of character.</p>
+            </div>
+
+            <h3>General Series Reflection</h3>
+            <p>Over the past four weeks, I have realized that kindness is a muscle that needs to be exercised. At the start (Week 1), my acts were mostly reactionary—returning items that were lost. By Week 4, I was seeking out ways to help, whether it was supporting an online friend or sharing my drink with an elderly woman.</p>
+            <p>These acts, though seemingly minor, built my reputation as a reliable and caring person among my peers. It taught me that character is not built in big moments, but in the small choices we make every day to notice the needs of others. Helping Ken retrieval his bag led to a mentorship; helping Ryzza feel included led to a stronger bond in class. Kindness is an investment that pays off in human connection.</p>
+        </div>
     </div>
-  </div>
 
-  <!-- MUFTI GALLERY -->
-  <div id="gal-mufti-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('gal-mufti-modal')">✕</button>
-    <div class="modal-body-container">
-      <h3>Mufti Day Gallery</h3>
-      <div class="gallery-main-display" id="main-mufti">
-        <img src="portfolio/FB_IMG_1763550293433.jpg">
-      </div>
-      <div class="gallery-thumbnails-row">
-        <div class="gallery-thumb-item thumb-active" style="background-image:url('portfolio/FB_IMG_1763550293433.jpg')" data-type="image" onclick="swapImg('main-mufti', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/1.webp')" data-type="image" onclick="swapImg('main-mufti', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/5.webp')" data-type="image" onclick="swapImg('main-mufti', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/10.webp')" data-type="image" onclick="swapImg('main-mufti', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/16.webp')" data-type="image" onclick="swapImg('main-mufti', this)"></div>
-      </div>
+    <!-- 10. PSALM 23 (FULL) -->
+    <div id="modal-psalm-23" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-psalm-23')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/0c/c1/a3/0cc1a3f78c65efaa6c7772deabb922f1.jpg');">
+            <h2 class="modal-title-main">Psalm 23 of My Life</h2>
+        </div>
+        <div class="modal-body">
+            <h3>Part 1: Me as a Shepherd and a Sheep</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                <div class="content-card">
+                    <h5>A. Me as a Shepherd</h5>
+                    <ul class="list-group">
+                        <li class="list-item">I take the lead in planning and organizing, ensuring everything runs smoothly for the group.</li>
+                        <li class="list-item">I offer a listening ear and provide comfort to those who are feeling down or overthinking.</li>
+                        <li class="list-item">I am fiercely loyal and protective of the people I care about.</li>
+                        <li class="list-item">I strive to be a reliable presence for my friends.</li>
+                        <li class="list-item">I am patient and understanding, giving people the space they need to process feelings.</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h5>B. Me as a Sheep</h5>
+                    <ul class="list-group">
+                        <li class="list-item">I am sensitive and easily affected by the moods of those around me.</li>
+                        <li class="list-item">I rely on the wisdom and support of family and mentors for big life decisions.</li>
+                        <li class="list-item">I can feel lost when my routine is disrupted, craving familiar structure.</li>
+                        <li class="list-item">I am vulnerable to disappointment and can be hurt when my trust is misplaced.</li>
+                        <li class="list-item">I look to others for guidance when facing new challenges.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Part 2: Personal Reflection</h3>
+            <h4>1. What does Psalm 23 mean to you?</h4>
+            <p>To me, Psalm 23 is about trusting that I'm being looked after, especially when I feel completely lost and drained. It reminds me that I don't have to carry every burden myself. It impacts my hardest days, when my anxiety is high and my heart feels heavy, by telling me it's okay to rest and believe I’ll be guided to peace of mind.</p>
+            
+            <h4>2. Which line struck you the most? Why?</h4>
+            <p>The line that strikes me is, <em>"he leads me beside quiet waters."</em> My mind is always racing, and the idea of a place of pure calm feels like the relief I’ve been searching for.</p>
+            
+            <h4>3. Am I a Shepherd or a Sheep?</h4>
+            <p><strong>Family:</strong> Sheep – I rely on my parents for guidance and support. <br>
+            <strong>Friends:</strong> Shepherd – I look out for everyone and keep our circle strong. <br>
+            <strong>Studies:</strong> Shepherd – I set goals and discipline myself to succeed. <br>
+            <strong>Goals:</strong> Sheep – Anxiety sometimes makes me uncertain, but I’m learning to guide myself better.</p>
+
+            <h3>Overall Reflection</h3>
+            <blockquote>
+                Psalm 23 reminds me that I am never truly alone, even in moments when life feels confusing or heavy. It teaches me that I don’t have to carry everything on my own, because there is always guidance and comfort available. The part that says, “he leads me beside quiet waters” speaks deeply to me, because my mind is often restless with worries. It gives me hope that peace and calmness are possible if I learn to trust and let go.
+                <br><br>
+                This balance between being a Shepherd and a Sheep reminds me that life is about both giving and receiving. There are times when I am strong enough to lead, and there are times when I need to follow and trust others. Psalm 23 comforts me because it assures me that whether I am leading or following, I am still being guided and cared for. It teaches me to accept both roles with humility, courage, and faith.
+            </blockquote>
+        </div>
     </div>
-  </div>
 
-  <!-- PMO GALLERY -->
-  <div id="gal-pmo-modal" class="content-modal-fullscreen">
-    <button class="modal-close-btn" onclick="closeContent('gal-pmo-modal')">✕</button>
-    <div class="modal-body-container">
-      <h3>PMO Assembly Gallery</h3>
-      <div class="gallery-main-display" id="main-pmo">
-        <img src="portfolio/01.webp">
-      </div>
-      <div class="gallery-thumbnails-row">
-        <div class="gallery-thumb-item thumb-active" style="background-image:url('portfolio/01.webp')" data-type="image" onclick="swapImg('main-pmo', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/02.webp')" data-type="image" onclick="swapImg('main-pmo', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/05.webp')" data-type="image" onclick="swapImg('main-pmo', this)"></div>
-        <div class="gallery-thumb-item" style="background-image:url('portfolio/08.webp')" data-type="image" onclick="swapImg('main-pmo', this)"></div>
-      </div>
+    <!-- 11. 5S (FULL LOG) -->
+    <div id="modal-five-s" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-five-s')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg');">
+            <h2 class="modal-title-main">5S in My Life</h2>
+        </div>
+        <div class="modal-body">
+            <h3>Student Assistant Log</h3>
+            <p>As a student assistant in the office, I practice the 5S in many ways that help me work better and keep the workplace organized.</p>
+            
+            <div class="content-card">
+                <p><strong>Sort:</strong> I separate documents carefully by putting the old files in archives and keeping the new and updated ones in a place where they are easy to access.</p>
+                <p><strong>Set in Order:</strong> I always return things to their proper place after using them.</p>
+                <p><strong>Shine:</strong> I make it a habit to clean the office not only before leaving but also during office hours and even upon arrival.</p>
+                <p><strong>Standardize:</strong> I follow routines like submitting tasks early and finishing work before the deadline.</p>
+                <p><strong>Sustain:</strong> I remind myself to continue practicing all these habits daily, because being consistent and disciplined helps the office stay organized, efficient, and professional.</p>
+            </div>
+
+            <h3>Reflection</h3>
+            <p>Through this discussion forum, I realized how much the 5S principles shape the way I work and manage my responsibilities. As a student assistant, applying 5S has helped me develop a sense of discipline, order, and professionalism. It made me understand that small, consistent habits—like keeping documents organized and cleaning regularly—have a big impact on productivity.</p>
+            <p>I also reflected that 5S is not just about cleaning or organizing physical spaces. It is also about training the mind and character. Sorting files teaches me decision-making, while sustaining routines builds self-discipline and reliability. Practicing these principles has made me more efficient, not only in the office but also in my studies, because I learned how to manage my time and finish tasks without procrastination.</p>
+        </div>
     </div>
-  </div>
 
-   <script>
-    function enterPortfolio() {
-      const overlay = document.getElementById('welcome-overlay');
-      overlay.classList.add('fade-out');
-      document.body.style.overflow = 'auto';
-      setTimeout(() => overlay.style.display = 'none', 1000);
-    }
+    <!-- 12. 5C'S (FULL SECTIONS) -->
+    <div id="modal-five-cs" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-five-cs')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/aa/44/8c/aa448c70cf77a312d84413d16206ac2f.jpg');">
+            <h2 class="modal-title-main">My 5C's Reflections</h2>
+        </div>
+        <div class="modal-body">
+            <h3>The Southville Values in My Life</h3>
 
-    window.addEventListener('scroll', () => {
-      const header = document.getElementById('site-header');
-      if (window.scrollY > 50) header.classList.add('nav-scrolled');
-      else header.classList.remove('nav-scrolled');
-    });
+            <div class="content-card">
+                <h5>1. Character</h5>
+                <p>For me, character means the values and attitudes that guide the way I live and interact with others. In school and in my personal life, I always try to practice honesty, respect, and kindness. For example, as a student assistant, I make sure to be reliable with tasks and respectful to the people I work with. I also value discipline, like organizing documents properly and cleaning the office, because it shows responsibility and respect for the workplace.</p>
+                <p>Reflecting on my character made me realize that these small habits—such as being honest in answering the Online Needs Assessment or being truthful in the TOWPEP Questionnaire—help build trust and integrity. Having good character is important because it is the foundation of everything else. Skills and knowledge may change, but values stay with you and guide your decisions in life.</p>
+            </div>
 
-    function openContent(modalId) {
-      const modal = document.getElementById(modalId);
-      modal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => modal.classList.add('active'), 10);
-      
-      const video = modal.querySelector('video');
-      if(video) { video.load(); video.play().catch(e => console.log("Auto-play blocked")); }
-    }
+            <div class="content-card">
+                <h5>2. Competence</h5>
+                <p>Competence is about being capable and having the knowledge and skills to do tasks well. In my journey as a BSIT student, I am still building my competence step by step. I may not know everything yet, but I show competence by finishing my assignments, learning new tools, and applying lessons in practical ways. For example, when I reflected on Psalm 23, I learned to connect values to real life, showing competence not only in academics but also in deeper understanding.</p>
+                <p>I also see competence in how I apply the 5S principles in my work as a student assistant—sorting, organizing, cleaning, and sustaining order. These habits may seem simple, but they show that I can handle responsibilities effectively. Competence is not just about grades; it is about doing your best and being prepared to grow more each day.</p>
+            </div>
 
-    function closeContent(modalId) {
-      const modal = document.getElementById(modalId);
-      modal.classList.remove('active');
-      const video = modal.querySelector('video');
-      if(video) video.pause();
+            <div class="content-card">
+                <h5>3. Commitment to Achieve</h5>
+                <p>Commitment to achieve means being dedicated and consistent in what I do, even when it gets difficult. I show commitment by taking my studies seriously and by being responsible with my duties, whether in class or in the office. When I joined the discussion forums, I reflected honestly on why I chose Southville and what I expect from my classes. This shows my commitment to make the most out of my education and to stay motivated despite challenges.</p>
+                <p>I also see commitment in how I keep practicing habits like cleaning, organizing, and finishing tasks early. It’s not always easy to stay disciplined, especially when I feel tired or shy, but my commitment reminds me of my goals. If I stay consistent now, I know I’ll be more prepared for bigger responsibilities in the future.</p>
+            </div>
 
-      setTimeout(() => {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-      }, 500);
-    }
+            <div class="content-card">
+                <h5>4. Creativity</h5>
+                <p>Creativity has always been one of my strengths. Even before college, I enjoyed designing pages and creating visuals. Now that I am studying IT, I want to use my creativity not just in art but also in programming and development. Creativity helps me think of new ways to solve problems and make tasks more engaging.</p>
+                <p>In my reflections, I often try to connect lessons to real life in a personal and meaningful way. For example, when I connected Psalm 23 to my life, I used creativity to express how the verse about “quiet waters” relates to my overthinking and need for peace. Creativity allows me to share my thoughts in ways that are more relatable and easier to understand. It is also important in IT, because technology is not just about coding—it’s also about design, user experience, and innovation.</p>
+            </div>
 
-    function scrollCarousel(btn, direction) {
-      const carousel = btn.parentElement.querySelector('.card-carousel');
-      carousel.scrollBy({ left: carousel.clientWidth * 0.8 * direction, behavior: 'smooth' });
-    }
+            <div class="content-card">
+                <h5>5. Collaboration</h5>
+                <p>Collaboration is about working well with others. I admit this is one area I still need to grow in, since I sometimes feel shy or afraid to make mistakes when communicating. In the Online Needs Assessment, I shared that being shy is one of my personal struggles. However, reflecting on it helped me see that collaboration is important if I want to succeed in both school and work.</p>
+                <p>As a student assistant, I practice collaboration by helping organize documents, cleaning with others, and making sure tasks are done smoothly as a team. Even if I am quiet at times, I try to support my classmates and coworkers in simple ways, like being reliable and respectful. Collaboration also means listening to others’ ideas, sharing my own when I can, and building trust. I believe that with practice, I can grow more confident in this area and learn to collaborate more actively.</p>
+            </div>
 
-    function swapImg(mainId, thumb) {
-      const mainContainer = document.getElementById(mainId);
-      const img = mainContainer.querySelector('img');
-      const video = mainContainer.querySelector('video');
-      const type = thumb.getAttribute('data-type');
-      
-      parent = thumb.parentElement;
-      parent.querySelectorAll('.gallery-thumb-item').forEach(el => el.classList.remove('thumb-active'));
-      thumb.classList.add('thumb-active');
+            <h3>Final Reflection Summary</h3>
+            <blockquote>
+                Looking back at the 5C’s—Character, Competence, Commitment to achieve, Creativity, and Collaboration—I realized that they are all connected to my journey as a student and as a person. Some areas, like creativity and character, feel natural to me, while others, like collaboration and confidence, are things I still need to improve. But that is the point of reflection—to see where I am strong and where I need growth.
+            </blockquote>
+        </div>
+    </div>
 
-      if (type === 'video') {
-        const videoSrc = thumb.getAttribute('data-video');
-        if (img) img.style.display = 'none';
-        if (video) {
-          video.style.display = 'block';
-          video.src = videoSrc;
-          video.load();
-          video.play().catch(e => console.log("Video failed"));
+    <!-- 13. HS ACHIEVEMENTS (FULL) -->
+    <div id="modal-achievements" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-achievements')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/81/b7/5f/81b75f06a48722ed96442e17474b14c3.jpg');">
+            <h2 class="modal-title-main">Academic Achievements</h2>
+        </div>
+        <div class="modal-body">
+            <h3>Honors and Recognition</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px;">
+                <div class="content-card"><h5>Graduated Salutatorian</h5><p>Grade 12 Graduation ranking, recognizing top-tier academic performance and consistent dedication.</p></div>
+                <div class="content-card"><h5>Highest Honor</h5><p>Awarded for excellence in all academic subjects with exceptional grade point averages.</p></div>
+                <div class="content-card"><h5>Consistent Honors</h5><p>Maintained a position in the honors list throughout every school year in high school.</p></div>
+                <div class="content-card"><h5>Class Officer</h5><p>Elected and served in leadership roles to represent and organize classmates over multiple years.</p></div>
+                <div class="content-card"><h5>Contest Winner</h5><p>Participated and won in various school contests, including Quiz Bees and Cosplay competitions.</p></div>
+                <div class="content-card"><h5>Choir Member</h5><p>Active member of the school choir, performing during ceremonies and school-wide events.</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 14. ABOUT ME (FULL) -->
+    <div id="modal-about-me" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-about-me')">✕</button>
+        <div class="modal-body">
+            <div class="about-wrap">
+                <div class="about-side">
+                    <div class="profile-pfp"></div>
+                    <h2>Sophia Rodina Sahagun</h2>
+                    <p style="color:var(--netflix-red); font-weight:bold; margin-bottom:20px;">BS Information Technology</p>
+                    <div class="about-socials">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="about-info">
+                    <h3>About My Journey</h3>
+                    <p>Hello! Welcome to my online portfolio. I’m an 18-year-old first-year college student pursuing a <strong>Bachelor of Science in Information Technology</strong>. I’m truly happy to have you here as I share my journey, my personal growth, and the steps I'm taking toward my dreams in the tech field.</p>
+                    <p>This portfolio is more than a collection of school projects; it's a reflection of who I am, what I value, and my aspirations for the future. You'll find my written works, activities, and experiences that showcase my growth both academically and personally.</p>
+                    <blockquote>My dream is to pursue a career in Information Technology, and this is only the beginning of that path. Feel free to explore my work and join me as I continue to learn, grow, and take steady steps toward becoming the best version of myself.</blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 15. TOWPEP ASSEMBLY GALLERY (FULL) -->
+    <div id="modal-gal-towpep" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-gal-towpep')">✕</button>
+        <div class="modal-body">
+            <h3>TOWPEP Assembly Showcase</h3>
+            <div class="gallery-box">
+                <div class="main-media-display" id="disp-towpep">
+                    <img src="portfolio/image-3.png">
+                </div>
+                <div class="thumb-strip">
+                    <div class="thumb-box active-thumb" style="background-image:url('portfolio/image-3.png')" data-type="image" onclick="swapMedia('disp-towpep', this)"></div>
+                    <div class="thumb-box" style="background-image:url('portfolio/20250807_133735.jpg')" data-type="image" onclick="swapMedia('disp-towpep', this)"></div>
+                    <div class="thumb-box" style="background-image:url('portfolio/20250807_162113.jpg')" data-type="image" onclick="swapMedia('disp-towpep', this)"></div>
+                    <div class="thumb-box" style="background-image:url('portfolio/20250807_164044.webp')" data-type="image" onclick="swapMedia('disp-towpep', this)"></div>
+                    <div class="thumb-box" style="background-image:url('portfolio/20250807_174240.jpg')" data-type="image" onclick="swapMedia('disp-towpep', this)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 16. MUFTI DAY GALLERY (FULL) -->
+    <div id="modal-gal-mufti" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-gal-mufti')">✕</button>
+        <div class="modal-body">
+            <h3>Mufti Day Showcase</h3>
+            <div class="gallery-box">
+                <div class="main-media-display" id="disp-mufti">
+                    <img src="portfolio/FB_IMG_1763550293433.jpg">
+                </div>
+                <div class="thumb-strip">
+                    <div class="thumb-box active-thumb" style="background-image:url('portfolio/FB_IMG_1763550293433.jpg')" data-type="image" onclick="swapMedia('disp-mufti', this)"></div>
+                    <div class="thumb-box" style="background-image:url('portfolio/1.webp')" data-type="image" onclick="swapMedia('disp-mufti', this)"></div>
+                    <div class="thumb-box" style="background-image:url('portfolio/5.webp')" data-type="image" onclick="swapMedia('disp-mufti', this)"></div>
+                    <div class="thumb-box" style="background-image:url('portfolio/10.webp')" data-type="image" onclick="swapMedia('disp-mufti', this)"></div>
+                    <div class="thumb-box" style="background-image:url('portfolio/16.webp')" data-type="image" onclick="swapMedia('disp-mufti', this)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 17. PMO ASSEMBLY GALLERY (FULL) -->
+    <div id="modal-gal-pmo" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-gal-pmo')">✕</button>
+        <div class="modal-body">
+            <h3>Peer Mentor Organization</h3>
+            <div class="gallery-box">
+                <div class="main-media-display" id="disp-pmo">
+                    <img src="portfolio/01.webp">
+                </div>
+                <div class="thumb-strip">
+                    <div class="thumb-box active-thumb" style="background-image:url('portfolio/01.webp')" data-type="image" onclick="swapMedia('disp-pmo', this)"></div>
+                    <div class="thumb-box" style="background-image:url('portfolio/02.webp')" data-type="image" onclick="swapMedia('disp-pmo', this)"></div>
+                    <div class="thumb-box" style="background-image:url('portfolio/05.webp')" data-type="image" onclick="swapMedia('disp-pmo', this)"></div>
+                    <div class="thumb-box" style="background-image:url('portfolio/08.webp')" data-type="image" onclick="swapMedia('disp-pmo', this)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 18. PRESENTATION ACTIVITY (SEPARATE CATEGORY) -->
+    <div id="modal-gal-presentation" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-gal-presentation')">✕</button>
+        <div class="modal-body">
+            <h3>Presentation Activity</h3>
+            <div class="gallery-box">
+                <div class="main-media-display" id="disp-presentation">
+                    <!-- VIDEO PLAYER TRIGGERED BY DATA-SRC -->
+                    <video id="target-presentation-vid" src="portfolio/presentation.mp4" controls style="display:block;"></video>
+                    <img id="target-presentation-img" src="" style="display:none;">
+                </div>
+                <div class="thumb-strip">
+                    <!-- THUMBNAILS FOR THE MEDIA -->
+                    <div class="thumb-box active-thumb" 
+                         style="background-image:url('https://i.pinimg.com/1200x/71/df/53/71df53feb1a0a8833908e34201b0ba04.jpg')" 
+                         data-type="video" 
+                         data-src="portfolio/presentation.mp4" 
+                         onclick="swapMedia('disp-presentation', this)"></div>
+                         
+                    <div class="thumb-box" 
+                         style="background-image:url('portfolio/649522874_4376167539376910_8482921962761084191_n.jpg')" 
+                         data-type="image" 
+                         onclick="swapMedia('disp-presentation', this)"></div>
+                         
+                    <div class="thumb-box" 
+                         style="background-image:url('https://i.pinimg.com/1200x/b4/8d/9e/b48d9e65b6d6c08cd03f6529c49fd3b4.jpg')" 
+                         data-type="video" 
+                         data-src="portfolio/AQM_qR9mcAWRPIHgo4mIM8l-eXzhCoarOL_zstyerZ3Z93TArtT-YwGCduZ_X5hFPGe_-gyB2hpLPEfL_mTNpHuOwI3tu5daTI3xQ8_xhg.mp4" 
+                         onclick="swapMedia('disp-presentation', this)"></div>
+                </div>
+            </div>
+            <div class="content-card">
+                <h5>Activity Details</h5>
+                <p>This section documents the oral presentation regarding Information Technology trends and personal academic growth. Through this activity, I enhanced my communication skills and technical knowledge, learning to explain complex concepts in a simplified manner.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+    ==========================================================================
+       JAVASCRIPT LOGIC
+    ==========================================================================
+    -->
+    <script>
+        /**
+         * Hide the welcome screen with transition
+         */
+        function hideWelcome() {
+            const overlay = document.getElementById('welcome-overlay');
+            overlay.classList.add('fade-out');
+            document.body.style.overflow = 'auto'; // Allow scrolling once entered
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 1200);
         }
-      } else {
-        const imgSrc = thumb.style.backgroundImage.slice(5, -2).replace(/"/g, "");
-        if (video) { video.pause(); video.style.display = 'none'; }
-        if (img) { img.style.display = 'block'; img.src = imgSrc; }
-      }
-    }
 
-    document.addEventListener('mouseover', (e) => {
-      if (e.target.closest('.movie-card-item')) {
-        const sound = document.getElementById('hover-sound-effect');
-        sound.currentTime = 0;
-        sound.play().catch(() => {});
-      }
-    });
-  </script>
+        /**
+         * Header scroll effect
+         */
+        window.onscroll = function() {
+            const header = document.getElementById('site-header');
+            if (window.pageYOffset > 80) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        };
+
+        /**
+         * Modal Management System
+         */
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Stop background scrolling
+            
+            // Allow browser to render display:block before adding opacity
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+
+            // Special handling for video elements inside the modal
+            const autoVid = modal.querySelector('video');
+            if (autoVid) {
+                autoVid.load();
+                autoVid.play().catch(e => console.log("Auto-play prevented by browser policy"));
+            }
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('active');
+            
+            // If there's a video, stop it immediately
+            const activeVid = modal.querySelector('video');
+            if (activeVid) {
+                activeVid.pause();
+            }
+
+            // Wait for transition before hiding element
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 500);
+        }
+
+        /**
+         * Carousel Slider Logic
+         */
+        function slide(btn, direction) {
+            const track = btn.parentElement.querySelector('.carousel-track');
+            const scrollAmount = track.clientWidth * 0.8 * direction;
+            track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+
+        /**
+         * Universal Media Swapper (Images & Videos)
+         */
+        function swapMedia(containerId, thumb) {
+            const container = document.getElementById(containerId);
+            const imgTarget = container.querySelector('img');
+            const vidTarget = container.querySelector('video');
+            const type = thumb.getAttribute('data-type');
+
+            // Visual active feedback for thumbnails
+            const parentStrip = thumb.parentElement;
+            parentStrip.querySelectorAll('.thumb-box').forEach(t => t.classList.remove('active-thumb'));
+            thumb.classList.add('active-thumb');
+
+            // Fade out current view briefly
+            if(imgTarget) imgTarget.style.opacity = '0';
+            if(vidTarget) vidTarget.style.opacity = '0';
+
+            setTimeout(() => {
+                if (type === 'video') {
+                    const source = thumb.getAttribute('data-src');
+                    if (imgTarget) imgTarget.style.display = 'none';
+                    if (vidTarget) {
+                        vidTarget.style.display = 'block';
+                        vidTarget.src = source;
+                        vidTarget.style.opacity = '1';
+                        vidTarget.load();
+                        vidTarget.play().catch(e => console.log("Play failed"));
+                    }
+                } else {
+                    const source = thumb.style.backgroundImage.slice(5, -2).replace(/"/g, "");
+                    if (vidTarget) {
+                        vidTarget.pause();
+                        vidTarget.style.display = 'none';
+                    }
+                    if (imgTarget) {
+                        imgTarget.style.display = 'block';
+                        imgTarget.src = source;
+                        imgTarget.style.opacity = '1';
+                    }
+                }
+            }, 400);
+        }
+
+        /**
+         * Sound effects for Netflix immersion
+         */
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('.item-card')) {
+                const hoverSound = document.getElementById('sound-hover');
+                hoverSound.currentTime = 0;
+                hoverSound.volume = 0.2;
+                hoverSound.play().catch(() => {});
+            }
+        });
+
+    </script>
 </body>
 </html>
