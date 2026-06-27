@@ -5,7 +5,7 @@
     ==========================================================================
        PORTFOLIO PROJECT: NETFLIX STYLE EXPERIENCE
        DEVELOPER: SOPHIA SAHAGUN
-       VERSION: 3.0.0 (ULTRA-EXPANDED)
+       VERSION: 3.1.0 (ULTRA-EXPANDED + MBTI UPDATE)
        LINE COUNT TARGET: > 1000
     ==========================================================================
     -->
@@ -376,7 +376,7 @@
 
         /* 
         --------------------------------------------------------------------------
-           NEW: FEATURED PROFILE (ABOUT ME PROMINENCE)
+           FEATURED PROFILE (ABOUT ME PROMINENCE)
         --------------------------------------------------------------------------
         */
         .featured-profile-row {
@@ -1002,6 +1002,9 @@
 </head>
 <body>
 
+    <!-- ADDED EMPTY AUDIO ELEMENT FOR SOUND HOVER TO PREVENT JS ERROR -->
+    <audio id="sound-hover" src=""></audio>
+
     <!-- 1. WELCOME OVERLAY -->
     <div id="welcome-overlay">
         <div class="welcome-box">
@@ -1165,6 +1168,16 @@
                         <div class="item-hover-info">
                             <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
                             <div class="item-tags">Discovery • Intelligence</div>
+                        </div>
+                    </div>
+
+                    <!-- NEW MBTI CARD -->
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/bc/2e/26/bc2e261fc0deb85746de21e5a8a4d317.jpg')" onclick="openModal('modal-act-mbti')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">MBTI Personality</div>
+                        <div class="item-hover-info">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="item-tags">Self-Discovery • ISTJ</div>
                         </div>
                     </div>
 
@@ -1400,7 +1413,7 @@
         </div>
     </div>
 
-    <!-- 4. TOWPEP ASSESSMENT (ALL 35 ITEMS IN FULL) -->
+    <!-- 4. TOWPEP ASSESSMENT -->
     <div id="modal-act3" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-act3')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/31/8d/ed/318dedd6095c9b80f86a8c2b23a91341.jpg');">
@@ -1539,6 +1552,54 @@
         </div>
     </div>
 
+    <!-- NEW MODAL: MBTI -->
+    <div id="modal-act-mbti" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-act-mbti')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/bc/2e/26/bc2e261fc0deb85746de21e5a8a4d317.jpg');">
+            <h2 class="modal-main-title">MBTI: Jung Typology Test</h2>
+        </div>
+        <div class="modal-body">
+            <h3>My Personality Type: ISTJ</h3>
+            <p style="font-size: 1.4rem; font-weight: bold; color: var(--success-green); margin-bottom: 20px;">
+                Introvert (75%) | Sensing (12%) | Thinking (75%) | Judging (69%)
+            </p>
+            
+            <table class="data-table">
+                <tr><th>Resource</th><th>Link</th></tr>
+                <tr>
+                    <td>ISTJ Type Description</td>
+                    <td><a href="https://www.humanmetrics.com/personality/istj?d=HEWoNYK8vbWIKhQA-i0-I7n8_ZJOe1ZTxVlF-ex8plgwAr4wI5JodZabCJT9WxPmbU36hPA49ob7AplvA1z5M6bRFuwXP4NkGb_WmF-hb8Y1" target="_blank" style="color:var(--netflix-red); font-weight:bold;">View Description</a></td>
+                </tr>
+                <tr>
+                    <td>ISTJ Careers</td>
+                    <td><a href="https://www.humanmetrics.com/personality/istj-careers?d=HEWoNYK8vbWIKhQA-i0-I7n8_ZJOe1ZTxVlF-ex8plgwAr4wI5JodZabCJT9WxPmbU36hPA49ob7AplvA1z5M6bRFuwXP4NkGb_WmF-hb8Y1" target="_blank" style="color:var(--netflix-red); font-weight:bold;">View Careers</a></td>
+                </tr>
+            </table>
+
+            <h3>Reflection Questions</h3>
+
+            <div class="content-card">
+                <h5>How accurately do the results describe your personality in real life?</h5>
+                <p>The results describe me very accurately. I believe the ISTJ personality type fits me well because I am naturally introverted and prefer keeping to myself most of the time. I am not very comfortable with socializing, especially with large groups of people, and I sometimes struggle with expressing my thoughts and emotions openly.</p>
+                <p>I also dislike inconsistencies and disorder. I prefer things to be organized, clear, and planned out properly because it helps me feel more comfortable and in control. I tend to avoid unnecessary attention and would rather spend time alone or with only a few close people instead of constantly interacting with others.</p>
+            </div>
+
+            <div class="content-card">
+                <h5>In what situations do you notice your personality type the most (school, work, relationships)?</h5>
+                <p>I notice my personality type the most in school and work-related situations. Whenever I am working on tasks, projects, or responsibilities, my perfectionist and organized side becomes very noticeable. I like planning ahead, making schedules, and keeping track of everything because I dislike feeling unprepared or losing control of a situation.</p>
+                <p>I also pay close attention to details and prefer doing things properly rather than rushing. I tend to stick to plans and routines because they help me stay focused and productive. In group works or responsibilities, I often become the person who organizes tasks or makes sure everything is done correctly and on time.</p>
+                <p>In relationships and friendships, my personality appears differently. I may seem quiet, reserved, or distant at first because I take time to become comfortable with people. I am not the type to openly express my feelings often, but I show care through loyalty, consistency, and support instead. Once I trust someone, I value the relationship deeply and stay committed to the people important to me.</p>
+            </div>
+
+            <div class="content-card">
+                <h5>What are some weaknesses or challenges of your type, and how can you manage them?</h5>
+                <p>One challenge of my personality type is being overly perfectionistic. I sometimes put too much pressure on myself to do everything correctly, which can lead to stress, frustration, or overthinking whenever things do not go according to plan. I also struggle with sudden changes because I prefer stability, structure, and predictability.</p>
+                <p>Another weakness is having difficulty expressing emotions and socializing with others. Since I tend to keep my thoughts and feelings to myself, people may sometimes misunderstand me as cold, distant, or unapproachable even when that is not my intention.</p>
+                <p>To manage these challenges, I try to remind myself that mistakes and unexpected situations are a normal part of life and learning. I am also working on becoming more flexible and open-minded whenever plans change.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- 7. RRR -->
     <div id="modal-actRRR" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-actRRR')">✕</button>
@@ -1627,7 +1688,7 @@
         </div>
     </div>
 
-   <!-- 9. ACTS OF KINDNESS (ALL 7 WEEKS IN FULL) -->
+   <!-- 9. ACTS OF KINDNESS -->
     <div id="modal-kindness-series" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-kindness-series')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/e7/a5/25/e7a525fb5c242f964d563eb373b973fe.jpg');">
@@ -1782,7 +1843,7 @@
         </div>
     </div>
 
-    <!-- 12. MY 5C'S (ALL PARAGRAPHS IN FULL) -->
+    <!-- 12. MY 5C'S -->
     <div id="modal-five-cs" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-five-cs')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/aa/44/8c/aa448c70cf77a312d84413d16206ac2f.jpg');">
@@ -1866,12 +1927,6 @@
             </div>
         </div>
     </div>
-
-     <!-- 
-    ==========================================================================
-       MODALS
-    ==========================================================================
-    -->
 
       <!-- MONARCH'S CUP MODAL -->
     <div id="modal-monarchs-cup" class="modal-fullscreen">
@@ -1982,17 +2037,6 @@
             <div class="thumb-strip">
                 <div class="thumb-box active-thumb" style="background-image:url('portfolio/01.webp')" onclick="swapMedia('disp-pmo', this)"></div>
                 <div class="thumb-box" style="background-image:url('portfolio/02.webp')" onclick="swapMedia('disp-pmo', this)"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-gal-presentation" class="modal-fullscreen">
-        <button class="close-modal-circle" onclick="closeModal('modal-gal-presentation')">✕</button>
-        <div class="modal-body">
-            <h3>Presentation Activity</h3>
-            <div class="main-media-display" style="flex-direction:column;">
-                <i class="fas fa-play-circle" style="font-size:6rem; color:var(--netflix-red); margin-bottom:30px;"></i>
-                <a href="https://drive.google.com/drive/u/0/folders/1BLI1p6mXEdXDNcdZ4eAyzBwIlw678Xba" target="_blank" style="text-decoration:none; color:white; font-size:1.8rem; font-weight:900; background:var(--netflix-red); padding:15px 40px; border-radius:4px;">Watch Presentation Folder</a>
             </div>
         </div>
     </div>
@@ -2125,9 +2169,12 @@
         document.addEventListener('mouseover', (e) => {
             if (e.target.closest('.item-card') || e.target.closest('.thumb-box')) {
                 const sound = document.getElementById('sound-hover');
-                sound.currentTime = 0;
-                sound.volume = 0.15;
-                sound.play().catch(() => {});
+                // Ensuring audio element has a src set before trying to play it
+                if(sound && sound.src && sound.src !== window.location.href) {
+                    sound.currentTime = 0;
+                    sound.volume = 0.15;
+                    sound.play().catch(() => {});
+                }
             }
         });
 
