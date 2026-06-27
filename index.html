@@ -5,7 +5,7 @@
     ==========================================================================
        PORTFOLIO PROJECT: NETFLIX STYLE EXPERIENCE
        DEVELOPER: SOPHIA SAHAGUN
-       VERSION: 3.1.0 (ULTRA-EXPANDED + MBTI UPDATE)
+       VERSION: 3.2.0 (ULTRA-EXPANDED + MBTI + JVIS UPDATE)
        LINE COUNT TARGET: > 1000
     ==========================================================================
     -->
@@ -1171,13 +1171,23 @@
                         </div>
                     </div>
 
-                    <!-- NEW MBTI CARD -->
+                    <!-- MBTI CARD -->
                     <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/bc/2e/26/bc2e261fc0deb85746de21e5a8a4d317.jpg')" onclick="openModal('modal-act-mbti')">
                         <div class="item-overlay"></div>
                         <div class="item-label">MBTI Personality</div>
                         <div class="item-hover-info">
                             <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
                             <div class="item-tags">Self-Discovery • ISTJ</div>
+                        </div>
+                    </div>
+                    
+                    <!-- NEW JVIS CARD -->
+                    <div class="item-card" style="background-image:url('https://i.pinimg.com/1200x/71/3e/f8/713ef8f35480ef749aac7b42ddb537a2.jpg')" onclick="openModal('modal-act-jvis')">
+                        <div class="item-overlay"></div>
+                        <div class="item-label">JVIS Answer Sheet</div>
+                        <div class="item-hover-info">
+                            <div class="icon-bar"><i class="fas fa-play"></i><i class="fas fa-plus"></i><i class="far fa-thumbs-up"></i></div>
+                            <div class="item-tags">Assessment • JVIS</div>
                         </div>
                     </div>
 
@@ -1552,7 +1562,7 @@
         </div>
     </div>
 
-    <!-- NEW MODAL: MBTI -->
+    <!-- MBTI -->
     <div id="modal-act-mbti" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-act-mbti')">✕</button>
         <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/bc/2e/26/bc2e261fc0deb85746de21e5a8a4d317.jpg');">
@@ -1596,6 +1606,33 @@
                 <p>One challenge of my personality type is being overly perfectionistic. I sometimes put too much pressure on myself to do everything correctly, which can lead to stress, frustration, or overthinking whenever things do not go according to plan. I also struggle with sudden changes because I prefer stability, structure, and predictability.</p>
                 <p>Another weakness is having difficulty expressing emotions and socializing with others. Since I tend to keep my thoughts and feelings to myself, people may sometimes misunderstand me as cold, distant, or unapproachable even when that is not my intention.</p>
                 <p>To manage these challenges, I try to remind myself that mistakes and unexpected situations are a normal part of life and learning. I am also working on becoming more flexible and open-minded whenever plans change.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW MODAL: JVIS ANSWER SHEET -->
+    <div id="modal-act-jvis" class="modal-fullscreen">
+        <button class="close-modal-circle" onclick="closeModal('modal-act-jvis')">✕</button>
+        <div class="modal-hero" style="background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://i.pinimg.com/1200x/71/3e/f8/713ef8f35480ef749aac7b42ddb537a2.jpg');">
+            <h2 class="modal-main-title">JVIS Answer Sheet</h2>
+        </div>
+        <div class="modal-body">
+            <h3>Jackson Vocational Interest Survey (JVIS)</h3>
+            <div class="content-card">
+                <h5>Answer Sheet Documentation</h5>
+                <p>Below is the embedded preview of the JVIS answer sheet. You can view the files directly in the frame or open the Google Drive folder to see them in full size and high quality.</p>
+                
+                <!-- Google Drive Folder Embed -->
+                <div style="border-radius: 12px; overflow: hidden; margin-top: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); background: #fff;">
+                    <iframe src="https://drive.google.com/embeddedfolderview?id=1rt1j7qwYLyM5TEn09In0CLZuhjOXoDqE#grid" width="100%" height="600" frameborder="0" style="display: block;"></iframe>
+                </div>
+                
+                <!-- External Link Button -->
+                <div style="text-align: center; margin-top: 35px;">
+                    <a href="https://drive.google.com/drive/folders/1rt1j7qwYLyM5TEn09In0CLZuhjOXoDqE?usp=sharing" target="_blank" class="hero-btn hero-btn-play" style="display: inline-flex; text-decoration: none;">
+                        <i class="fas fa-external-link-alt"></i> Open in Google Drive
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -1908,7 +1945,7 @@
         </div>
     </div>
 
-    <!-- 14. ABOUT ME MODAL (SYMMETRY) -->
+    <!-- 14. ABOUT ME MODAL -->
     <div id="modal-about-me" class="modal-fullscreen">
         <button class="close-modal-circle" onclick="closeModal('modal-about-me')">✕</button>
         <div class="modal-body" style="padding-top:120px;">
